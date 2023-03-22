@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Chart from 'chart.js/auto';
-// import { Line } from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 import './investing.css'
+import axios from "axios"
 
 
 
 function Investing() {
+    const [stockData, setStockData] = useState([])
 
     const API_KEY = "4n6bu4JCwxw6p2lWvD37wv7NMq0NdjHi"
     const BASE_URL = "https://api.polygon.io/v2/"
 
+    useEffect(() => {
+        getStockData("AAPL")
+    },[])
 
-    const getStockData = (ticker) => {
-        return
+    const getStockData = async (ticker) => {
+
+            let res = await fetch(`${BASE_URL}aggs/ticker/${ticker}/range/1/day/2023-01-09/2023-01-20?apiKey=${API_KEY}`)
+            let data = await res.json()
+            setStockData(data.results)
+
     }
 
+    console.log(stockData)
 
     // const exampleQuery = `aggs/ticker/${ticker}/range/${multiplier}/${timespan}/${from}/${to}`
     // const query1D = `aggs/ticker/${ticker}/range/5/minute/${from}/${to}`
@@ -78,11 +88,12 @@ function Investing() {
     return (
         <div className="inv-container">
             <div className="inv-chart" >
-                {/* <Line
+                <Line
                     data={data}
                     options={options}
-                ></Line> */}
+                ></Line>
             </div>
+            {}
         </div>
     )
 }
