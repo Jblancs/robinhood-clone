@@ -9,7 +9,8 @@ import axios from "axios"
 function Investing() {
     const [stockData, setStockData] = useState([])
 
-    const API_KEY = "4n6bu4JCwxw6p2lWvD37wv7NMq0NdjHi"
+    const API_KEY = process.env.REACT_APP_API_KEY
+    console.log(API_KEY)
     const BASE_URL = "https://api.polygon.io/v2/"
 
     useEffect(() => {
