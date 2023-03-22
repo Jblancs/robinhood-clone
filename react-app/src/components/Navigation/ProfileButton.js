@@ -39,20 +39,34 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <div onClick={openMenu} className="profile-account-btn bold navhover">
+        Account
+      </div>
+      <div className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
+            <div>{user.username}</div>
+            <div>
+              <div>
+                Transfers
+              </div>
+            </div>
+            <div>
+              <div>
+                History
+              </div>
+            </div>
+            <div>
+              <div>
+                Recurring
+              </div>
+            </div>
+            <div>
               <button onClick={handleLogout}>Log Out</button>
-            </li>
+            </div>
           </>
         ) : (
-          <>
+          <div>
             <OpenModalButton
               buttonText="Log In"
               onItemClick={closeMenu}
@@ -64,9 +78,9 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-          </>
+          </div>
         )}
-      </ul>
+      </div>
     </>
   );
 }

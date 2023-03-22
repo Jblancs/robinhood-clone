@@ -5,3 +5,79 @@
 .hidden {
   display: none;
 }
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Multi-class css -------------------------------------- */
+
+.bold {
+  font-weight: bold;
+}
+
+.navhover:hover {
+  filter: var(--global-orange-filter)
+}
+
+/* Nav css ----------------------------------------------- */
+
+.nav-logo-search-container {
+  display: flex;
+}
+
+.nav-logo-image {
+  filter: brightness(0);
+  width: 30px;
+  height: 30px;
+  margin: 10px 20px 0px 20px;
+}
+
+.nav-search {
+  border: 1px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  margin: 5px 0 0 50px;
+  width: 40vw;
+  height: 40px;
+}
+
+.fa-search {
+  color: gray;
+  padding: 5px 0px 0px 10px;
+
+  width: 20px;
+  height: 20px;
+}
+
+.nav-search-bar {
+  border: none;
+  height: 30px;
+  width: 90%;
+  outline: none;
+}
+
+/* Nav buttons css --------------------------------------- */
+
+.nav-button-container {
+  /* border: var(--global-border); */
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  width: 25vw;
+  padding-top: 8px;
+}
+
+.nav-investing {
+  font-family: var(--global-font);
+  font-size: var(--global-font-size);
+}
+
+.profile-account-btn {
+  font-size: var(--global-font-size);
+  font-family: var(--global-font);
+  cursor: pointer;
+}
