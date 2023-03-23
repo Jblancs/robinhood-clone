@@ -9,7 +9,6 @@ def seed_portfolio():
     for user_id in range(1, 4):
         portfolio = Portfolio(
             user_id=user_id,
-            current_value=0,
             buying_power=random.randint(9500, 10500),
         )
         portfolio_list.append(portfolio)

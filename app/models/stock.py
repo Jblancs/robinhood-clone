@@ -18,7 +18,7 @@ class Stock(db.Model):
     investments = db.relationship(
         "Investment", back_populates="stock")
     watchlists = db.relationship(
-        "Watchlist", secondary="watchlist_stocks", back_populates="stocks")
+        "Watchlist", secondary="watchlists_stocks", back_populates="stocks")
     transactions = db.relationship(
         "Transaction", back_populates="stock")
     watchlist_stocks = db.relationship(

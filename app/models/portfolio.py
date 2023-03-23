@@ -10,7 +10,6 @@ class Portfolio(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("users.id")), nullable=False)
-    current_value = db.Column(db.Float(), nullable=False)
     buying_power = db.Column(db.Float(), nullable=False)
 
     # relationships
@@ -26,6 +25,5 @@ class Portfolio(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
-            'current_value': self.current_value,
             'buying_power': self.buying_power,
         }
