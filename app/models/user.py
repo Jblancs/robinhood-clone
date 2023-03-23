@@ -16,8 +16,9 @@ class User(db.Model, UserMixin):
 
     # relationships
     portfolio = db.relationship(
-        "Portfolio", useList=False, back_populates="user")
-    watchlists = db.relationship("Watchlist", back_populates="user", cascade="all, delete-orphan")
+        "Portfolio", uselist=False, back_populates="user")
+    watchlists = db.relationship(
+        "Watchlist", back_populates="user", cascade="all, delete-orphan")
 
     @property
     def password(self):

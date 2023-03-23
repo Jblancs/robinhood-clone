@@ -1,4 +1,4 @@
-from app.models import db, Portfolio, SCHEMA, environment
+from app.models import db, PortfolioHistory, SCHEMA, environment
 from sqlalchemy.sql import text
 import random
 from datetime import datetime, timedelta
@@ -10,7 +10,7 @@ def seed_portfolio_history():
 
     # user 1 portfolio history seeder (5 years)
     for num_of_days in range(1825, 0, -1):
-        portfolio = Portfolio(
+        portfolio = PortfolioHistory(
             portfolio_id=1,
             value_at_time=random.randint(9500, 10500),
             date=datetime(2023, 3, 21) - timedelta(days=num_of_days),
@@ -19,7 +19,7 @@ def seed_portfolio_history():
 
     # user 2 portfolio history seeder (5 years)
     for num_of_days in range(1825, 0, -1):
-        portfolio = Portfolio(
+        portfolio = PortfolioHistory(
             portfolio_id=2,
             value_at_time=random.randint(9500, 10500),
             date=datetime(2023, 3, 21) - timedelta(days=num_of_days),
@@ -28,7 +28,7 @@ def seed_portfolio_history():
 
     # user 3 portfolio history seeder (5 years)
     for num_of_days in range(1825, 0, -1):
-        portfolio = Portfolio(
+        portfolio = PortfolioHistory(
             portfolio_id=3,
             value_at_time=random.randint(9500, 10500),
             date=datetime(2023, 3, 21) - timedelta(days=num_of_days),
@@ -39,11 +39,11 @@ def seed_portfolio_history():
     db.session.commit()
 
 
-def undo_products():
+def undo_portfolio_history():
     if environment == "production":
         db.session.execute(
             f"TRUNCATE table {SCHEMA}.portfolio_histories RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute("DELETE FROM portfolio_histories")
+        db.session.execute(text("DELETE FROM portfolio_histories"))
 
     db.session.commit()

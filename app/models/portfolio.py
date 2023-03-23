@@ -14,14 +14,13 @@ class Portfolio(db.Model):
     buying_power = db.Column(db.Float(), nullable=False)
 
     # relationships
-    user = db.relationship("User", useList=False, back_populates="portfolio")
+    user = db.relationship("User", uselist=False, back_populates="portfolio")
     investments = db.relationship(
         "Investment", back_populates="portfolio", cascade="all, delete-orphan")
     histories = db.relationship(
         "PortfolioHistory", back_populates="portfolio", cascade="all, delete-orphan")
     transactions = db.relationship("Transaction", back_populates="portfolio")
     transfers = db.relationship("Transfer", back_populates="portfolio")
-
 
     def to_dict(self):
         return {
