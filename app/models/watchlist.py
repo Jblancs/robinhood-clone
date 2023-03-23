@@ -15,7 +15,7 @@ class Watchlist(db.Model):
     # relationships
     user = db.relationship("User", uselist=False, back_populates="watchlists")
     stocks = db.relationship(
-        "Stock", secondary="watchlist_stocks", back_populates="watchlists")
+        "Stock", secondary="watchlists_stocks", back_populates="watchlists")
     watchlist_stocks = db.relationship(
         "WatchlistStocks", back_populates="watchlist")
 
