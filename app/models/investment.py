@@ -9,9 +9,9 @@ class Investment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     ticker = db.Column(db.String, db.ForeignKey(
-        add_prefix_for_prod("stock.ticker")), nullable=False)
+        add_prefix_for_prod("stocks.ticker")), nullable=False)
     portfolio_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("portfolio.id")), nullable=False)
+        add_prefix_for_prod("portfolios.id")), nullable=False)
     value = db.Column(db.Float(), nullable=False)
     shares = db.Column(db.Integer(), nullable=False)
 
@@ -20,7 +20,6 @@ class Investment(db.Model):
         "Portfolio", back_populates="investments")
     stock = db.relationship(
         "Stock", back_populates="investments")
-
 
     @property
     def price_per_share(self):

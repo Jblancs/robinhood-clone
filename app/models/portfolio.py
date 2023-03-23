@@ -20,6 +20,8 @@ class Portfolio(db.Model):
     histories = db.relationship(
         "PortfolioHistory", back_populates="portfolio", cascade="all, delete-orphan")
     transactions = db.relationship("Transaction", back_populates="portfolio")
+    transfers = db.relationship("Transfer", back_populates="portfolio")
+
 
     def to_dict(self):
         return {

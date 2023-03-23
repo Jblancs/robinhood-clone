@@ -9,9 +9,9 @@ class Transaction(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     ticker = db.Column(db.String, db.ForeignKey(
-        add_prefix_for_prod("stock.ticker")), nullable=False)
+        add_prefix_for_prod("stocks.ticker")), nullable=False)
     portfolio_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("portfolio.id")), nullable=False)
+        add_prefix_for_prod("portfolios.id")), nullable=False)
     total_cost = db.Column(db.Float, nullable=False)
     shares = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, nullable=False)

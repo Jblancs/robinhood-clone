@@ -18,9 +18,11 @@ class Stock(db.Model):
     investments = db.relationship(
         "Investment", back_populates="stock")
     watchlists = db.relationship(
-        "Watchlist",secondary="watchlist_stocks", back_populates="stocks", cascade="all, delete-orphan")
+        "Watchlist", secondary="watchlist_stocks", back_populates="stocks")
     transactions = db.relationship(
         "Transaction", back_populates="stock")
+    watchlist_stocks = db.relationship(
+        "WatchlistStocks", back_populates="stock")
 
     def to_dict(self):
         return {
