@@ -26,4 +26,7 @@ class Portfolio(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'buying_power': self.buying_power,
+            'history': [hist.to_dict() for hist in self.histories],
+            'investments': [inv.to_dict() for inv in self.investments],
+            'portfolio_total': sum([inv.to_dict()["value"] for inv in self.investments])+self.buying_power
         }

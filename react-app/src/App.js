@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import Investing from "./components/Investing";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import SingleStock from "./components/SingleStock";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Investing />
+          </Route>
+          <Route path="/stocks/:ticker">
+            <SingleStock />
           </Route>
           <Route path="/login" >
             <LoginFormPage />
