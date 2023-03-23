@@ -12,7 +12,7 @@ class Stock(db.Model):
     description = db.Column(db.String(5000), nullable=False)
     employees = db.Column(db.Integer, nullable=False)
     headquarters = db.Column(db.String, nullable=False)
-    founded = db.Column(db.Integer, nullable=False)
+    listed = db.Column(db.Integer, nullable=False)
 
     # relationships
     investments = db.relationship(
@@ -31,5 +31,5 @@ class Stock(db.Model):
             'description': self.description,
             'employees': self.employees,
             'headquarters': self.headquarters,
-            'founded': self.founded,
+            'listed': self.listed,
         }

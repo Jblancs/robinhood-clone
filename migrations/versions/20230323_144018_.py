@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 17b0ac140d8f
-Revises: ffdc0a98111c
-Create Date: 2023-03-23 12:31:08.577142
+Revision ID: ac87d91607e5
+Revises:
+Create Date: 2023-03-23 14:40:18.009732
 
 """
 from alembic import op
@@ -13,8 +13,8 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '17b0ac140d8f'
-down_revision = 'ffdc0a98111c'
+revision = 'ac87d91607e5'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -28,12 +28,27 @@ def upgrade():
                         length=5000), nullable=False),
                     sa.Column('employees', sa.Integer(), nullable=False),
                     sa.Column('headquarters', sa.String(), nullable=False),
-                    sa.Column('founded', sa.Integer(), nullable=False),
+                    sa.Column('listed', sa.Integer(), nullable=False),
                     sa.PrimaryKeyConstraint('ticker')
                     )
 
     if environment == "production":
         op.execute(f"ALTER TABLE stocks SET SCHEMA {SCHEMA};")
+
+    op.create_table('users',
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('username', sa.String(
+                        length=40), nullable=False),
+                    sa.Column('email', sa.String(length=255), nullable=False),
+                    sa.Column('hashed_password', sa.String(
+                        length=255), nullable=False),
+                    sa.PrimaryKeyConstraint('id'),
+                    sa.UniqueConstraint('email'),
+                    sa.UniqueConstraint('username')
+                    )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
     op.create_table('portfolios',
                     sa.Column('id', sa.Integer(), nullable=False),
@@ -49,13 +64,13 @@ def upgrade():
     op.create_table('watchlists',
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('user_id', sa.Integer(), nullable=False),
-                    sa.Column('name', sa.Float(), nullable=False),
+                    sa.Column('name', sa.String(100), nullable=False),
                     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
                     sa.PrimaryKeyConstraint('id')
                     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE watchlists SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
 
     op.create_table('investments',
                     sa.Column('id', sa.Integer(), nullable=False),
@@ -139,5 +154,6 @@ def downgrade():
     op.drop_table('investments')
     op.drop_table('watchlists')
     op.drop_table('portfolios')
+    op.drop_table('users')
     op.drop_table('stocks')
     # ### end Alembic commands ###
