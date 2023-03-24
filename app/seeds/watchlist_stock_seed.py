@@ -1,5 +1,6 @@
 from app.models import db, SCHEMA, environment
 from app.models.watchlist_stocks import watchlists_stocks
+from sqlalchemy import insert
 from sqlalchemy.sql import text
 import random
 
@@ -9,7 +10,7 @@ def seed_watchlist_stock():
     join_list = []
     for id in range(1, 4):
 
-        watch = watchlists_stocks.insert().values(
+        watch = insert(watchlists_stocks).values(
             watchlist_id=id,
             ticker="AAPL"
         )
