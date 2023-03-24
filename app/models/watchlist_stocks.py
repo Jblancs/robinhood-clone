@@ -10,7 +10,7 @@ watchlists_stocks = db.Table(
 )
 
 if environment == "production":
-    watchlists_stocks = {'schema': SCHEMA}
+    watchlists_stocks.schema = SCHEMA
 
 # class WatchlistStocks(db.Model):
 #     __tablename__ = 'watchlists_stocks'
