@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import Portfolio, PortfolioHistory, db
 from flask_login import current_user
+from ..utils import to_dict_list, form_errors_obj_list, current_user_portfolio, output_test
 
 portfolio_routes = Blueprint('portfolio', __name__)
 
@@ -15,13 +16,15 @@ def get_portfolio():
     portfolio_history_data = PortfolioHistory.query.filter(
         PortfolioHistory.portfolio_id == user["portfolio"]["id"])
 
-    portfolio_history = [history.to_dict()
-                         for history in list(portfolio_history_data)]
-    user["portfolio"]["history"] = portfolio_history
+    output_test()
+
+    portfolio_history_list = to_dict_list(portfolio_history_data)
+
+    user["portfolio"]["history"] = portfolio_history_list
 
     return user["portfolio"]
 
-
+# ------------------------------------------------------------------------------
 @portfolio_routes.route('/', methods=["POST"])
 def create_portfolio():
     '''
@@ -36,3 +39,16 @@ def create_portfolio():
     db.session.add(new_portfolio)
     db.session.commit()
     return new_portfolio.to_dict()
+
+# ------------------------------------------------------------------------------
+@portfolio_routes.route('/', methods=["PUT"])
+def update_portfolio():
+    '''
+    Update buying power when you buy/sell stocks
+    '''
+    res = request.get_json()
+    user = current_user.to_dict()
+    portfolio = Portfolio.query.get(user["portfolio"]["id"])
+
+    portfolio.buying_power = portfolio["buying_power"] - res["total_cost"]
+    db.session.commit()

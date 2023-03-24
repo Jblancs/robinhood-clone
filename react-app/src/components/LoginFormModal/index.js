@@ -21,6 +21,8 @@ function LoginFormModal() {
     }
   };
 
+  console.log(errors)
+
   const handleDemoClick = async () => {
     setPassword("password")
     setEmail("demo@aa.io")
