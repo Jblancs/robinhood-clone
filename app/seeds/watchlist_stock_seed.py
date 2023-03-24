@@ -14,7 +14,7 @@ def seed_watchlist_stock():
         #     ticker="AAPL",
         # )
         # join_list.append(join)
-        watch = watchlists_stocks.insert().values(
+        watch = insert(watchlists_stocks).values(
             watchlist_id=id,
             ticker="AAPL"
         )
