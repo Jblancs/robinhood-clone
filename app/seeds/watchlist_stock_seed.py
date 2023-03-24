@@ -1,5 +1,6 @@
 from app.models import db, SCHEMA, environment
 from app.models.watchlist_stocks import watchlists_stocks
+from sqlalchemy import insert
 from sqlalchemy.sql import text
 import random
 
