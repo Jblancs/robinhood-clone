@@ -8,18 +8,13 @@ def seed_watchlist_stock():
 
     join_list = []
     for id in range(1, 4):
-        # join = WatchlistStocks(
-        #     watchlist_id=id,
-        #     ticker="AAPL",
-        # )
-        # join_list.append(join)
+
         watch = watchlists_stocks.insert().values(
             watchlist_id=id,
             ticker="AAPL"
         )
         db.session.execute(watch)
 
-    # db.session.add_all(join_list)
     db.session.commit()
 
 
