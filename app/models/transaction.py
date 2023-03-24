@@ -24,7 +24,7 @@ class Transaction(db.Model):
 
     @property
     def price_per_share(self):
-        return self.shares/self.value
+        return self.shares/self.total_cost
 
     def to_dict(self):
         return {
