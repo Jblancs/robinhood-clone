@@ -16,5 +16,5 @@ def validate_cost(form, field):
 
 
 class TransactionForm(FlaskForm):
-    shares = IntegerField('Shares', validators=[DataRequired(), validate_shares()])
-    total_cost = DecimalField('Total Cost', places=2, validators=[DataRequired(), validate_cost()])
+    shares = IntegerField('Shares', validators=[DataRequired(), validate_shares])
+    total_cost = DecimalField('Total Cost', places=2, validators=[DataRequired(), validate_cost])

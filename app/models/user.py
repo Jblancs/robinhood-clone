@@ -28,6 +28,13 @@ class User(db.Model, UserMixin):
     def password(self, password):
         self.hashed_password = generate_password_hash(password)
 
+    @property
+    def portfolio_check(self):
+        if self.portfolio:
+            return self.portfolio.to_dict()
+        else:
+            return None
+
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
@@ -36,5 +43,5 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'portfolio': self.portfolio.to_dict()
+            'portfolio': self.portfolio_check
         }

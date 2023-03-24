@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import Portfolio, PortfolioHistory, db
 from flask_login import current_user
-from ..utils import current_user_portfolio
 
 portfolio_routes = Blueprint('portfolio', __name__)
 
@@ -11,21 +10,16 @@ def get_portfolio():
     '''
     Get portfolio and portfolio history information to display on graph
     '''
-    # user = current_user.to_dict()
-    # portfolio_data = Portfolio.query.filter(Portfolio.user_id == user["id"])
-    # portfolio = list(portfolio_data)[0].to_dict()
-    portfolio = current_user_portfolio()
+    user = current_user.to_dict()
 
     portfolio_history_data = PortfolioHistory.query.filter(
-        PortfolioHistory.portfolio_id == portfolio["id"])
+        PortfolioHistory.portfolio_id == user["portfolio"]["id"])
 
     portfolio_history = [history.to_dict()
                          for history in list(portfolio_history_data)]
-    portfolio["history"] = portfolio_history
+    user["portfolio"]["history"] = portfolio_history
 
-    print("\n\n\n\n\n *************", portfolio_history_data)
-
-    return portfolio
+    return user["portfolio"]
 
 
 @portfolio_routes.route('/', methods=["POST"])
