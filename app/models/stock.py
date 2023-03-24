@@ -21,8 +21,8 @@ class Stock(db.Model):
         "Watchlist", secondary="watchlists_stocks", back_populates="stocks")
     transactions = db.relationship(
         "Transaction", back_populates="stock")
-    watchlist_stocks = db.relationship(
-        "WatchlistStocks", back_populates="stock")
+    # watchlist_stocks = db.relationship(
+    #     "WatchlistStocks", back_populates="stock")
 
     def to_dict(self):
         return {

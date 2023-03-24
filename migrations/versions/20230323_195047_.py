@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ac87d91607e5
+Revision ID: 094a9470b5b6
 Revises:
-Create Date: 2023-03-23 14:40:18.009732
+Create Date: 2023-03-23 19:50:47.191652
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = 'ac87d91607e5'
+revision = '094a9470b5b6'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -64,13 +64,13 @@ def upgrade():
     op.create_table('watchlists',
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('user_id', sa.Integer(), nullable=False),
-                    sa.Column('name', sa.String(100), nullable=False),
+                    sa.Column('name', sa.String(length=100), nullable=False),
                     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
                     sa.PrimaryKeyConstraint('id')
                     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE watchlists SET SCHEMA {SCHEMA};")
 
     op.create_table('investments',
                     sa.Column('id', sa.Integer(), nullable=False),
@@ -130,13 +130,12 @@ def upgrade():
         op.execute(f"ALTER TABLE transfers SET SCHEMA {SCHEMA};")
 
     op.create_table('watchlists_stocks',
-                    sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('watchlist_id', sa.Integer(), nullable=False),
                     sa.Column('ticker', sa.String(), nullable=False),
                     sa.ForeignKeyConstraint(['ticker'], ['stocks.ticker'], ),
                     sa.ForeignKeyConstraint(
                         ['watchlist_id'], ['watchlists.id'], ),
-                    sa.PrimaryKeyConstraint('id')
+                    sa.PrimaryKeyConstraint('watchlist_id', 'ticker')
                     )
 
     if environment == "production":

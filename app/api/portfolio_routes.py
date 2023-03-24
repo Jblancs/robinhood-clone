@@ -16,3 +16,5 @@ def get_portfolio():
     portfolio = list(portfolio_data)[0].to_dict()
 
     return portfolio
+
+
