@@ -1,0 +1,24 @@
+.stock-page-container{
+    display: flex;
+    justify-content: center;
+
+}
+
+.stock-page-div{
+    width: 1200px;
+    display: flex;
+}
+
+.stock-info-div{
+    width: 70%;
+    border: var(--global-border)
+}
+
+.stock-about-div{
+
+}
+
+.stock-buy-sell-div{
+    width: 30%;
+    border: var(--global-border)
+}

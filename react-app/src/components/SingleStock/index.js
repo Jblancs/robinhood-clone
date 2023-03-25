@@ -1,87 +1,40 @@
 import React, { useEffect, useState } from "react";
-import Chart from 'chart.js/auto';
-import { Line } from 'react-chartjs-2'
-import { getStockGraphData, getStockPrice, todaysDate } from "../HomePage/HomePageUtils";
+import { useParams } from "react-router-dom";
+import { getStockData } from "../../Utils";
+import SingleStockGraph from "./SingleStockGraph";
+import "./SingleStock.css"
+import BuySellStock from "./BuySellStock";
+
 
 
 
 
 function SingleStock() {
-    const [stockData, setStockData] = useState([])
-
-    const API_KEY = process.env.REACT_APP_API_KEY
-    const BASE_URL = "https://api.polygon.io/v2/"
-
-    const today = todaysDate()
+    const { ticker } = useParams()
+    const [stockData, setStockData] = useState()
+    let stockTicker = ticker.toUpperCase()
 
     useEffect(() => {
-        getStockPrice("AAPL", setStockData)
+        getStockData(stockTicker, setStockData)
     }, [])
 
-    console.log("test",stockData)
-    console.log("test",today)
-
-
-
-    const xAxis = []
-    const yAxis = []
-
-    for (let i = 1; i <= 100; i++) {
-        xAxis.push(i)
-        yAxis.push(Math.floor(Math.random() * 100))
-    }
-
-    const data = {
-        labels: xAxis,
-        datasets: [{
-            type: "line",
-            labels: "datasets labels",
-            data: yAxis,
-            borderColor: 'lime', //
-            pointRadius: 0,
-            pointHoverRadius: 6,
-            fill: false,
-            tension: 0.0,
-        }]
-    }
-
-    const options = {
-        plugins: {
-            legend: false
-        },
-        scales: {
-            y: {
-                min: -20,
-                max: 150,
-                ticks: {
-                    display: false
-                },
-                grid: {
-                    display: false
-                }
-            },
-            x: {
-                ticks: {
-                    display: false
-                },
-                grid: {
-                    display: false
-                }
-            },
-
-        }
-    }
+    if (!stockData) return <div>Loading...</div>
 
     return (
-        <div className="inv-container">
-
-            <div className="inv-chart" >
-                <Line
-                    data={data}
-                    options={options}
-                ></Line>
+        <div className="stock-page-container">
+            <div className="stock-page-div">
+                <div className="stock-info-div">
+                    <div className="stock-graph-div">
+                        {stockData ? <SingleStockGraph stockData={stockData} stockTicker={stockTicker} /> : "Loading..."}
+                    </div>
+                    <div className="stock-about-div">
+                        About
+                    </div>
+                </div>
+                <div className="stock-buy-sell-div">
+                    <BuySellStock stockData={stockData} />
+                </div>
             </div>
-
         </div>
     )
 }
