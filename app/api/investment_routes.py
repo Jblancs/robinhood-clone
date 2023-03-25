@@ -50,7 +50,7 @@ def create_new_investment(ticker):
     new_investment = Investment(
         ticker=ticker,
         portfolio_id=portfolio_id,
-        value=res["total_cost"],
+        value=res["totalCost"],
         shares=res["shares"],
     )
     db.session.add(new_investment)
@@ -72,7 +72,7 @@ def update_investment(ticker):
         Investment.ticker == ticker
         ).one()
 
-    investment.value = investment["value"] + res["total_cost"]
+    investment.value = investment["value"] + res["totalCost"]
     investment.shares = investment["shares"] + res["shares"]
 
     db.session.commit()

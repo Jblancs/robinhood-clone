@@ -33,7 +33,7 @@ def create_portfolio():
     res = request.get_json()
 
     new_portfolio = Portfolio(
-        user_id=res["user_id"],
+        user_id=res["userId"],
         buying_power=0
     )
     db.session.add(new_portfolio)
@@ -50,5 +50,5 @@ def update_portfolio():
     user = current_user.to_dict()
     portfolio = Portfolio.query.get(user["portfolio"]["id"])
 
-    portfolio.buying_power = portfolio["buying_power"] - res["total_cost"]
+    portfolio.buying_power = portfolio["buying_power"] - res["totalCost"]
     db.session.commit()

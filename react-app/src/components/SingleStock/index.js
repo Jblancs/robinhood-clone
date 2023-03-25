@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Chart from 'chart.js/auto';
 import { Line } from 'react-chartjs-2'
+import { getStockGraphData, getStockPrice, todaysDate } from "../HomePage/HomePageUtils";
 
 
 
@@ -11,28 +12,15 @@ function SingleStock() {
     const API_KEY = process.env.REACT_APP_API_KEY
     const BASE_URL = "https://api.polygon.io/v2/"
 
+    const today = todaysDate()
+
     useEffect(() => {
-        getStockData("AAPL")
+        getStockPrice("AAPL", setStockData)
     }, [])
 
-    const getStockData = async (ticker) => {
+    console.log("test",stockData)
+    console.log("test",today)
 
-        let res = await fetch(`${BASE_URL}aggs/ticker/${ticker}/range/1/day/2023-01-09/2023-01-20?apiKey=${API_KEY}`)
-        let data = await res.json()
-        setStockData(data.results)
-
-    }
-
-    console.log(stockData)
-
-    // const exampleQuery = `aggs/ticker/${ticker}/range/${multiplier}/${timespan}/${from}/${to}`
-    // const query1D = `aggs/ticker/${ticker}/range/5/minute/${from}/${to}`
-    // const query1W = `aggs/ticker/${ticker}/range/10/minute/${from}/${to}`
-    // const query1M = `aggs/ticker/${ticker}/range/1/hour/${from}/${to}`
-    // const query3M = `aggs/ticker/${ticker}/range/1/day/${from}/${to}`
-    // const queryYTD = `aggs/ticker/${ticker}/range/1/day/${from}/${to}`
-    // const query1Y = `aggs/ticker/${ticker}/range/1/day/${from}/${to}`
-    // const queryALL = `aggs/ticker/${ticker}/range/7/day/${from}/${to}`
 
 
     const xAxis = []

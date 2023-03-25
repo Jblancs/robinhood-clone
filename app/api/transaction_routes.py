@@ -56,7 +56,7 @@ def create_transaction(ticker):
         new_transaction = Transaction(
             ticker=ticker,
             portfolio_id=portfolio_id,
-            total_cost=res["total_cost"],
+            total_cost=res["totalCost"],
             shares=res["shares"],
             date=datetime.now()
         )
