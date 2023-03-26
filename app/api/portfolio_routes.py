@@ -13,14 +13,12 @@ def get_portfolio():
     '''
     user = current_user.to_dict()
 
-    portfolio_history_data = PortfolioHistory.query.filter(
-        PortfolioHistory.portfolio_id == user["portfolio"]["id"])
+    # portfolio_history_data = PortfolioHistory.query.filter(
+    #     PortfolioHistory.portfolio_id == user["portfolio"]["id"])
 
-    output_test()
+    # portfolio_history_list = to_dict_list(portfolio_history_data)
 
-    portfolio_history_list = to_dict_list(portfolio_history_data)
-
-    user["portfolio"]["history"] = portfolio_history_list
+    # user["portfolio"]["history"] = portfolio_history_list
 
     return user["portfolio"]
 
@@ -50,5 +48,9 @@ def update_portfolio():
     user = current_user.to_dict()
     portfolio = Portfolio.query.get(user["portfolio"]["id"])
 
-    portfolio.buying_power = portfolio["buying_power"] - res["totalCost"]
+    if res["type"] == "buy":
+        portfolio.buying_power = portfolio["buying_power"] - res["totalCost"]
+    else:
+        portfolio.buying_power = portfolio["buying_power"] + res["totalCost"]
+
     db.session.commit()

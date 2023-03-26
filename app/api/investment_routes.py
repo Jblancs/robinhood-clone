@@ -29,14 +29,14 @@ def get_investment_by_ticker(ticker):
 
     investment_data = Investment.query.filter(
         Investment.portfolio_id == portfolio_id,
-        Investment.ticker == ticker
+        Investment.ticker == ticker.upper()
         ).first()
 
     if investment_data:
         investment = investment_data.to_dict()
         return investment
     else:
-        return {"message": "You do not own this stock"}
+        return {"error": "You do not own this stock"}
 
 # ------------------------------------------------------------------------------
 @investment_routes.route("/<string:ticker>", methods=["POST"])
@@ -48,7 +48,7 @@ def create_new_investment(ticker):
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 
     new_investment = Investment(
-        ticker=ticker,
+        ticker=ticker.upper(),
         portfolio_id=portfolio_id,
         value=res["totalCost"],
         shares=res["shares"],
@@ -69,7 +69,7 @@ def update_investment(ticker):
 
     investment = Investment.query.filter(
         Investment.portfolio_id == portfolio_id,
-        Investment.ticker == ticker
+        Investment.ticker == ticker.upper()
         ).one()
 
     investment.value = investment["value"] + res["totalCost"]
@@ -84,14 +84,14 @@ def delete_investment(ticker):
     '''
     Deletes an investment when selling all shares of a stock you own
     '''
-
+    stock_ticker = ticker.upper()
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 
     investment = Investment.query.filter(
         Investment.portfolio_id == portfolio_id,
-        Investment.ticker == ticker
+        Investment.ticker == stock_ticker
         ).one()
 
     db.session.delete(investment)
 
-    return {"Response": f"Successfully sold all shares of {ticker}"}
+    return {"Response": f"Successfully sold all shares of {stock_ticker}"}

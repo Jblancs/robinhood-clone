@@ -5,7 +5,6 @@
 export const getStockData = async (ticker, setUseState) => {
 
     const API_KEY = process.env.REACT_APP_API_KEY
-    const BASE_URL = "https://api.polygon.io/v1/"
 
     let res = await fetch(`https://api.polygon.io/v2/aggs/ticker/${ticker}/prev?adjusted=true&apiKey=${API_KEY}`)
     let data = await res.json()

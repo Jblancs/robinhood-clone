@@ -6,7 +6,6 @@ import { getChartData, prevCloseDate, daysAgo, buildGraph, getPriceChange } from
 
 function SingleStockGraph({ stockData, stockTicker }) {
     const prevClose = prevCloseDate(stockData.t)
-    console.log(prevClose)
     const oneWeekAgo = daysAgo(7)
     const [chartData, setChartData] = useState([]) // array of stockData over time period
     const [period, setPeriod] = useState("Past week")
@@ -30,8 +29,6 @@ function SingleStockGraph({ stockData, stockTicker }) {
 
     // builds chart based on stockData
     let graph = buildGraph(chartData)
-    console.log(chartData)
-    console.log(stockData)
 
     // calculates price change
     const priceChange = getPriceChange(chartData, stockData.c)

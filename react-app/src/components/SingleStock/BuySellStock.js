@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux"
+import { createInvestment } from "../../store/investment";
+import { createTransaction } from "../../store/transaction";
 import "./SingleStock.css"
 
-function BuySellStock({ stockData, stockTicker }) {
+function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
     const [disbleInput, setDisableInput] = useState(false)
     const [type, setType] = useState("buy")
     const [shares, setShares] = useState(0)
     const [amount, setAmount] = useState(0)
     const [confirm, setConfirm] = useState(false)
-    console.log(shares)
+    const investment = useSelector(state => state.investments.investments)
 
-    
+    useEffect(() => {
+        setAmount((shares * stockData.c).toFixed())
+    }, [shares, amount])
 
 
     // Event Handlers -----------------------------------------------------------------------------------------
     const inputHandler = (e) => {
         setShares(e.target.value)
-        setAmount((shares * stockData.c).toFixed())
     }
 
     const onClickReviewHandler = () => {
@@ -26,6 +30,34 @@ function BuySellStock({ stockData, stockTicker }) {
     const onClickEditHandler = () => {
         setConfirm(false)
         setDisableInput(false)
+    }
+
+    // Submit Order Handle -----------------------------------------------------------------------------------
+    const submitHandler = async (e) => {
+        e.preventDefault()
+
+        const transactionData = {
+            shares: type === "buy" ? shares : -shares,
+            totalCost: type === "buy" ? -amount : amount,
+            type: type
+        }
+
+        const newTransaction = await dispatch(createTransaction(stockTicker, transactionData))
+        if(!newTransaction.errors && !investment){
+            await dispatch(createInvestment(stockTicker, transactionData))
+
+        }
+
+    }
+
+    //Sell form button (hidden if you do not own stock) ------------------------------------------------------
+    let sellFormButton;
+    if (investment) {
+        sellFormButton = (
+            <div onClick={() => setType("sell")} className={type === "sell" ? "transaction-btn selected" : "transaction-btn"}>
+                Sell {stockTicker}
+            </div>
+        )
     }
 
     // Buy/Sell confirm button -------------------------------------------------------------------------------
@@ -64,9 +96,7 @@ function BuySellStock({ stockData, stockTicker }) {
                     <div onClick={() => setType("buy")} className={type === "buy" ? "transaction-btn selected" : "transaction-btn"}>
                         Buy {stockTicker}
                     </div>
-                    <div onClick={() => setType("sell")} className={type === "sell" ? "transaction-btn selected" : "transaction-btn"}>
-                        Sell {stockTicker}
-                    </div>
+                    {sellFormButton}
                 </div>
                 <div className="buy-sell-form-div">
                     <div className="order-type-div flex-btwn pad20">
@@ -92,7 +122,12 @@ function BuySellStock({ stockData, stockTicker }) {
                         <div className="buy-sell-text">
                             Shares
                         </div>
-                        <input className="shares-input" onChange={inputHandler} placeholder="0" type="number" disabled={disbleInput} />
+                        <input className="shares-input"
+                            onChange={inputHandler}
+                            placeholder="0"
+                            type="number"
+                            disabled={disbleInput}
+                            value={shares} />
                     </div>
                     <div className="buy-sell-price-div flex-btwn">
                         <div>
@@ -114,7 +149,7 @@ function BuySellStock({ stockData, stockTicker }) {
                     {confirmBtn}
                 </div>
                 <div className="buying-power-div">
-                    {type === "buy" ? "$0.00 buying power available" : "1 Share(s) available"}
+                    {type === "buy" ? `$${Number(portfolio.buying_power).toFixed(2)} buying power available` : `${investment[stockTicker]?.shares} Share(s) available`}
                 </div>
             </div>
         </div>

@@ -62,5 +62,6 @@ def create_transaction(ticker):
         )
         db.session.add(new_transaction)
         db.session.commit()
+        return new_transaction
 
     return {'errors': form_errors_obj_list(form.errors)}, 401

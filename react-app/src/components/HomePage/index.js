@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PortfolioGraph from "./PortfolioGraph";
 import './HomePage.css'
 

@@ -23,7 +23,7 @@ class Investment(db.Model):
 
     @property
     def price_per_share(self):
-        return self.shares/self.value
+        return self.value/self.shares
 
     def to_dict(self):
         return {

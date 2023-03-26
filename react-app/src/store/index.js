@@ -1,9 +1,15 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import investReducer from './investment';
+import portfolioReducer from './portfolio';
 import session from './session'
+import transactionReducer from './transaction';
 
 const rootReducer = combineReducers({
   session,
+  portfolio: portfolioReducer,
+  investments: investReducer,
+  transactions: transactionReducer
 });
 
 
