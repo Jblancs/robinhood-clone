@@ -81,7 +81,7 @@
 
 }
 
-.selected{
+.selected {
     border-bottom: 3px solid var(--rhood-green);
     color: var(--rhood-green);
 }
@@ -120,6 +120,10 @@
     background-size: 1rem auto;
 }
 
+.buy-sell-in-select:hover {
+    box-shadow: 1px 1px 10px gray;
+}
+
 .shares-input {
     border-top: 1px solid gray;
     padding: 0px 15px;
@@ -129,6 +133,11 @@
     border-radius: 5px;
     text-align: right;
 }
+
+.shares-input:hover {
+    background-color: lightgray;
+}
+
 
 .buy-sell-price-div {
     padding: 10px 0px 35px 0px;
@@ -158,6 +167,6 @@
     cursor: pointer;
 }
 
-.review-button:hover{
+.review-button:hover {
     filter: grayscale(20%);
 }

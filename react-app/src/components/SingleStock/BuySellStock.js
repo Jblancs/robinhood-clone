@@ -9,7 +9,7 @@ function BuySellStock({ stockData, stockTicker }) {
 
     const inputHandler = (e) => {
         setShares(e.target.value)
-        setAmount(shares*stockData.c)
+        setAmount(shares * stockData.c)
     }
 
     return (
