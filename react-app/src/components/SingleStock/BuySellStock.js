@@ -2,14 +2,24 @@ import React, { useEffect, useState } from "react";
 import "./SingleStock.css"
 
 function BuySellStock({ stockData, stockTicker }) {
+    const [disbleInput, setDisableInput] = useState(false)
+    const [type, setType] = useState("buy")
+    const [shares, setShares] = useState(0)
+    const [amount, setAmount] = useState(0)
+
+    const inputHandler = (e) => {
+        setShares(e.target.value)
+        setAmount(shares*stockData.c)
+    }
+
     return (
         <div className="buy-sell-div">
             <div className="buy-sell-container">
                 <div className="buy-sell-btn-div">
-                    <div className="transaction-btn">
+                    <div onClick={() => setType("buy")} className={type === "buy" ? "transaction-btn selected" : "transaction-btn"}>
                         Buy {stockTicker}
                     </div>
-                    <div className="transaction-btn">
+                    <div onClick={() => setType("sell")} className={type === "sell" ? "transaction-btn selected" : "transaction-btn"}>
                         Sell {stockTicker}
                     </div>
                 </div>
@@ -25,7 +35,7 @@ function BuySellStock({ stockData, stockTicker }) {
                     </div>
                     <div className="buy-sell-in-div flex-btwn">
                         <div className="buy-sell-text">
-                            Buy In
+                            {type === "buy" ? "Buy In" : "Sell In"}
                         </div>
                         <select className="buy-sell-in-select">
                             <option>
@@ -37,7 +47,7 @@ function BuySellStock({ stockData, stockTicker }) {
                         <div className="buy-sell-text">
                             Shares
                         </div>
-                        <input className="shares-input" placeholder="0" />
+                        <input className="shares-input" onChange={inputHandler} placeholder="0" type="number" disabled={disbleInput} />
                     </div>
                     <div className="buy-sell-price-div flex-btwn">
                         <div>
@@ -45,15 +55,15 @@ function BuySellStock({ stockData, stockTicker }) {
                             <span className="info-icon bold">?</span>
                         </div>
                         <div>
-                            $1.26
+                            ${stockData.c}
                         </div>
                     </div>
                     <div className="buy-sell-cost-div flex-btwn">
                         <div>
-                            Estimated Cost
+                            {type === "buy" ? "Estimated Cost" : "Estimated Credit"}
                         </div>
                         <div>
-                            $1.26
+                            ${Number(stockData.c * shares).toFixed(2)}
                         </div>
                     </div>
                     <div className="review-button-div">
@@ -61,7 +71,8 @@ function BuySellStock({ stockData, stockTicker }) {
                     </div>
                 </div>
                 <div className="buying-power-div">
-                    $0.00 buying power available
+                    {type === "buy" ? "$0.00 buying power available" : "1 Shares available"}
+
                 </div>
             </div>
         </div>

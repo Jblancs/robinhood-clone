@@ -81,6 +81,12 @@
 
 }
 
+.selected{
+    border-bottom: 3px solid var(--rhood-green);
+    color: var(--rhood-green);
+}
+
+
 .info-icon {
     border: 2px solid black;
     font-size: 10px;
@@ -108,7 +114,7 @@
     height: 50px;
     font-size: 18px;
     border-radius: 5px;
-    background-image: url("./double-triangle-icon.png");
+    background-image: url("./double-triangle-icon2.png");
     background-repeat: no-repeat;
     background-position: right .7rem top 50%;
     background-size: 1rem auto;
@@ -143,8 +149,15 @@
 .review-button {
     background-color: var(--rhood-green);
     width: 100%;
+    border: 2px solid gray;
+    box-shadow: 1px 1px 3px gray;
     border-color: gray;
     border-radius: 25px;
     height: 50px;
     margin-bottom: 25px;
+    cursor: pointer;
+}
+
+.review-button:hover{
+    filter: grayscale(20%);
 }
