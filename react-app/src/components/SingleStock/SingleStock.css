@@ -1,24 +1,150 @@
-.stock-page-container{
+.stock-page-container {
     display: flex;
     justify-content: center;
 
 }
 
-.stock-page-div{
+.stock-page-div {
     width: 1200px;
     display: flex;
 }
 
-.stock-info-div{
+.stock-info-div {
     width: 70%;
-    border: var(--global-border)
+    /* border: var(--global-border); */
 }
 
-.stock-about-div{
-
+.stock-name {
+    font-size: 30px;
 }
 
-.stock-buy-sell-div{
+.stock-price {
+    font-size: 30px;
+}
+
+.stock-change {
+    padding: 5px 0px;
+}
+
+
+
+/* Buy and Sell Component ---------------------------------------- */
+.stock-buy-sell-component {
     width: 30%;
-    border: var(--global-border)
+    display: flex;
+    justify-content: center;
+}
+
+.buy-sell-div {
+    width: 90%;
+}
+
+.buy-sell-container {
+    background-color: lightgrey;
+    border: 1px solid gray;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* padding: 10px 0px; */
+}
+
+.buy-sell-btn-div {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid gray;
+
+}
+
+.transaction-btn {
+    /* border: var(--global-border); */
+    font-size: 20px;
+    font-weight: bold;
+    height: 40px;
+    padding: 15px 0px 0px 0px;
+    margin: 0px 0px 0px 25px;
+
+    cursor: pointer;
+}
+
+/* Buy Sell Form ----------------------------------------------------- */
+
+.pad20 {
+    padding: 25px 0px 25px 0px;
+    /* border: var(--global-border); */
+
+}
+
+.buy-sell-form-div {
+    /* border: var(--global-border); */
+    width: 86%;
+
+}
+
+.info-icon {
+    border: 2px solid black;
+    font-size: 10px;
+    padding: 0px 5px;
+    margin-left: 8px;
+    border-radius: 100%;
+}
+
+.buying-power-div {
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid gray;
+    padding: 20px 0px;
+}
+
+.buy-sell-text {
+    display: flex;
+    align-items: center;
+}
+
+.buy-sell-in-select {
+    appearance: none;
+    padding-left: 15px;
+    width: 170px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 5px;
+    background-image: url("./double-triangle-icon.png");
+    background-repeat: no-repeat;
+    background-position: right .7rem top 50%;
+    background-size: 1rem auto;
+}
+
+.shares-input {
+    border-top: 1px solid gray;
+    padding: 0px 15px;
+    width: 138px;
+    height: 45px;
+    font-size: 18px;
+    border-radius: 5px;
+    text-align: right;
+}
+
+.buy-sell-price-div {
+    padding: 10px 0px 35px 0px;
+    border-bottom: 1px solid gray;
+}
+
+.buy-sell-cost-div {
+    padding: 20px 0px 35px 0px;
+
+}
+
+.review-button-div {
+    /* border: var(--global-border); */
+    display: flex;
+    justify-content: center;
+}
+
+.review-button {
+    background-color: var(--rhood-green);
+    width: 100%;
+    border-color: gray;
+    border-radius: 25px;
+    height: 50px;
+    margin-bottom: 25px;
 }

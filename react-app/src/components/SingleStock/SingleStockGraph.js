@@ -64,14 +64,14 @@ function SingleStockGraph({ stockData, stockTicker }) {
     return (
         <div className="stock-chart-container">
             <div className="stock-header">
-                <div className="stock-name">
+                <div className="stock-name bold">
                     {stockTicker}
                 </div>
-                <div className="stock-price">
-                    {stockData.c}
+                <div className="stock-price bold">
+                    ${stockData.c}
                 </div>
                 <div className="stock-change">
-                    <span className="price-change">
+                    <span className="price-change bold">
                         {change}
                     </span>
                     <span className="price-period">

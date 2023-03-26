@@ -31,8 +31,8 @@ function SingleStock() {
                         About
                     </div>
                 </div>
-                <div className="stock-buy-sell-div">
-                    <BuySellStock stockData={stockData} />
+                <div className="stock-buy-sell-component">
+                    <BuySellStock stockData={stockData} stockTicker={stockTicker} />
                 </div>
             </div>
         </div>

@@ -13,10 +13,6 @@
 
 /* Multi-class css -------------------------------------- */
 
-.bold {
-  font-weight: bold;
-}
-
 .navhover:hover {
   filter: var(--global-orange-filter)
 }

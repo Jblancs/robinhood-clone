@@ -7,6 +7,16 @@
     --global-font-size: 17px;
 }
 
-*{
+* {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.flex-btwn {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
 }
