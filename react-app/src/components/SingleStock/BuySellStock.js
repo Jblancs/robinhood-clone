@@ -6,12 +6,57 @@ function BuySellStock({ stockData, stockTicker }) {
     const [type, setType] = useState("buy")
     const [shares, setShares] = useState(0)
     const [amount, setAmount] = useState(0)
+    const [confirm, setConfirm] = useState(false)
+    console.log(shares)
 
+    
+
+
+    // Event Handlers -----------------------------------------------------------------------------------------
     const inputHandler = (e) => {
         setShares(e.target.value)
-        setAmount(shares * stockData.c)
+        setAmount((shares * stockData.c).toFixed())
     }
 
+    const onClickReviewHandler = () => {
+        setConfirm(true)
+        setDisableInput(true)
+    }
+
+    const onClickEditHandler = () => {
+        setConfirm(false)
+        setDisableInput(false)
+    }
+
+    // Buy/Sell confirm button -------------------------------------------------------------------------------
+    let confirmBtn;
+    if (!confirm) {
+        confirmBtn = (
+            <div className="review-button-div">
+                {<button className="review-button" onClick={onClickReviewHandler} >Review Order</button>}
+            </div>
+        )
+    } else {
+        confirmBtn = (
+            <div>
+                <div>
+                    Order Summary
+                    <span className="info-icon bold">?</span>
+                </div>
+                <div className="review-text">
+                    {`You are placing a good for day market order to ${type} ${shares} share(s) of ${stockTicker}.`}
+                </div>
+                <div className="review-button-div">
+                    {<button className="review-button">{type === "buy" ? "Buy" : "Sell"}</button>}
+                </div>
+                <div className="review-button-div">
+                    <button className="review-button edit-button" onClick={onClickEditHandler}>Edit</button>
+                </div>
+            </div>
+        )
+    }
+
+    // Component JSX ---------------------------------------------------------------------------------------
     return (
         <div className="buy-sell-div">
             <div className="buy-sell-container">
@@ -63,16 +108,13 @@ function BuySellStock({ stockData, stockTicker }) {
                             {type === "buy" ? "Estimated Cost" : "Estimated Credit"}
                         </div>
                         <div>
-                            ${Number(stockData.c * shares).toFixed(2)}
+                            ${Number(amount).toFixed(2)}
                         </div>
                     </div>
-                    <div className="review-button-div">
-                        <button className="review-button">Review Order</button>
-                    </div>
+                    {confirmBtn}
                 </div>
                 <div className="buying-power-div">
-                    {type === "buy" ? "$0.00 buying power available" : "1 Shares available"}
-
+                    {type === "buy" ? "$0.00 buying power available" : "1 Share(s) available"}
                 </div>
             </div>
         </div>

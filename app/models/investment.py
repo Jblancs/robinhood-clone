@@ -13,7 +13,7 @@ class Investment(db.Model):
     portfolio_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("portfolios.id")), nullable=False)
     value = db.Column(db.Float(), nullable=False)
-    shares = db.Column(db.Integer(), nullable=False)
+    shares = db.Column(db.Float(), nullable=False)
 
     # relationships
     portfolio = db.relationship(
