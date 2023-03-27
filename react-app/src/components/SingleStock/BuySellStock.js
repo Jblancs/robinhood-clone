@@ -17,8 +17,6 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
         setAmount((shares * stockData.c).toFixed(2))
     }, [shares, amount])
 
-    console.log(type)
-    
     // Event Handlers -----------------------------------------------------------------------------------------
     const inputHandler = (e) => {
         setShares(+e.target.value)
