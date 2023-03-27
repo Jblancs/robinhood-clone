@@ -27,6 +27,11 @@
 }
 
 
+/* Graph ---------------------------------------- */
+.portfolio-graph-div{
+    padding-bottom: 20px;
+}
+
 /* Inv and Watchlist ---------------------------------------- */
 .stock-watchlist-component {
     width: 30%;
@@ -76,6 +81,23 @@
 
 .watch-list {
     padding: 10px 20px 10px 20px;
+}
+
+/* Buying power ---------------------------------------- */
+.buy-power-div{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0px;
+    font-size: 20px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
+    cursor: pointer;
+}
+
+.buy-power-div:hover {
+    background-color: rgba(228, 228, 228, 0.611);
 }
 
 /* News Card ---------------------------------------- */

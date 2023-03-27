@@ -43,8 +43,13 @@ function HomePage() {
                     <div className="portfolio-graph-div">
                         <PortfolioGraph history={history} portfolio={portfolio} />
                     </div>
-                    <div>
-                        Buying Power
+                    <div className="buy-power-div bold" onClick={() => alert("Deposit feature coming soon!")}>
+                        <div className="buy-power-text">
+                            Buying Power
+                        </div>
+                        <div className="buy-power-amt">
+                            ${portfolio.buying_power}
+                        </div>
                     </div>
                     <div className="portfolio-news-div">
                         <div className="news-card-container">
@@ -55,10 +60,10 @@ function HomePage() {
                                             {article.author}
                                         </div>
                                         <div className="news-title bold">
-                                        {article.title}
+                                            {article.title}
                                         </div>
                                         <div className="news-description">
-                                        {article.description}
+                                            {article.description}
                                         </div>
                                     </div>
                                     <div className="news-img-div">
