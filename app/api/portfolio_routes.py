@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import Portfolio, PortfolioHistory, db
 from flask_login import current_user
-from ..utils import to_dict_list, form_errors_obj_list, current_user_portfolio, print_data
+from ..utils import to_dict_list, form_errors_obj_list, current_user_portfolio
 
 portfolio_routes = Blueprint('portfolio', __name__)
 

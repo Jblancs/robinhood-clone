@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, Transaction, Portfolio
+from app.models import db, Transaction, Portfolio, Investment
 from ..forms import TransactionBuyForm, TransactionSellForm
 from datetime import datetime
 from flask_login import current_user

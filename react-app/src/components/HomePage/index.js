@@ -34,8 +34,6 @@ function HomePage() {
 
     if (!portfolio || !history || !investments) return <div>Loading...</div>
 
-    console.log(news)
-
     return (
         <div className="portfolio-page-container">
             <div className="portfolio-page-div">
@@ -48,22 +46,19 @@ function HomePage() {
                             Buying Power
                         </div>
                         <div className="buy-power-amt">
-                            ${portfolio.buying_power}
+                            ${Number(portfolio.buying_power).toFixed(2)}
                         </div>
                     </div>
                     <div className="portfolio-news-div">
                         <div className="news-card-container">
                             {news.map(article => (
-                                <div className="news-card" onClick={() => window.open(article.article_url)}>
+                                <div key={article.title} className="news-card" onClick={() => window.open(article.article_url)}>
                                     <div className="news-info-div">
                                         <div className="news-author bold">
-                                            {article.author}
+                                            {article.publisher.name}
                                         </div>
-                                        <div className="news-title bold">
+                                        <div className="news-title">
                                             {article.title}
-                                        </div>
-                                        <div className="news-description">
-                                            {article.description}
                                         </div>
                                     </div>
                                     <div className="news-img-div">
@@ -74,7 +69,7 @@ function HomePage() {
                         </div>
                     </div>
                 </div>
-                <div className="stock-watchlist-component">
+                <div className="stock-watchlist-component sticky">
                     <InvestWatchlist investments={investments} />
                 </div>
             </div>

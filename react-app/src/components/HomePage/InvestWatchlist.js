@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function InvestWatchlist({ investments }) {
     let investmentsList = Object.values(investments)
@@ -9,12 +10,13 @@ function InvestWatchlist({ investments }) {
                 <div className="inv-container">
                     <div className="list-header">
                         <div className="list-header-text bold">
-                            Stock
+                            Stocks
                         </div>
                     </div>
                     <div className="inv-list">
                         {investmentsList.map(inv => (
-                            <div key={inv.ticker} className="inv-card">
+                            <NavLink key={inv.ticker} to={`/stocks/${inv.ticker}`} style={{ textDecoration: 'none', color: "black" }}>
+                            <div  className="inv-card">
                                 <div className="inv-tick-share">
                                     <div className="stock-ticker bold">
                                         {inv.ticker}
@@ -31,15 +33,16 @@ function InvestWatchlist({ investments }) {
                                         {Number(inv.price_per_share).toFixed(2)}
                                     </div>
                                     <div>
-                                        +5.21%
+                                        +0.00%
                                     </div>
                                 </div>
                             </div>
+                            </NavLink>
                         ))}
                     </div>
                 </div>
                 <div className="watch-container">
-                    <div className="list-header">
+                    <div className="list-header watchlist-header">
                         <div className="list-header-text bold">
                             Lists
                         </div>

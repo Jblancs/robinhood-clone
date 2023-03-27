@@ -5,8 +5,9 @@ from ..utils import current_user_portfolio, print_data
 
 
 def validate_shares(form, field):
-    if field.data < 0:
+    if field.data <= 0:
         raise ValidationError("Not Enough Shares: Enter at least 0.000001 shares.")
+
 
 def validate_cost(form, field):
     portfolio = current_user_portfolio()
