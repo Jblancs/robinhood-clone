@@ -49,13 +49,13 @@ export const createTransaction = (ticker, transactionData) => async (dispatch) =
         body: JSON.stringify(transactionData)
     })
 
-    if (response.ok) {
+
+    if (response) {
         const data = await response.json()
-        if (data.errors) {
+        if (!data.errors) {
+            dispatch(fetchAllTransactions(ticker))
             return data
         }
-
-        dispatch(fetchAllTransactions(ticker))
         return data
     }
 }

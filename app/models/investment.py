@@ -23,6 +23,8 @@ class Investment(db.Model):
 
     @property
     def price_per_share(self):
+        if self.shares == 0:
+            return 0
         return self.value/self.shares
 
     def to_dict(self):

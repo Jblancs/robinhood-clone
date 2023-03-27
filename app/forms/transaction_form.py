@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, DecimalField
+from wtforms import IntegerField, DecimalField, FloatField
 from wtforms.validators import DataRequired, ValidationError
-from ..utils import current_user_portfolio
+from ..utils import current_user_portfolio, print_data
 
 
 def validate_shares(form, field):
@@ -10,14 +10,14 @@ def validate_shares(form, field):
 
 def validate_cost(form, field):
     portfolio = current_user_portfolio()
-    if field.data > portfolio.buying_power:
+    if field.data > portfolio["buying_power"]:
         raise ValidationError("Not Enough Buying Power: You don't have enough buying power in your brokerage account to place this order.")
 
 
 class TransactionBuyForm(FlaskForm):
-    shares = DecimalField('Buy Shares', validators=[DataRequired(), validate_shares])
+    shares = FloatField('Buy Shares', validators=[DataRequired(), validate_shares])
     total_cost = DecimalField('Total Cost', places=2, validators=[DataRequired(), validate_cost])
 
 class TransactionSellForm(FlaskForm):
-    shares = DecimalField('Sell Shares', validators=[DataRequired(), validate_shares, ])
+    shares = FloatField('Sell Shares', validators=[DataRequired(), validate_shares])
     total_cost = DecimalField('Total Credit', places=2, validators=[DataRequired()])

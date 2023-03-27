@@ -24,10 +24,10 @@ export const fetchPortfolio = () => async (dispatch) => {
     const response = await fetch("/api/portfolio/");
 
     if (response.ok) {
-      const data = await response.json();
-      dispatch(getPortfolio(data));
+        const data = await response.json();
+        dispatch(getPortfolio(data));
     }
-  };
+};
 
 export const updatePortfolio = (transactionData) => async (dispatch) => {
     const response = await fetch(`/api/portfolio/`, {
@@ -35,6 +35,10 @@ export const updatePortfolio = (transactionData) => async (dispatch) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(transactionData)
     })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(getPortfolio(data));
+    }
 }
 
 
@@ -42,16 +46,16 @@ export const updatePortfolio = (transactionData) => async (dispatch) => {
 const initialState = {};
 
 export default function portfolioReducer(state = initialState, action) {
-    let newState = {...state}
-	switch (action.type) {
+    let newState = { ...state }
+    switch (action.type) {
         case GET_PORTFOLIO:
             newState.portfolio = action.payload
             return newState
 
         case CLEAR_PORT_STATE:
-            newState = {...initialState}
+            newState = { ...initialState }
 
-		default:
-			return state;
-	}
+        default:
+            return state;
+    }
 }

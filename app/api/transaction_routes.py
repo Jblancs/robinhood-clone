@@ -3,7 +3,7 @@ from app.models import db, Transaction, Portfolio
 from ..forms import TransactionBuyForm, TransactionSellForm
 from datetime import datetime
 from flask_login import current_user
-from ..utils import to_dict_list, form_errors_obj_list
+from ..utils import to_dict_list, form_errors_obj_list, print_data
 
 transaction_routes = Blueprint('transaction', __name__)
 
@@ -43,25 +43,29 @@ def create_transaction(ticker):
     '''
     get a list of current user transactions for a specific stock
     '''
+
     user = current_user.to_dict()
     portfolio_id = user["portfolio"]["id"]
     res = request.get_json()
 
     if res["type"] == "buy":
         form = TransactionBuyForm()
+        form["csrf_token"].data = request.cookies["csrf_token"]
     else:
         form = TransactionSellForm()
+        form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
         new_transaction = Transaction(
             ticker=ticker,
             portfolio_id=portfolio_id,
-            total_cost=res["totalCost"],
+            total_cost=res["total_cost"],
             shares=res["shares"],
+            type=res["type"],
             date=datetime.now()
         )
         db.session.add(new_transaction)
         db.session.commit()
-        return new_transaction
+        return new_transaction.to_dict()
 
     return {'errors': form_errors_obj_list(form.errors)}, 401

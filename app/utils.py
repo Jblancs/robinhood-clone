@@ -34,12 +34,12 @@ def form_errors_obj_list(validation_errors):
 
 # ------------------------------------------------------------------------------
 # for output testing (not for actual functionality use)
-def output_test():
-    user = current_user.to_dict()
-    test_data = Investment.query.filter(
-        Investment.ticker == "AAPL",
-        Investment.portfolio_id == user["portfolio"]["id"]
-        ).first()
+def print_data(test_data):
+    # user = current_user.to_dict()
+    # test_data = Investment.query.filter(
+    #     Investment.ticker == "AAPL",
+    #     Investment.portfolio_id == user["portfolio"]["id"]
+    #     ).first()
 
     print("\n\n\n Output Test: \n\n\n", test_data, "\n\n\n\n")
     return test_data

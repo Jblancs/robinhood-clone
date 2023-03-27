@@ -14,6 +14,7 @@ class Transaction(db.Model):
         add_prefix_for_prod("portfolios.id")), nullable=False)
     total_cost = db.Column(db.Float, nullable=False)
     shares = db.Column(db.Float, nullable=False)
+    type = db.Column(db.String, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
 
     # relationships
@@ -24,7 +25,7 @@ class Transaction(db.Model):
 
     @property
     def price_per_share(self):
-        return self.shares/self.total_cost
+        return self.total_cost/self.shares
 
     def to_dict(self):
         return {
@@ -33,6 +34,7 @@ class Transaction(db.Model):
             'portfolio_id': self.portfolio_id,
             'total_cost': self.total_cost,
             'shares': self.shares,
+            'type': self.type,
             'date': self.date,
             'price_per_share': self.price_per_share
         }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { createInvestment } from "../../store/investment";
+import { createInvestment, updateInvestment, sellAllInvestments } from "../../store/investment";
+import { updatePortfolio } from "../../store/portfolio";
 import { createTransaction } from "../../store/transaction";
 import "./SingleStock.css"
 
@@ -13,13 +14,14 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
     const investment = useSelector(state => state.investments.investments)
 
     useEffect(() => {
-        setAmount((shares * stockData.c).toFixed())
+        setAmount((shares * stockData.c).toFixed(2))
     }, [shares, amount])
 
-
+    console.log(type)
+    
     // Event Handlers -----------------------------------------------------------------------------------------
     const inputHandler = (e) => {
-        setShares(e.target.value)
+        setShares(+e.target.value)
     }
 
     const onClickReviewHandler = () => {
@@ -37,24 +39,41 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
         e.preventDefault()
 
         const transactionData = {
-            shares: type === "buy" ? shares : -shares,
-            totalCost: type === "buy" ? -amount : amount,
+            shares: +shares,
+            total_cost: +amount,
             type: type
         }
 
         const newTransaction = await dispatch(createTransaction(stockTicker, transactionData))
-        if(!newTransaction.errors && !investment){
-            await dispatch(createInvestment(stockTicker, transactionData))
 
+        // for if you BUY and do NOT own the stock
+        if (!newTransaction.errors && !investment && type === "buy") {
+            await dispatch(createInvestment(stockTicker, transactionData))
+            await dispatch(updatePortfolio(transactionData))
+
+        // for if SELL all shares of the stock
+        } else if (!newTransaction.errors && investment[stockTicker].shares === shares && type === "sell"){
+            await dispatch(sellAllInvestments(stockTicker))
+            await dispatch(updatePortfolio(transactionData))
+
+            // for if you BUY and OWN the stock
+        }else if (!newTransaction.errors && investment){
+            await dispatch(updateInvestment(stockTicker, transactionData))
+            await dispatch(updatePortfolio(transactionData))
         }
 
+        setShares(0)
+        setAmount(0)
+        setConfirm(false)
+        setType("buy")
+        setDisableInput(false)
     }
 
     //Sell form button (hidden if you do not own stock) ------------------------------------------------------
     let sellFormButton;
     if (investment) {
         sellFormButton = (
-            <div onClick={() => setType("sell")} className={type === "sell" ? "transaction-btn selected" : "transaction-btn"}>
+            <div onClick={() => !confirm ? setType("sell") : ""} className={type === "sell" ? "transaction-btn selected" : "transaction-btn"}>
                 Sell {stockTicker}
             </div>
         )
@@ -93,63 +112,67 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
         <div className="buy-sell-div">
             <div className="buy-sell-container">
                 <div className="buy-sell-btn-div">
-                    <div onClick={() => setType("buy")} className={type === "buy" ? "transaction-btn selected" : "transaction-btn"}>
+                    <div onClick={() => !confirm ? setType("buy"): ""} className={type === "buy" ? "transaction-btn selected" : "transaction-btn"}>
                         Buy {stockTicker}
                     </div>
                     {sellFormButton}
                 </div>
                 <div className="buy-sell-form-div">
-                    <div className="order-type-div flex-btwn pad20">
-                        <div>
-                            Order Type
+                    <form onSubmit={submitHandler}>
+                        <div className="order-type-div flex-btwn pad20">
+                            <div>
+                                Order Type
+                            </div>
+                            <div>
+                                Market Order
+                                <span className="info-icon bold">i</span>
+                            </div>
                         </div>
-                        <div>
-                            Market Order
-                            <span className="info-icon bold">i</span>
+                        <div className="buy-sell-in-div flex-btwn">
+                            <div className="buy-sell-text">
+                                {type === "buy" ? "Buy In" : "Sell In"}
+                            </div>
+                            <select className="buy-sell-in-select" disabled>
+                                <option>
+                                    Shares
+                                </option>
+                            </select>
                         </div>
-                    </div>
-                    <div className="buy-sell-in-div flex-btwn">
-                        <div className="buy-sell-text">
-                            {type === "buy" ? "Buy In" : "Sell In"}
-                        </div>
-                        <select className="buy-sell-in-select">
-                            <option>
+                        <div className="buy-sell-shares-div flex-btwn pad20">
+                            <div className="buy-sell-text">
                                 Shares
-                            </option>
-                        </select>
-                    </div>
-                    <div className="buy-sell-shares-div flex-btwn pad20">
-                        <div className="buy-sell-text">
-                            Shares
+                            </div>
+                            <input className="shares-input"
+                                onChange={inputHandler}
+                                placeholder="0"
+                                type="number"
+                                name="shares"
+                                disabled={disbleInput}
+                                value={shares} />
                         </div>
-                        <input className="shares-input"
-                            onChange={inputHandler}
-                            placeholder="0"
-                            type="number"
-                            disabled={disbleInput}
-                            value={shares} />
-                    </div>
-                    <div className="buy-sell-price-div flex-btwn">
-                        <div>
-                            Market Price
-                            <span className="info-icon bold">?</span>
+                        <div className="buy-sell-price-div flex-btwn">
+                            <div>
+                                Market Price
+                                <span className="info-icon bold">?</span>
+                            </div>
+                            <div>
+                                ${stockData.c}
+                            </div>
                         </div>
-                        <div>
-                            ${stockData.c}
+                        <div className="buy-sell-cost-div flex-btwn">
+                            <div>
+                                {type === "buy" ? "Estimated Cost" : "Estimated Credit"}
+                            </div>
+                            <div>
+                                ${amount}
+                                <input type="hidden" name="total_cost" value={+amount} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="buy-sell-cost-div flex-btwn">
-                        <div>
-                            {type === "buy" ? "Estimated Cost" : "Estimated Credit"}
-                        </div>
-                        <div>
-                            ${Number(amount).toFixed(2)}
-                        </div>
-                    </div>
-                    {confirmBtn}
+                        {confirmBtn}
+                    </form>
                 </div>
                 <div className="buying-power-div">
-                    {type === "buy" ? `$${Number(portfolio.buying_power).toFixed(2)} buying power available` : `${investment[stockTicker]?.shares} Share(s) available`}
+                    {type === "buy" ? `$${Number(portfolio.buying_power).toFixed(2)} buying power available` : `${investment ? investment[stockTicker].shares : 0} Share(s) available`}
                 </div>
             </div>
         </div>
