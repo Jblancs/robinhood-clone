@@ -3,7 +3,6 @@ import React from "react";
 function InvestWatchlist({ investments }) {
     let investmentsList = Object.values(investments)
 
-    console.log(investmentsList)
     return (
         <div className="inv-watch-div">
             <div className="inv-watch-container">

@@ -60,9 +60,6 @@ export const buildGraph = (chartData, type, days) => {
         }
     }
 
-    console.log(xAxis)
-    console.log(yAxis)
-
     const data = {
         labels: xAxis,
         datasets: [{
@@ -117,4 +114,17 @@ export const getPriceChange = (chartData, stockPrice) => {
     let close = stockPrice
     let change = close - open
     return change
+}
+
+// Get news articles
+// ------------------------------------------------------------------------------
+export const getNewsArticles = async (ticker, setUseState) => {
+
+    const API_KEY = process.env.REACT_APP_API_KEY
+
+    let res = await fetch(`https://api.polygon.io/v2/reference/news?ticker=${ticker}&order=desc&limit=20&sort=published_utc&apiKey=${API_KEY}`)
+    let data = await res.json()
+
+    setUseState(data.results)
+
 }
