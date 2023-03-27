@@ -22,6 +22,7 @@ export const getChartData = async ({ setState, ticker, multiplier, timeSpan, dat
 
     let res = await fetch(`${BASE_URL}aggs/ticker/${ticker}/range/${multiplier}/${timeSpan}/${dateFrom}/${dateTo}?apiKey=${API_KEY}`)
     let data = await res.json()
+
     setState(data.results)
 }
 

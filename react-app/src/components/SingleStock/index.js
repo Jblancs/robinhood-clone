@@ -17,11 +17,11 @@ function SingleStock() {
     const [stockData, setStockData] = useState()
     const dispatch = useDispatch()
     const portfolio = useSelector(state => state.portfolio.portfolio)
-
     useEffect(() => {
         getStockData(stockTicker, setStockData)
     }, [])
 
+    console.log(stockData)
     // get investment and portfolio
     useEffect(() => {
         dispatch(fetchPortfolio())
