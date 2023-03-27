@@ -43,13 +43,21 @@ export const daysAgo = (days) => {
 
 // build chart using stock data
 // ------------------------------------------------------------------------------
-export const buildGraph = (chartData) => {
+export const buildGraph = (chartData, type, days) => {
     const xAxis = []
     const yAxis = []
-    for (let i = 0; i < chartData.length; i++) {
-        let date = new Date(chartData[i]["t"])
-        xAxis.push(date.toUTCString())
-        yAxis.push(chartData[i]["c"])
+    if(type === "stock"){
+        for (let i = 0; i < chartData.length; i++) {
+            let date = new Date(chartData[i]["t"])
+            xAxis.push(date.toUTCString())
+            yAxis.push(chartData[i]["c"])
+        }
+    } else {
+        for (let i = chartData.length-days; i < chartData.length; i++) {
+            let date = chartData[i]["date"]
+            xAxis.push(date)
+            yAxis.push(chartData[i]["value_at_time"])
+        }
     }
 
     const data = {
@@ -72,8 +80,8 @@ export const buildGraph = (chartData) => {
         },
         scales: {
             y: {
-                min: Math.min(...yAxis),
-                max: Math.max(...yAxis),
+                min: type === "stock" ? Math.min(...yAxis) : Math.min(...yAxis)-500,
+                max: type === "stock" ? Math.max(...yAxis) : Math.max(...yAxis)+500,
                 ticks: {
                     display: false
                 },
@@ -106,4 +114,17 @@ export const getPriceChange = (chartData, stockPrice) => {
     let close = stockPrice
     let change = close - open
     return change
+}
+
+// Get news articles
+// ------------------------------------------------------------------------------
+export const getNewsArticles = async (ticker, setUseState) => {
+
+    const API_KEY = process.env.REACT_APP_API_KEY
+
+    let res = await fetch(`https://api.polygon.io/v2/reference/news?ticker=${ticker}&order=desc&limit=20&sort=published_utc&apiKey=${API_KEY}`)
+    let data = await res.json()
+
+    setUseState(data.results)
+
 }

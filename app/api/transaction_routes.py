@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, Transaction, Portfolio
+from app.models import db, Transaction, Portfolio, Investment
 from ..forms import TransactionBuyForm, TransactionSellForm
 from datetime import datetime
 from flask_login import current_user
@@ -15,7 +15,7 @@ def get_current_user_transactions():
     '''
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 
-    transaction_data = Transaction.query.filter(Transaction.portfolio_id == portfolio_id).order_by(Transaction.id).desc()
+    transaction_data = Transaction.query.filter(Transaction.portfolio_id == portfolio_id).order_by(Transaction.id.desc())
     transaction_list = to_dict_list(transaction_data)
 
     return transaction_list

@@ -14,7 +14,8 @@ def get_current_user_investments():
     '''
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 
-    investment_data = Investment.query.filter(Investment.portfolio_id == portfolio_id).order_by(Investment.id).desc()
+    investment_data = Investment.query.filter(Investment.portfolio_id == portfolio_id).order_by(Investment.id.desc())
+
     investment_list = to_dict_list(investment_data)
 
     return investment_list
@@ -47,8 +48,6 @@ def create_new_investment(ticker):
     res = request.get_json()
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 
-    print("\n\n\n\n new investment \n\n\n\n")
-
     new_investment = Investment(
         ticker=ticker.upper(),
         portfolio_id=portfolio_id,
@@ -58,7 +57,6 @@ def create_new_investment(ticker):
     db.session.add(new_investment)
     db.session.commit()
 
-    print("\n\n\n\n new investment \n\n",new_investment.to_dict(),"\n\n")
     return new_investment.to_dict()
 
 # ------------------------------------------------------------------------------
@@ -92,7 +90,6 @@ def delete_investment(ticker):
     '''
     Deletes an investment when selling all shares of a stock you own
     '''
-    print_data(ticker)
 
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 

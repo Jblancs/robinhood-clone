@@ -11,11 +11,13 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
     const [shares, setShares] = useState(0)
     const [amount, setAmount] = useState(0)
     const [confirm, setConfirm] = useState(false)
+    const [errors, setErrors] = useState({})
     const investment = useSelector(state => state.investments.investments)
 
     useEffect(() => {
         setAmount((shares * stockData.c).toFixed(2))
     }, [shares, amount])
+
 
     // Event Handlers -----------------------------------------------------------------------------------------
     const inputHandler = (e) => {
@@ -23,7 +25,27 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
     }
 
     const onClickReviewHandler = () => {
-        setConfirm(true)
+
+        let errorObj = {}
+
+        if (shares <= 0) {
+            errorObj.type = "Not Enough Shares"
+            errorObj.message = "Enter at least 0.000001 shares."
+        }
+        if (investment && type === "sell" && shares > investment[stockTicker].shares) {
+            errorObj.type = "Not Enough Shares"
+            errorObj.message = `You can sell at most ${investment[stockTicker].shares} share(s) of ${stockTicker}`
+        }
+        if (type === "buy" && amount > portfolio.buying_power) {
+            errorObj.type = "Not Enough Buying Power"
+            errorObj.message = "You don't have enough buying power in your brokerage account to place this order."
+        }
+
+        if (Object.values(errorObj).length) {
+            setErrors(errorObj)
+        } else {
+            setConfirm(true)
+        }
         setDisableInput(true)
     }
 
@@ -32,13 +54,20 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
         setDisableInput(false)
     }
 
+    const onClickDismissHandler = () => {
+        setDisableInput(false)
+        setErrors({})
+    }
+
+
     // Submit Order Handle -----------------------------------------------------------------------------------
     const submitHandler = async (e) => {
         e.preventDefault()
+        console.log()
 
         const transactionData = {
-            shares: +shares,
-            total_cost: +amount,
+            shares: Number(shares),
+            total_cost: Number(amount),
             type: type
         }
 
@@ -49,13 +78,13 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
             await dispatch(createInvestment(stockTicker, transactionData))
             await dispatch(updatePortfolio(transactionData))
 
-        // for if SELL all shares of the stock
-        } else if (!newTransaction.errors && investment[stockTicker].shares === shares && type === "sell"){
+            // for if SELL all shares of the stock
+        } else if (!newTransaction.errors && investment[stockTicker].shares === shares && type === "sell") {
             await dispatch(sellAllInvestments(stockTicker))
             await dispatch(updatePortfolio(transactionData))
 
             // for if you BUY and OWN the stock
-        }else if (!newTransaction.errors && investment){
+        } else if (!newTransaction.errors && investment) {
             await dispatch(updateInvestment(stockTicker, transactionData))
             await dispatch(updatePortfolio(transactionData))
         }
@@ -79,13 +108,33 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
 
     // Buy/Sell confirm button -------------------------------------------------------------------------------
     let confirmBtn;
-    if (!confirm) {
+    if (!confirm && !Object.values(errors).length) {
         confirmBtn = (
             <div className="review-button-div">
-                {<button className="review-button" onClick={onClickReviewHandler} >Review Order</button>}
+                {<button className="review-button bold" type="button" onClick={onClickReviewHandler} >Review Order</button>}
             </div>
         )
-    } else {
+
+    }
+    if (Object.values(errors).length) {
+        console.log("errorsBtn if")
+        confirmBtn = (
+            <div>
+                <div>
+                    <div className="error-message-div bold">
+                        <span className="info-icon error-icon bold">!</span>
+                        {errors.type}
+                    </div>
+                    <div className="error-message-div">{errors.message}</div>
+                </div>
+                <div className="review-button-div">
+                    {<button className="review-button bold" type="button" onClick={onClickDismissHandler} >Dismiss</button>}
+                </div>
+            </div>
+        )
+
+    }
+    if (confirm) {
         confirmBtn = (
             <div>
                 <div>
@@ -110,7 +159,7 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
         <div className="buy-sell-div">
             <div className="buy-sell-container">
                 <div className="buy-sell-btn-div">
-                    <div onClick={() => !confirm ? setType("buy"): ""} className={type === "buy" ? "transaction-btn selected" : "transaction-btn"}>
+                    <div onClick={() => !confirm ? setType("buy") : ""} className={type === "buy" ? "transaction-btn selected" : "transaction-btn"}>
                         Buy {stockTicker}
                     </div>
                     {sellFormButton}
@@ -149,19 +198,19 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
                                 value={shares} />
                         </div>
                         <div className="buy-sell-price-div flex-btwn">
-                            <div>
+                            <div className="bold">
                                 Market Price
                                 <span className="info-icon bold">?</span>
                             </div>
-                            <div>
+                            <div className="bold">
                                 ${stockData.c}
-                            </div>
+                            </div >
                         </div>
                         <div className="buy-sell-cost-div flex-btwn">
-                            <div>
+                            <div className="bold">
                                 {type === "buy" ? "Estimated Cost" : "Estimated Credit"}
                             </div>
-                            <div>
+                            <div className="bold">
                                 ${amount}
                                 <input type="hidden" name="total_cost" value={+amount} />
                             </div>

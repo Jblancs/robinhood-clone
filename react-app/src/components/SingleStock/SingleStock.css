@@ -42,8 +42,9 @@
 }
 
 .buy-sell-container {
-    background-color: lightgrey;
-    border: 1px solid gray;
+    /* background-color: lightgrey; */
+    border: 1px solid lightgray;
+    box-shadow: 2px 2px 10px lightgray;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -54,7 +55,7 @@
 .buy-sell-btn-div {
     display: flex;
     width: 100%;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid lightgray;
 
 }
 
@@ -65,8 +66,11 @@
     height: 40px;
     padding: 15px 0px 0px 0px;
     margin: 0px 0px 0px 25px;
-
     cursor: pointer;
+}
+
+.transaction-btn:hover {
+    color: var(--rhood-green);
 }
 
 /* Buy Sell Form ----------------------------------------------------- */
@@ -97,10 +101,18 @@
     border-radius: 100%;
 }
 
+.error-icon{
+    margin: 0px 8px 0px 0px;
+}
+
+.error-message-div{
+    padding-bottom: 15px;
+}
+
 .buying-power-div {
     text-align: center;
     width: 100%;
-    border-top: 1px solid gray;
+    border-top: 1px solid lightgray;
     padding: 20px 0px;
 }
 
@@ -130,6 +142,7 @@
 
 .shares-input {
     border-top: 1px solid gray;
+    background-color: rgba(211, 211, 211, 0.566);
     padding: 0px 15px;
     width: 50%;
     height: 45px;
@@ -139,13 +152,13 @@
 }
 
 .shares-input:hover {
-    background-color: lightgray;
+    background-color: white;
 }
 
 
 .buy-sell-price-div {
     padding: 10px 0px 35px 0px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid lightgray;
 }
 
 .buy-sell-cost-div {
@@ -157,6 +170,7 @@
     /* border: var(--global-border); */
     display: flex;
     justify-content: center;
+
 }
 
 .review-button {
@@ -166,12 +180,13 @@
     box-shadow: 1px 1px 3px gray;
     border-color: gray;
     border-radius: 25px;
+    color: white;
     height: 50px;
     margin-bottom: 25px;
     cursor: pointer;
 }
 
-.review-text{
+.review-text {
     margin: 10px 0px 25px 0px;
 }
 

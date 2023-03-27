@@ -1,72 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux"
+import { buildGraph } from "../../Utils";
 import Chart from 'chart.js/auto';
 import { Line } from 'react-chartjs-2'
 import './HomePage.css'
 
 
+function PortfolioGraph({ history, portfolio }) {
+    let [period, setPeriod] = useState(365)
+    let historyArray = Object.values(history)
 
-
-function PortfolioGraph() {
-
-
-    const xAxis = []
-    const yAxis = []
-
-    for (let i = 1; i <= 100; i++) {
-        xAxis.push(i)
-        yAxis.push(Math.floor(Math.random() * 100))
-    }
-
-    const data = {
-        labels: xAxis,
-        datasets: [{
-            type: "line",
-            labels: "datasets labels",
-            data: yAxis,
-            borderColor: 'lime',
-            pointRadius: 0,
-            pointHoverRadius: 6,
-            fill: false,
-            tension: 0.0,
-        }]
-    }
-
-    const options = {
-        plugins: {
-            legend: false,
-        },
-        scales: {
-            y: {
-                min: -20,
-                max: 150,
-                ticks: {
-                    display: false
-                },
-                grid: {
-                    display: false
-                },
-            },
-            x: {
-                ticks: {
-                    display: false
-                },
-                grid: {
-                    display: false
-                }
-            },
-        },
-    }
+    let graph = buildGraph(historyArray, "portfolio", period)
 
     return (
-        <div className="inv-container">
+        <div className="portfolio-container">
+            <div className="stock-header">
+                <div className="stock-price bold">
+                    ${Number(portfolio.portfolio_total).toFixed(2)}
+                </div>
+                <div className="stock-change">
+                    <span className="price-change bold">
 
-            <div className="inv-chart" >
+                    </span>
+                    <span className="price-period">
+
+                    </span>
+                </div>
+            </div>
+            <div className="portfolio-chart" >
                 <Line
-                    data={data}
-                    options={options}
+                    data={graph.data}
+                    options={graph.options}
                 ></Line>
             </div>
-
+            <div className="stock-chart-btn-container">
+                <button className="chart-btn-1d" onClick={() => setPeriod(7)}>
+                    1W
+                </button>
+                <button className="chart-btn-1d" onClick={() => setPeriod(30)}>
+                    1M
+                </button>
+                <button className="chart-btn-1d" onClick={() => setPeriod(90)}>
+                    3M
+                </button>
+                <button className="chart-btn-1d" onClick={() => setPeriod(365)}>
+                    1Y
+                </button>
+                <button className="chart-btn-1d" onClick={() => setPeriod(1800)}>
+                    ALL
+                </button>
+            </div>
         </div>
     )
 }

@@ -38,6 +38,7 @@ export const clearInvestmentState = () => {
 // Thunk functions --------------------------------------------------------------
 export const fetchAllInvestments = () => async (dispatch) => {
     const response = await fetch("/api/investments/");
+    console.log("investment thunk")
 
     if (response.ok) {
         const data = await response.json();
@@ -110,6 +111,14 @@ const initialState = { investments: null };
 export default function investReducer(state = initialState, action) {
     let newState = { ...state }
     switch (action.type) {
+        case GET_ALL_INVESTMENTS:
+            let investmentList = {}
+            action.payload.forEach((investment) => {
+                investmentList[investment.ticker] = investment
+            })
+            newState.investments = {...investmentList}
+            return newState
+
         case GET_ONE_INVESTMENT:
             let singleInvestment = {}
             singleInvestment[action.payload.ticker] = action.payload
@@ -123,6 +132,7 @@ export default function investReducer(state = initialState, action) {
 
         case CLEAR_INV_STATE:
             return { ...initialState }
+
         default:
             return state;
     }

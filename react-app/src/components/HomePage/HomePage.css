@@ -1,3 +1,158 @@
-.inv-chart {
-    width: 70vw;
+.portfolio-page-container {
+    display: flex;
+    justify-content: center;
+
+}
+
+.portfolio-page-div {
+    width: 1300px;
+    display: flex;
+}
+
+.portfolio-info-div {
+    width: 70%;
+    /* border: var(--global-border); */
+}
+
+.portfolio-name {
+    font-size: 30px;
+}
+
+.portfolio-price {
+    font-size: 30px;
+}
+
+.portfolio-change {
+    padding: 5px 0px;
+}
+
+
+/* Graph ---------------------------------------- */
+.portfolio-graph-div {
+    padding-bottom: 20px;
+}
+
+/* Inv and Watchlist ---------------------------------------- */
+.sticky {
+    position: sticky;
+    top: 0;
+}
+
+.stock-watchlist-component {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    padding-left: 20px;
+    /* border: var(--global-border); */
+}
+
+.inv-watch-div {
+    width: 90%;
+}
+
+.inv-watch-container {
+    border: 1px solid gray;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-header {
+    border-bottom: 1px solid gray;
+    /* border-top: 1px solid gray; */
+    padding: 10px 20px 10px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.watchlist-header {
+    border-top: 1px solid gray;
+    ;
+}
+
+/* Investment Card ---------------------------------------- */
+
+.inv-list {
+    padding: 10px 20px 10px 20px;
+}
+
+.inv-card {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+}
+
+/* .inv-card:hover {
+    background-color: var(--global-gray);
+} */
+
+.graph-img-placeholder {
+    width: 80px;
+    height: 40px;
+}
+
+/* WatchList Card ---------------------------------------- */
+
+.watch-list {
+    padding: 10px 20px 10px 20px;
+}
+
+/* Buying power ---------------------------------------- */
+.buy-power-div {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0px;
+    font-size: 20px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
+    cursor: pointer;
+}
+
+.buy-power-div:hover {
+    background-color: var(--global-gray);
+}
+
+/* News Card ---------------------------------------- */
+.news-img {
+    width: 150px;
+    height: 100px;
+}
+
+.news-card {
+    border-bottom: 1px solid gray;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
+}
+
+.news-card:hover {
+    background-color: var(--global-gray);
+}
+
+.news-info-div {
+    padding-right: 30px;
+}
+
+.news-author {
+    padding: 10px 0px;
+
+}
+
+.news-title {
+    padding: 10px 0px;
+}
+
+
+.news-img-div {
+    display: flex;
+    align-items: center;
+}
+
+.news-img {
+    border-radius: 10px;
 }
