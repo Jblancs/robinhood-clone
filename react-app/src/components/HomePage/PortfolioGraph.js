@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Chart from 'chart.js/auto';
 import { Line } from 'react-chartjs-2'
-import './investing.css'
+import './HomePage.css'
 
 
 
 
-function Investing() {
-
-    // const exampleQuery = `aggs/ticker/${ticker}/range/${multiplier}/${timespan}/${from}/${to}`
-    // const query1D = `aggs/ticker/${ticker}/range/5/minute/${from}/${to}`
-    // const query1W = `aggs/ticker/${ticker}/range/10/minute/${from}/${to}`
-    // const query1M = `aggs/ticker/${ticker}/range/1/hour/${from}/${to}`
-    // const query3M = `aggs/ticker/${ticker}/range/1/day/${from}/${to}`
-    // const queryYTD = `aggs/ticker/${ticker}/range/1/day/${from}/${to}`
-    // const query1Y = `aggs/ticker/${ticker}/range/1/day/${from}/${to}`
-    // const queryALL = `aggs/ticker/${ticker}/range/7/day/${from}/${to}`
+function PortfolioGraph() {
 
 
     const xAxis = []
@@ -32,7 +23,7 @@ function Investing() {
             type: "line",
             labels: "datasets labels",
             data: yAxis,
-            borderColor: 'lime', //
+            borderColor: 'lime',
             pointRadius: 0,
             pointHoverRadius: 6,
             fill: false,
@@ -42,7 +33,7 @@ function Investing() {
 
     const options = {
         plugins: {
-            legend: false
+            legend: false,
         },
         scales: {
             y: {
@@ -53,7 +44,7 @@ function Investing() {
                 },
                 grid: {
                     display: false
-                }
+                },
             },
             x: {
                 ticks: {
@@ -63,7 +54,7 @@ function Investing() {
                     display: false
                 }
             },
-        }
+        },
     }
 
     return (
@@ -80,4 +71,4 @@ function Investing() {
     )
 }
 
-export default Investing
+export default PortfolioGraph

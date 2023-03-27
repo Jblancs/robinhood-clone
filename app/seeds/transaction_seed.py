@@ -12,6 +12,7 @@ def seed_transaction():
             portfolio_id=portfolio_id,
             total_cost=150,
             shares=1,
+            type="buy",
             date=datetime(2023, 1, 21)
         )
         transaction_list.append(transaction)

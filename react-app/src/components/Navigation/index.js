@@ -24,6 +24,9 @@ function Navigation({ isLoaded }) {
 				<div className='nav-investing bold navhover'>
 					<NavLink exact to="/" style={{ textDecoration: "none", color: "black" }}>Investing</NavLink>
 				</div>
+				<div className='nav-notif bold navhover'>
+					<div className='nav-investing bold navhover'>Notifications</div>
+				</div>
 				{isLoaded && (
 					<div>
 						<ProfileButton user={sessionUser} />

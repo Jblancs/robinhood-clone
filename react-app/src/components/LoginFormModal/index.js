@@ -21,12 +21,10 @@ function LoginFormModal() {
     }
   };
 
-  console.log(errors)
-
   const handleDemoClick = async () => {
     setPassword("password")
     setEmail("demo@aa.io")
-    const data = await dispatch(login("demo@aa.io", "password"))
+    await dispatch(login("demo@aa.io", "password"))
     closeModal()
   }
 

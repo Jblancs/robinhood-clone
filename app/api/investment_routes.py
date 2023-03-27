@@ -3,7 +3,7 @@ from app.models import Stock, db, Transaction, Investment, Portfolio
 from ..forms import TransactionBuyForm, TransactionSellForm
 from datetime import datetime
 from flask_login import current_user
-from ..utils import to_dict_list, form_errors_obj_list
+from ..utils import to_dict_list, form_errors_obj_list, print_data
 
 investment_routes = Blueprint('investment', __name__)
 
@@ -29,14 +29,14 @@ def get_investment_by_ticker(ticker):
 
     investment_data = Investment.query.filter(
         Investment.portfolio_id == portfolio_id,
-        Investment.ticker == ticker
+        Investment.ticker == ticker.upper()
         ).first()
 
     if investment_data:
         investment = investment_data.to_dict()
         return investment
     else:
-        return {"message": "You do not own this stock"}
+        return {"error": "You do not own this stock"}
 
 # ------------------------------------------------------------------------------
 @investment_routes.route("/<string:ticker>", methods=["POST"])
@@ -47,8 +47,10 @@ def create_new_investment(ticker):
     res = request.get_json()
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 
+    print("\n\n\n\n new investment \n\n\n\n")
+
     new_investment = Investment(
-        ticker=ticker,
+        ticker=ticker.upper(),
         portfolio_id=portfolio_id,
         value=res["total_cost"],
         shares=res["shares"],
@@ -56,6 +58,7 @@ def create_new_investment(ticker):
     db.session.add(new_investment)
     db.session.commit()
 
+    print("\n\n\n\n new investment \n\n",new_investment.to_dict(),"\n\n")
     return new_investment.to_dict()
 
 # ------------------------------------------------------------------------------
@@ -69,13 +72,18 @@ def update_investment(ticker):
 
     investment = Investment.query.filter(
         Investment.portfolio_id == portfolio_id,
-        Investment.ticker == ticker
+        Investment.ticker == ticker.upper()
         ).one()
 
-    investment.value = investment["value"] + res["total_cost"]
-    investment.shares = investment["shares"] + res["shares"]
+    if res["type"] == "buy":
+        investment.value = investment.value + res["total_cost"]
+        investment.shares = investment.shares + res["shares"]
+        db.session.commit()
+    else:
+        investment.value = investment.value - res["total_cost"]
+        investment.shares = investment.shares - res["shares"]
+        db.session.commit()
 
-    db.session.commit()
     return investment.to_dict()
 
 # ------------------------------------------------------------------------------
@@ -84,13 +92,15 @@ def delete_investment(ticker):
     '''
     Deletes an investment when selling all shares of a stock you own
     '''
+    print_data(ticker)
 
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 
     investment = Investment.query.filter(
         Investment.portfolio_id == portfolio_id,
         Investment.ticker == ticker
-        ).one()
+        ).first()
+
 
     db.session.delete(investment)
 

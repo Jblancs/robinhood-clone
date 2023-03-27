@@ -13,10 +13,6 @@
 
 /* Multi-class css -------------------------------------- */
 
-.bold {
-  font-weight: bold;
-}
-
 .navhover:hover {
   filter: var(--global-orange-filter)
 }
@@ -40,7 +36,7 @@
   align-items: center;
   justify-content: space-around;
   border-radius: 5px;
-  margin: 5px 0 0 50px;
+  margin: 5px 0 0 10px;
   width: 40vw;
   height: 40px;
 }
@@ -67,13 +63,18 @@
   display: flex;
   justify-content: space-around;
   align-content: center;
-  width: 25vw;
-  padding-top: 8px;
+  width: 330px;
+  padding: 11px 0px 30px 0px;
+
 }
 
 .nav-investing {
   font-family: var(--global-font);
   font-size: var(--global-font-size);
+}
+
+.nav-notif{
+  cursor: pointer;
 }
 
 .profile-account-btn {

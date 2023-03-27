@@ -77,7 +77,7 @@ def upgrade():
                     sa.Column('ticker', sa.String(), nullable=False),
                     sa.Column('portfolio_id', sa.Integer(), nullable=False),
                     sa.Column('value', sa.Float(), nullable=False),
-                    sa.Column('shares', sa.Integer(), nullable=False),
+                    sa.Column('shares', sa.Float(), nullable=False),
                     sa.ForeignKeyConstraint(
                         ['portfolio_id'], ['portfolios.id'], ),
                     sa.ForeignKeyConstraint(['ticker'], ['stocks.ticker'], ),
@@ -105,7 +105,8 @@ def upgrade():
                     sa.Column('ticker', sa.String(), nullable=False),
                     sa.Column('portfolio_id', sa.Integer(), nullable=False),
                     sa.Column('total_cost', sa.Float(), nullable=False),
-                    sa.Column('shares', sa.Integer(), nullable=False),
+                    sa.Column('shares', sa.Float(), nullable=False),
+                    sa.Column('type', sa.String(), nullable=False),
                     sa.Column('date', sa.DateTime(), nullable=False),
                     sa.ForeignKeyConstraint(
                         ['portfolio_id'], ['portfolios.id'], ),
