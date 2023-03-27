@@ -43,14 +43,25 @@ export const daysAgo = (days) => {
 
 // build chart using stock data
 // ------------------------------------------------------------------------------
-export const buildGraph = (chartData) => {
+export const buildGraph = (chartData, type, days) => {
     const xAxis = []
     const yAxis = []
-    for (let i = 0; i < chartData.length; i++) {
-        let date = new Date(chartData[i]["t"])
-        xAxis.push(date.toUTCString())
-        yAxis.push(chartData[i]["c"])
+    if(type === "stock"){
+        for (let i = 0; i < chartData.length; i++) {
+            let date = new Date(chartData[i]["t"])
+            xAxis.push(date.toUTCString())
+            yAxis.push(chartData[i]["c"])
+        }
+    } else {
+        for (let i = 0; i < days; i++) {
+            let date = chartData[i]["date"]
+            xAxis.push(date)
+            yAxis.push(chartData[i]["value_at_time"])
+        }
     }
+
+    console.log(xAxis)
+    console.log(yAxis)
 
     const data = {
         labels: xAxis,
@@ -72,8 +83,8 @@ export const buildGraph = (chartData) => {
         },
         scales: {
             y: {
-                min: Math.min(...yAxis),
-                max: Math.max(...yAxis),
+                min: type === "stock" ? Math.min(...yAxis) : Math.min(...yAxis)-500,
+                max: type === "stock" ? Math.max(...yAxis) : Math.max(...yAxis)+500,
                 ticks: {
                     display: false
                 },

@@ -28,7 +28,7 @@ function SingleStockGraph({ stockData, stockTicker }) {
     if (!chartData.length) return <div>Loading...</div>
 
     // builds chart based on stockData
-    let graph = buildGraph(chartData)
+    let graph = buildGraph(chartData, "stock")
 
     // calculates price change
     const priceChange = getPriceChange(chartData, stockData.c)

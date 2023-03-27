@@ -4,12 +4,14 @@ import investReducer from './investment';
 import portfolioReducer from './portfolio';
 import session from './session'
 import transactionReducer from './transaction';
+import historyReducer from './portfolioHistory';
 
 const rootReducer = combineReducers({
   session,
   portfolio: portfolioReducer,
   investments: investReducer,
-  transactions: transactionReducer
+  transactions: transactionReducer,
+  history: historyReducer,
 });
 
 

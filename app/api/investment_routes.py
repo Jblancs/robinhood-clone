@@ -14,7 +14,10 @@ def get_current_user_investments():
     '''
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 
-    investment_data = Investment.query.filter(Investment.portfolio_id == portfolio_id).order_by(Investment.id).desc()
+    investment_data = Investment.query.filter(Investment.portfolio_id == portfolio_id).order_by(Investment.id.desc())
+
+    print_data(investment_data)
+
     investment_list = to_dict_list(investment_data)
 
     return investment_list

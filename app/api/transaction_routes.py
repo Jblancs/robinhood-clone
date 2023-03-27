@@ -15,7 +15,7 @@ def get_current_user_transactions():
     '''
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 
-    transaction_data = Transaction.query.filter(Transaction.portfolio_id == portfolio_id).order_by(Transaction.id).desc()
+    transaction_data = Transaction.query.filter(Transaction.portfolio_id == portfolio_id).order_by(Transaction.id.desc())
     transaction_list = to_dict_list(transaction_data)
 
     return transaction_list

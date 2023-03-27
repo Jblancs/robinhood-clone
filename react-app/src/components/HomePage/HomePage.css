@@ -1,3 +1,39 @@
-.inv-chart {
-    width: 70vw;
+.portfolio-page-container {
+    display: flex;
+    justify-content: center;
+
 }
+
+.portfolio-page-div {
+    width: 1300px;
+    display: flex;
+}
+
+.portfolio-info-div {
+    width: 70%;
+    /* border: var(--global-border); */
+}
+
+.portfolio-name {
+    font-size: 30px;
+}
+
+.portfolio-price {
+    font-size: 30px;
+}
+
+.portfolio-change {
+    padding: 5px 0px;
+}
+
+
+
+/* Buy and Sell Component ---------------------------------------- */
+.stock-watchlist-component {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    padding-left: 20px;
+    /* border: var(--global-border); */
+}
+
