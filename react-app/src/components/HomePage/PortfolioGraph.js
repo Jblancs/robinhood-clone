@@ -7,7 +7,7 @@ import './HomePage.css'
 
 
 function PortfolioGraph({ history, portfolio }) {
-    let [period, setPeriod] = useState(7)
+    let [period, setPeriod] = useState(365)
     let historyArray = Object.values(history)
 
     let graph = buildGraph(historyArray, "portfolio", period)

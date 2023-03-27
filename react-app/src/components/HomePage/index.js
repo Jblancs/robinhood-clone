@@ -5,6 +5,7 @@ import { clearPortfolioState, fetchPortfolio } from "../../store/portfolio";
 import { clearInvestmentState, fetchAllInvestments } from "../../store/investment";
 import { fetchHistory, clearHistoryState } from "../../store/portfolioHistory";
 import './HomePage.css'
+import InvestWatchlist from "./Watchlist";
 
 
 function HomePage() {
@@ -40,7 +41,7 @@ function HomePage() {
                     </div>
                 </div>
                 <div className="stock-watchlist-component">
-
+                    <InvestWatchlist investments={investments}/>
                 </div>
             </div>
         </div>

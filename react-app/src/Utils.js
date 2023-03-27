@@ -53,7 +53,7 @@ export const buildGraph = (chartData, type, days) => {
             yAxis.push(chartData[i]["c"])
         }
     } else {
-        for (let i = 0; i < days; i++) {
+        for (let i = chartData.length-days; i < chartData.length; i++) {
             let date = chartData[i]["date"]
             xAxis.push(date)
             yAxis.push(chartData[i]["value_at_time"])
