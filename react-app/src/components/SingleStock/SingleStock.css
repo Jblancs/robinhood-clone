@@ -14,6 +14,8 @@
     /* border: var(--global-border); */
 }
 
+/* Stock Graph Component ---------------------------------------- */
+
 .stock-name {
     font-size: 30px;
 }
@@ -26,7 +28,9 @@
     padding: 5px 0px;
 }
 
-
+.stock-volume{
+    padding: 20px 0px;
+}
 
 /* Buy and Sell Component ---------------------------------------- */
 .stock-buy-sell-component {
@@ -128,10 +132,11 @@
     height: 50px;
     font-size: 18px;
     border-radius: 5px;
-    background-image: url("./double-triangle-icon2.png");
+    background-image: url("./triangle-icon2.png");
     background-repeat: no-repeat;
     background-position: right .7rem top 50%;
     background-size: 1rem auto;
+    cursor: not-allowed;
     transition-timing-function: ease-in-out;
     transition-duration: 500ms;
 }
@@ -196,4 +201,70 @@
 
 .review-button:hover {
     filter: grayscale(20%);
+}
+
+/* Investment Info ----------------------------------------------------- */
+
+.stock-inv-display-div{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.stock-mrkt-div{
+    width: 42%;
+    padding: 30px;
+    /* margin: 10px; */
+    border: 1px solid lightgray;
+    border-radius: 4px;
+}
+
+.mrkt-inv-val{
+    font-size: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.mrkt-inv-val-info{
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dollar-change{
+    padding-right: 5px;
+}
+
+/* Stock About Info ----------------------------------------------------- */
+
+.stock-info-title{
+    font-size: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgray;
+}
+
+.stock-info-desc{
+    padding: 20px 0px;
+}
+
+.stock-info-other-div{
+    display: flex;
+    padding-bottom: 40px;
+}
+
+.stock-info-other-card{
+    width: 20%;
+}
+
+/* Stock Transaction Info ----------------------------------------------------- */
+
+.trans-hist-card{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+    padding: 20px 0px;
+}
+
+.trans-price-info{
+    text-align: right;
 }

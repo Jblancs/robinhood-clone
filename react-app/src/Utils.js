@@ -109,11 +109,22 @@ export const buildGraph = (chartData, type, days) => {
 
 // Get change in stock price
 // ------------------------------------------------------------------------------
-export const getPriceChange = (chartData, stockPrice) => {
-    let open = chartData[0].o
-    let close = stockPrice
-    let change = close - open
-    return change
+export const getPriceChange = (data, stockPrice, type) => {
+    if(type === "chart"){
+        let open = data[0].o
+        let close = stockPrice
+        let change = close - open
+        return change
+    }
+    if(type === "investment"){
+        return Number(stockPrice - data).toFixed(2)
+    }
+}
+
+// Get change in stock price
+// ------------------------------------------------------------------------------
+export const getMarketValue = (stockData, investment, ticker) => {
+    return Number(stockData.c * investment[ticker].shares).toFixed(2)
 }
 
 // Get news articles
@@ -128,3 +139,22 @@ export const getNewsArticles = async (ticker, setUseState) => {
     setUseState(data.results)
 
 }
+
+// Get news articles
+// ------------------------------------------------------------------------------
+export const getStockInfo = async (ticker, setUseState) => {
+    const API_KEY = process.env.REACT_APP_API_KEY
+    let res = await fetch(`https://api.polygon.io/v3/reference/tickers/${ticker}?apiKey=${API_KEY}`)
+    let data = await res.json()
+
+    setUseState(data.results)
+}
+
+
+// let top50 = [
+//     "AAPL","MSFT","GOOGL","AMZN","BRK-A","NVDA","TSLA","META","JNJ","TSM",
+//     "V","UNH","XOM","WMT","JPM","PG","MA","LLY","CVX","HD","ABBV","MRK",
+//     "KO","NVO","AVGO","ASML","PEP","ORCL","BABA","BAC","PFE","COST","TMO",
+//     "AZN","CSCO","MCD","NVS","CRM","TM","NKE","ACN","DHR","TMUS","ABT","LIN",
+//     "ADBE","DIS","TXN","UPS","VZ",
+//     ]

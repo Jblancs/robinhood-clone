@@ -193,6 +193,7 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
                                 onChange={inputHandler}
                                 placeholder="0"
                                 type="number"
+                                step="any"
                                 name="shares"
                                 disabled={disbleInput}
                                 value={shares} />
