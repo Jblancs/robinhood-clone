@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 71834f9ceabc
+Revision ID: 743fda803e1c
 Revises:
-Create Date: 2023-03-28 22:25:51.853280
+Create Date: 2023-03-29 11:13:22.419304
 
 """
 from alembic import op
@@ -12,9 +12,8 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
-
 # revision identifiers, used by Alembic.
-revision = '71834f9ceabc'
+revision = '743fda803e1c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -93,7 +92,7 @@ def upgrade():
     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE portfolio_histories SET SCHEMA {SCHEMA};")
 
     op.create_table('transactions',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -128,6 +127,7 @@ def upgrade():
     sa.Column('ticker', sa.String(), nullable=False),
     sa.ForeignKeyConstraint(['ticker'], ['stocks.ticker'], ),
     sa.ForeignKeyConstraint(['watchlist_id'], ['watchlists.id'], ),
+    sa.ForeignKeyConstraint(['watchlist_id'], ['watchlists.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('watchlist_id', 'ticker')
     )
 

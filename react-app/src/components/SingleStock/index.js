@@ -52,7 +52,7 @@ function SingleStock() {
         history.push("/")
     }
 
-    if (!stockData || !portfolio || !stock || stockData === "error") return <div>Loading...</div>
+    if (!stockData || !portfolio || !stock || stockData === "error") return <div className="loading">Loading...</div>
     // if stock is not in db then add it ------------------------------------------------------------------------
 
 
