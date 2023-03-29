@@ -10,8 +10,10 @@ export const getStockData = async (ticker, setUseState) => {
     let data = await res.json()
     if (data.results) {
         setUseState(data.results[0])
+        return null
     } else {
         setUseState("error")
+        return null
     }
 
 }
@@ -28,8 +30,10 @@ export const getChartData = async ({ setState, ticker, multiplier, timeSpan, dat
 
     if (data.results) {
         setState(data.results)
+        return null
     } else {
         setState("error")
+        return null
     }
 }
 
@@ -144,6 +148,7 @@ export const getNewsArticles = async (ticker, setUseState) => {
     let data = await res.json()
 
     setUseState(data.results)
+    return null
 
 }
 
@@ -155,8 +160,10 @@ export const getStockInfo = async (ticker, setUseState) => {
     let data = await res.json()
     if (data.results) {
         setUseState(data.results)
+        return
     } else {
         setUseState("error")
+        return null
     }
 }
 

@@ -27,6 +27,7 @@ export const fetchHistory = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getPortfolioHistory(data));
+        return
     }
 };
 

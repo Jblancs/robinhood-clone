@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { getMarketValue, getPriceChange, getStockData, getStockInfo } from "../../Utils";
 import SingleStockGraph from "./SingleStockGraph";
 import "./SingleStock.css"
@@ -14,6 +14,7 @@ import { addStock, clearStockState, fetchStock } from "../../store/stock";
 
 function SingleStock() {
     const dispatch = useDispatch()
+    const history = useHistory()
     const { ticker } = useParams()
     let stockTicker = ticker.toUpperCase()
 
@@ -32,15 +33,12 @@ function SingleStock() {
         getStockInfo(stockTicker, setStockAboutInfo)
     }, [])
 
-
-
     // get investment and portfolio ------------------------------------------------------------------------------
     useEffect(() => {
         dispatch(fetchPortfolio())
         dispatch(fetchStockInvestment(stockTicker))
         dispatch(fetchAllTransactions(stockTicker))
         dispatch(fetchStock(stockTicker))
-        console.log("useEffect stock useselector", stock)
         return () => {
             dispatch(clearInvestmentState())
             dispatch(clearTransactionState())
@@ -49,13 +47,16 @@ function SingleStock() {
         }
     }, [dispatch])
 
-    if (!stockData || !portfolio || !stock) return <div>Loading...</div>
+    // redirect if stock doesn't exist --------------------------------------------------------------------------
+    if (stockData === "error"){
+        history.push("/")
+    }
 
+    if (!stockData || !portfolio || !stock || stockData === "error") return <div>Loading...</div>
     // if stock is not in db then add it ------------------------------------------------------------------------
-    console.log("stock useSelector",stock)
-    console.log("stock data",stockAboutInfo)
 
-    if (stock.error){
+
+    if (stock.error) {
         let stockInfo = {
             ticker: stockTicker,
             name: stockAboutInfo?.name,
@@ -65,12 +66,10 @@ function SingleStock() {
         }
 
         const addStockInfo = async (stockPayload) => {
-            console.log("adding stock...")
             let returnData = await dispatch(addStock(stockPayload))
-            console.log("return from dispatch",returnData)
         }
+
         addStockInfo(stockInfo)
-        console.log(stockInfo)
     }
 
 
@@ -170,7 +169,7 @@ function SingleStock() {
                         <div className="stock-info-title bold">
                             History
                         </div>
-                        <TransactionHistory transactions={transactions} stockTicker={stockTicker}/>
+                        <TransactionHistory transactions={transactions} stockTicker={stockTicker} />
                     </div>
                 </div>
                 <div className="stock-buy-sell-component">

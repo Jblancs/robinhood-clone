@@ -26,6 +26,7 @@ export const fetchPortfolio = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getPortfolio(data));
+        return
     }
 };
 

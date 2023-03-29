@@ -39,6 +39,7 @@ export const fetchAllTransactions = (ticker) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getAllTransactions(data));
+        return
     }
 };
 

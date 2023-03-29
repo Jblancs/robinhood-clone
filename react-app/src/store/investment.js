@@ -54,6 +54,7 @@ export const fetchStockInvestment = (ticker) => async (dispatch) => {
             return
         }
         dispatch(getOneInvestment(data));
+        return
     }
 };
 
