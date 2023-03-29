@@ -56,7 +56,7 @@ def upgrade():
     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE portfolios SET SCHEMA {SCHEMA};")
 
     op.create_table('watchlists',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -67,7 +67,7 @@ def upgrade():
     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE production SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE watchlists SET SCHEMA {SCHEMA};")
 
     op.create_table('investments',
     sa.Column('id', sa.Integer(), nullable=False),
