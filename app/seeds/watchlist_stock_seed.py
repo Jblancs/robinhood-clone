@@ -7,7 +7,6 @@ import random
 
 def seed_watchlist_stock():
 
-    join_list = []
     for id in range(1, 4):
 
         watch = insert(watchlists_stocks).values(

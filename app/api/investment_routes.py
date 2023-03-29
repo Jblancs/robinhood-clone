@@ -97,7 +97,6 @@ def delete_investment(ticker):
         Investment.portfolio_id == portfolio_id,
         Investment.ticker == ticker
         ).first()
-    print_data("delete route", investment)
 
     db.session.delete(investment)
     db.session.commit()
