@@ -26,11 +26,12 @@ export const fetchStock = (ticker) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getStock(data));
+        return
     }
 };
 
 export const addStock = (stockData) => async (dispatch) => {
-    console.log("from thunk",stockData)
+    console.log("from thunk", stockData)
     const response = await fetch(`/api/stock/`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -45,7 +46,7 @@ export const addStock = (stockData) => async (dispatch) => {
 
 
 // Reducer function -------------------------------------------------------------
-const initialState = {stock: null};
+const initialState = { stock: null };
 
 export default function stockReducer(state = initialState, action) {
     let newState = { ...state }
