@@ -8,8 +8,11 @@ export const getStockData = async (ticker, setUseState) => {
 
     let res = await fetch(`https://api.polygon.io/v2/aggs/ticker/${ticker}/prev?adjusted=true&apiKey=${API_KEY}`)
     let data = await res.json()
-
-    setUseState(data.results[0])
+    if (data.results) {
+        setUseState(data.results[0])
+    } else {
+        setUseState("error")
+    }
 
 }
 
@@ -23,7 +26,11 @@ export const getChartData = async ({ setState, ticker, multiplier, timeSpan, dat
     let res = await fetch(`${BASE_URL}aggs/ticker/${ticker}/range/${multiplier}/${timeSpan}/${dateFrom}/${dateTo}?apiKey=${API_KEY}`)
     let data = await res.json()
 
-    setState(data.results)
+    if (data.results) {
+        setState(data.results)
+    } else {
+        setState("error")
+    }
 }
 
 // get todays date
@@ -46,14 +53,14 @@ export const daysAgo = (days) => {
 export const buildGraph = (chartData, type, days) => {
     const xAxis = []
     const yAxis = []
-    if(type === "stock"){
+    if (type === "stock") {
         for (let i = 0; i < chartData.length; i++) {
             let date = new Date(chartData[i]["t"])
             xAxis.push(date.toUTCString())
             yAxis.push(chartData[i]["c"])
         }
     } else {
-        for (let i = chartData.length-days; i < chartData.length; i++) {
+        for (let i = chartData.length - days; i < chartData.length; i++) {
             let date = chartData[i]["date"]
             xAxis.push(date)
             yAxis.push(chartData[i]["value_at_time"])
@@ -80,8 +87,8 @@ export const buildGraph = (chartData, type, days) => {
         },
         scales: {
             y: {
-                min: type === "stock" ? Math.min(...yAxis) : Math.min(...yAxis)-500,
-                max: type === "stock" ? Math.max(...yAxis) : Math.max(...yAxis)+500,
+                min: type === "stock" ? Math.min(...yAxis) : Math.min(...yAxis) - 500,
+                max: type === "stock" ? Math.max(...yAxis) : Math.max(...yAxis) + 500,
                 ticks: {
                     display: false
                 },
@@ -110,13 +117,13 @@ export const buildGraph = (chartData, type, days) => {
 // Get change in stock price
 // ------------------------------------------------------------------------------
 export const getPriceChange = (data, stockPrice, type) => {
-    if(type === "chart"){
+    if (type === "chart") {
         let open = data[0].o
         let close = stockPrice
         let change = close - open
         return change
     }
-    if(type === "investment"){
+    if (type === "investment") {
         return Number(stockPrice - data).toFixed(2)
     }
 }
@@ -146,8 +153,11 @@ export const getStockInfo = async (ticker, setUseState) => {
     const API_KEY = process.env.REACT_APP_API_KEY
     let res = await fetch(`https://api.polygon.io/v3/reference/tickers/${ticker}?apiKey=${API_KEY}`)
     let data = await res.json()
-
-    setUseState(data.results)
+    if (data.results) {
+        setUseState(data.results)
+    } else {
+        setUseState("error")
+    }
 }
 
 

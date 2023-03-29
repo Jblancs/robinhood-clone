@@ -5,6 +5,7 @@ import portfolioReducer from './portfolio';
 import session from './session'
 import transactionReducer from './transaction';
 import historyReducer from './portfolioHistory';
+import stockReducer from './stock';
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   investments: investReducer,
   transactions: transactionReducer,
   history: historyReducer,
+  stock: stockReducer
 });
 
 

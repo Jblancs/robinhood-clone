@@ -213,7 +213,7 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
                             </div>
                             <div className="bold">
                                 ${amount}
-                                <input type="hidden" name="total_cost" value={+amount} />
+                                <input type="hidden" name="total_cost" value={Number(amount).toFixed(2)} />
                             </div>
                         </div>
                         {confirmBtn}

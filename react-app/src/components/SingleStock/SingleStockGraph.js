@@ -65,7 +65,7 @@ function SingleStockGraph({ stockData, stockTicker, stockAboutInfo }) {
                     {stockTicker}
                 </div>
                 <div className="stock-price bold">
-                    ${stockData.c}
+                    ${Number(stockData.c).toFixed(2)}
                 </div>
                 <div className="stock-change">
                     <span className="price-change bold">
