@@ -38,7 +38,6 @@ export const clearInvestmentState = () => {
 // Thunk functions --------------------------------------------------------------
 export const fetchAllInvestments = () => async (dispatch) => {
     const response = await fetch("/api/investments/");
-    console.log("investment thunk")
 
     if (response.ok) {
         const data = await response.json();

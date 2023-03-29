@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2'
 import { getChartData, prevCloseDate, daysAgo, buildGraph, getPriceChange } from "../../Utils";
 
 
-function SingleStockGraph({ stockData, stockTicker }) {
+function SingleStockGraph({ stockData, stockTicker, stockAboutInfo }) {
     const prevClose = prevCloseDate(stockData.t)
     const oneWeekAgo = daysAgo(7)
     const [chartData, setChartData] = useState([]) // array of stockData over time period
@@ -31,19 +31,19 @@ function SingleStockGraph({ stockData, stockTicker }) {
     let graph = buildGraph(chartData, "stock")
 
     // calculates price change
-    const priceChange = getPriceChange(chartData, stockData.c)
+    const priceChange = getPriceChange(chartData, stockData.c, "chart")
     let change;
 
     if (priceChange < 0) {
         change = (
             <span className="price-change">
-                {`-$${Math.abs(priceChange).toFixed(2)} (-${Math.abs(priceChange / stockData.c).toFixed(2)}%) `}
+                {`-$${Math.abs(priceChange).toFixed(2)} (-${Math.abs(priceChange / stockData.c * 100).toFixed(2)}%) `}
             </span>
         )
     } else {
         change = (
             <span className="price-change">
-                {`+$${Math.abs(priceChange).toFixed(2)} (+${Math.abs(priceChange / stockData.c).toFixed(2)}%) `}
+                {`+$${Math.abs(priceChange).toFixed(2)} (+${Math.abs(priceChange / stockData.c * 100).toFixed(2)}%) `}
             </span>
         )
     }
@@ -65,7 +65,7 @@ function SingleStockGraph({ stockData, stockTicker }) {
                     {stockTicker}
                 </div>
                 <div className="stock-price bold">
-                    ${stockData.c}
+                    ${Number(stockData.c).toFixed(2)}
                 </div>
                 <div className="stock-change">
                     <span className="price-change bold">

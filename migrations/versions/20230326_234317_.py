@@ -26,8 +26,7 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('description', sa.String(length=5000), nullable=False),
     sa.Column('employees', sa.Integer(), nullable=False),
-    sa.Column('headquarters', sa.String(), nullable=False),
-    sa.Column('listed', sa.Integer(), nullable=False),
+    sa.Column('listed', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('ticker')
     )
 

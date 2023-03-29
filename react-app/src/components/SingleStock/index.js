@@ -1,55 +1,180 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
-import { getStockData } from "../../Utils";
+import { getMarketValue, getPriceChange, getStockData, getStockInfo } from "../../Utils";
 import SingleStockGraph from "./SingleStockGraph";
 import "./SingleStock.css"
 import BuySellStock from "./BuySellStock";
 import { clearPortfolioState, fetchPortfolio } from "../../store/portfolio";
 import { clearInvestmentState, fetchStockInvestment } from "../../store/investment";
 import { clearTransactionState, fetchAllTransactions } from "../../store/transaction";
+import TransactionHistory from "./TransactionHistory";
+import { addStock, clearStockState, fetchStock } from "../../store/stock";
 
 
 function SingleStock() {
+    const dispatch = useDispatch()
     const { ticker } = useParams()
     let stockTicker = ticker.toUpperCase()
 
     const [stockData, setStockData] = useState()
-    const dispatch = useDispatch()
-    const portfolio = useSelector(state => state.portfolio.portfolio)
+    const [stockAboutInfo, setStockAboutInfo] = useState()
 
+    // useSelectors to pass as props -----------------------------------------------------------------------------
+    const portfolio = useSelector(state => state.portfolio.portfolio)
+    const investment = useSelector(state => state.investments.investments)
+    const transactions = useSelector(state => state.transactions.transactions)
+    const stock = useSelector(state => state.stock.stock)
+
+    // API call to retrieve stock info ---------------------------------------------------------------------------
     useEffect(() => {
         getStockData(stockTicker, setStockData)
+        getStockInfo(stockTicker, setStockAboutInfo)
     }, [])
 
-    // get investment and portfolio
+
+
+    // get investment and portfolio ------------------------------------------------------------------------------
     useEffect(() => {
         dispatch(fetchPortfolio())
         dispatch(fetchStockInvestment(stockTicker))
         dispatch(fetchAllTransactions(stockTicker))
+        dispatch(fetchStock(stockTicker))
+        console.log("useEffect stock useselector", stock)
         return () => {
             dispatch(clearInvestmentState())
             dispatch(clearTransactionState())
             dispatch(clearPortfolioState())
+            dispatch(clearStockState())
         }
     }, [dispatch])
 
+    if (!stockData || !portfolio || !stock) return <div>Loading...</div>
 
-    if (!stockData || !portfolio) return <div>Loading...</div>
+    // if stock is not in db then add it ------------------------------------------------------------------------
+    console.log("stock useSelector",stock)
+    console.log("stock data",stockAboutInfo)
 
+    if (stock.error){
+        let stockInfo = {
+            ticker: stockTicker,
+            name: stockAboutInfo?.name,
+            description: stockAboutInfo?.description,
+            employees: stockAboutInfo?.total_employees,
+            listed: stockAboutInfo?.list_date,
+        }
+
+        const addStockInfo = async (stockPayload) => {
+            console.log("adding stock...")
+            let returnData = await dispatch(addStock(stockPayload))
+            console.log("return from dispatch",returnData)
+        }
+        addStockInfo(stockInfo)
+        console.log(stockInfo)
+    }
+
+
+    // Investment info display if stock is owned ----------------------------------------------------------------
+    let investmentDisplay;
+    if (investment) {
+        let invValue = investment[stockTicker].value
+        let marketValue = getMarketValue(stockData, investment, stockTicker)
+        let dollarChange = getPriceChange(invValue, marketValue, "investment")
+        let percentChange = Number(dollarChange / invValue).toFixed(2)
+
+        let returnDisplay;
+        if (invValue < marketValue) {
+            returnDisplay = (
+                <div>
+                    <span className="dollar-change">+${dollarChange}</span>
+                    <span>(+{dollarChange}%)</span>
+                </div>
+            )
+        } else {
+            returnDisplay = (
+                <div>
+                    <span className="dollar-change">-${dollarChange}</span>
+                    <span>(-{dollarChange}%)</span>
+                </div>
+            )
+        }
+
+        investmentDisplay = (
+            <div className="stock-inv-display-div">
+                <div className="stock-mrkt-div">
+                    <div className="mrkt-val-text">
+                        Your market value
+                    </div>
+                    <div className="mrkt-inv-val bold">
+                        ${marketValue}
+                    </div>
+                    <div className="mrkt-val-return-div">
+                        <div className="mrkt-inv-val-info">
+                            <div className="mrkt-val-return-text">
+                                Total Return
+                            </div>
+                            {returnDisplay}
+                        </div>
+                    </div>
+                </div>
+                <div className="stock-mrkt-div">
+                    <div className="avg-cost-text">
+                        Your average cost
+                    </div>
+                    <div className="mrkt-inv-val bold">
+                        ${Number(investment[stockTicker].price_per_share).toFixed(2)}
+                    </div>
+                    <div className="mrkt-inv-val-info">
+                        <div>Shares</div>
+                        <div>{investment[stockTicker].shares}</div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    // Component JSX --------------------------------------------------------------------------------------------
     return (
         <div className="stock-page-container">
             <div className="stock-page-div">
                 <div className="stock-info-div">
                     <div className="stock-graph-div">
-                        {stockData ? <SingleStockGraph stockData={stockData} stockTicker={stockTicker} /> : "Loading..."}
+                        {stockData ? <SingleStockGraph stockData={stockData} stockTicker={stockTicker} stockAboutInfo={stockAboutInfo} /> : "Loading..."}
                     </div>
-                    <div className="stock-about-div">
-                        About
+                    {investmentDisplay}
+                    <div className="stock-info-card">
+                        <div className="stock-info-title bold">
+                            About
+                        </div>
+                        <div className="stock-info-desc">
+                            {stockAboutInfo?.description}
+                        </div>
+                        <div className="stock-info-other-div">
+                            <div className="stock-info-other-card">
+                                <div className="stock-info-header bold">
+                                    Employees
+                                </div>
+                                <div className="stock-info-info">
+                                    {stockAboutInfo?.total_employees ? stockAboutInfo?.total_employees : ""}
+                                </div>
+                            </div>
+                            <div className="stock-info-other-card">
+                                <div className="stock-info-header bold">
+                                    Listed
+                                </div>
+                                <div className="stock-info-info">
+                                    {stockAboutInfo?.list_date ? stockAboutInfo?.list_date : ""}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="stock-info-title bold">
+                            History
+                        </div>
+                        <TransactionHistory transactions={transactions} stockTicker={stockTicker}/>
                     </div>
                 </div>
                 <div className="stock-buy-sell-component">
-                    <BuySellStock stockData={stockData} stockTicker={stockTicker} portfolio={portfolio} dispatch={dispatch}/>
+                    <BuySellStock stockData={stockData} stockTicker={stockTicker} portfolio={portfolio} dispatch={dispatch} />
                 </div>
             </div>
         </div>
