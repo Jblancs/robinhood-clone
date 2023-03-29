@@ -59,11 +59,18 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
         setErrors({})
     }
 
+    const onClickTypeHandler = () => {
+        if (!confirm && !Object.values(errors).length) {
+            type === "buy" ? setType("sell") : setType("buy")
+        } else if (confirm || Object.values(errors).length) {
+            return
+        }
+    }
+
 
     // Submit Order Handle -----------------------------------------------------------------------------------
     const submitHandler = async (e) => {
         e.preventDefault()
-        console.log()
 
         const transactionData = {
             shares: Number(shares),
@@ -100,7 +107,7 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
     let sellFormButton;
     if (investment) {
         sellFormButton = (
-            <div onClick={() => !confirm ? setType("sell") : ""} className={type === "sell" ? "transaction-btn selected" : "transaction-btn"}>
+            <div onClick={onClickTypeHandler} className={type === "sell" ? "transaction-btn selected" : "transaction-btn"}>
                 Sell {stockTicker}
             </div>
         )
@@ -159,7 +166,7 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
         <div className="buy-sell-div">
             <div className="buy-sell-container">
                 <div className="buy-sell-btn-div">
-                    <div onClick={() => !confirm ? setType("buy") : ""} className={type === "buy" ? "transaction-btn selected" : "transaction-btn"}>
+                    <div onClick={onClickTypeHandler} className={type === "buy" ? "transaction-btn selected" : "transaction-btn"}>
                         Buy {stockTicker}
                     </div>
                     {sellFormButton}

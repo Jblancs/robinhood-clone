@@ -70,8 +70,8 @@ def update_investment(ticker):
 
     investment = Investment.query.filter(
         Investment.portfolio_id == portfolio_id,
-        Investment.ticker == ticker.upper()
-        ).one()
+        Investment.ticker == ticker
+        ).first()
 
     if res["type"] == "buy":
         investment.value = investment.value + res["total_cost"]
@@ -97,8 +97,9 @@ def delete_investment(ticker):
         Investment.portfolio_id == portfolio_id,
         Investment.ticker == ticker
         ).first()
-
+    print_data("delete route", investment)
 
     db.session.delete(investment)
+    db.session.commit()
 
     return {"Response": f"Successfully sold all shares of {ticker}"}

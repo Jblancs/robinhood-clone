@@ -55,8 +55,6 @@ def create_transaction(ticker):
         form = TransactionSellForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
 
-    print_data(form.errors)
-    print_data(form.data)
 
     if form.validate_on_submit():
         new_transaction = Transaction(

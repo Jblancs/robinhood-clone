@@ -95,6 +95,7 @@ export const sellAllInvestments = (ticker) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
+        console.log("delet inv thunk",data)
 
         dispatch(deleteInvestment(ticker))
         return data
@@ -125,7 +126,6 @@ export default function investReducer(state = initialState, action) {
             return newState
 
         case DELETE_INVESTMENT:
-            delete newState.investments[action.ticker]
             newState = {...initialState}
             return newState
 
