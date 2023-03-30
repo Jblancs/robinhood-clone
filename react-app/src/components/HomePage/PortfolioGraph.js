@@ -6,9 +6,9 @@ import { Line } from 'react-chartjs-2'
 import './HomePage.css'
 
 
-function PortfolioGraph({ history, portfolio }) {
+function PortfolioGraph({ portHistory, portfolio }) {
     let [period, setPeriod] = useState(365)
-    let historyArray = Object.values(history)
+    let historyArray = Object.values(portHistory)
 
     let graph = buildGraph(historyArray, "portfolio", period)
 

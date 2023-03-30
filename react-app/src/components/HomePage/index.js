@@ -5,17 +5,20 @@ import { clearPortfolioState, fetchPortfolio } from "../../store/portfolio";
 import { clearInvestmentState, fetchAllInvestments } from "../../store/investment";
 import { fetchHistory, clearHistoryState } from "../../store/portfolioHistory";
 import './HomePage.css'
-import InvestWatchlist from "./InvestWatchlist";
+import Investments from "./Investments";
 import { getNewsArticles } from "../../Utils";
+import { useHistory } from "react-router-dom";
 
 
 function HomePage() {
     const dispatch = useDispatch()
+    const history = useHistory()
     const [news, setNews] = useState()
 
     const portfolio = useSelector(state => state.portfolio.portfolio)
-    const history = useSelector(state => state.history.history)
+    const portHistory = useSelector(state => state.history.history)
     const investments = useSelector(state => state.investments.investments)
+    const user = useSelector((state) => state.session.user)
 
     useEffect(() => {
         getNewsArticles("SPY", setNews)
@@ -32,14 +35,18 @@ function HomePage() {
         }
     }, [dispatch])
 
-    if (!portfolio || !history || !investments) return <div>Loading...</div>
+    if(!user){
+        history.push("/login")
+    }
+
+    if (!portfolio || !portHistory || !investments || !user) return <div>Loading...</div>
 
     return (
         <div className="portfolio-page-container">
             <div className="portfolio-page-div">
                 <div className="portfolio-info-div">
                     <div className="portfolio-graph-div">
-                        <PortfolioGraph history={history} portfolio={portfolio} />
+                        <PortfolioGraph portHistory={portHistory} portfolio={portfolio} />
                     </div>
                     <div className="buy-power-div bold" onClick={() => alert("Deposit feature coming soon!")}>
                         <div className="buy-power-text">
@@ -70,7 +77,7 @@ function HomePage() {
                     </div>
                 </div>
                 <div className="stock-watchlist-component sticky">
-                    <InvestWatchlist investments={investments} />
+                    <Investments investments={investments} />
                 </div>
             </div>
         </div>

@@ -26,6 +26,7 @@ function SingleStock() {
     const investment = useSelector(state => state.investments.investments)
     const transactions = useSelector(state => state.transactions.transactions)
     const stock = useSelector(state => state.stock.stock)
+    const user = useSelector((state) => state.session.user)
 
     // API call to retrieve stock info ---------------------------------------------------------------------------
     useEffect(() => {
@@ -48,11 +49,15 @@ function SingleStock() {
     }, [dispatch])
 
     // redirect if stock doesn't exist --------------------------------------------------------------------------
+    if(!user){
+        history.push("/login")
+    }
+
     if (stockData === "error"){
         history.push("/")
     }
 
-    if (!stockData || !portfolio || !stock || stockData === "error") return <div className="loading">Loading...</div>
+    if (!stockData || !portfolio || !stock || stockData === "error" || !user) return <div className="loading">Loading...</div>
     // if stock is not in db then add it ------------------------------------------------------------------------
 
 
@@ -82,7 +87,7 @@ function SingleStock() {
         let percentChange = Number(dollarChange / invValue).toFixed(2)
 
         let returnDisplay;
-        if (invValue < marketValue) {
+        if (invValue <= marketValue) {
             returnDisplay = (
                 <div>
                     <span className="dollar-change">+${dollarChange}</span>

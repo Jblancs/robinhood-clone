@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import Stock, Watchlist, watchlists_stocks, db
 from flask_login import current_user
-from sqlalchemy import insert
+from sqlalchemy import insert, delete
 from ..utils import to_dict_list, form_errors_obj_list, current_user_portfolio, print_data
 
 watchlists_stocks_routes = Blueprint('watchlists_stocks', __name__)
@@ -34,4 +34,9 @@ def delete_stock_from_list():
     res = request.get_json()
 
     for deleteInfo in res:
-        query_watchlists_stocks = Watchlist.query.join(watchlists_stocks).join(Stock).filter((watchlists_stocks.c.watchlist_id == deleteInfo["watchlist_id"]) & (watchlists_stocks.c.ticker == deleteInfo["ticker"])).first()
+        removeStock = delete(watchlists_stocks).where(
+            watchlists_stocks.c.watchlist_id == deleteInfo["watchlist_id"],
+            watchlists_stocks.c.ticker == deleteInfo["ticker"]
+        )
+
+    return {"Response": f"Successfully deleted stock from watchlist(s)"}
