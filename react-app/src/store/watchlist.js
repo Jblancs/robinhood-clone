@@ -38,7 +38,7 @@ export const clearWatchlistsState = () => {
 
 // Thunk functions --------------------------------------------------------------
 export const fetchWatchlists = () => async (dispatch) => {
-    const response = await fetch("/api/portfolio/");
+    const response = await fetch("/api/watchlists/");
 
     if (response.ok) {
         const data = await response.json();
@@ -48,7 +48,7 @@ export const fetchWatchlists = () => async (dispatch) => {
 };
 
 export const createWatchlists = (watchlistInfo) => async (dispatch) => {
-    const response = await fetch(`/api/portfolio/`, {
+    const response = await fetch(`/api/watchlists/`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(watchlistInfo)
@@ -60,7 +60,7 @@ export const createWatchlists = (watchlistInfo) => async (dispatch) => {
 }
 
 export const updateWatchlistsName = (watchlistInfo) => async (dispatch) => {
-    const response = await fetch(`/api/portfolio/`, {
+    const response = await fetch(`/api/watchlists/`, {
         method: 'PUT',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(watchlistInfo)
@@ -72,14 +72,14 @@ export const updateWatchlistsName = (watchlistInfo) => async (dispatch) => {
 }
 
 export const deleteWatchlists = (watchlistInfo) => async (dispatch) => {
-    const response = await fetch(`/api/portfolio/`, {
+    const response = await fetch(`/api/watchlists/`, {
         method: 'DELETE',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(watchlistInfo)
     })
     if (response.ok) {
         const data = await response.json();
-        dispatch(getPortfolio(data));
+        dispatch(removeWatchlists(data));
     }
 }
 
@@ -90,7 +90,11 @@ export default function watchlistsReducer(state = initialState, action) {
     let newState = { ...state }
     switch (action.type) {
         case GET_WATCHLISTS:
-            newState.watchlists = action.payload
+            let watchlist = {}
+            action.payload.forEach(list => {
+                watchlist[list.id] = list
+            })
+            newState.watchlists = watchlist
             return newState
 
         case UPDATE_WATCHLISTS:

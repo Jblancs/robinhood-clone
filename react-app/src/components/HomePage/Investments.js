@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Watchlists from "./Watchlist";
 
-function Investments({ investments }) {
+function Investments({ investments, watchlists }) {
     let investmentsList = Object.values(investments)
 
     return (
@@ -43,7 +43,7 @@ function Investments({ investments }) {
                     </div>
                 </div>
                 <div className="watch-container">
-                    <Watchlists />
+                    <Watchlists watchlists={watchlists}/>
                 </div>
             </div>
         </div>

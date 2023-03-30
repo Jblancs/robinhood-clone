@@ -8,6 +8,7 @@ import './HomePage.css'
 import Investments from "./Investments";
 import { getNewsArticles, addCommas } from "../../Utils";
 import { useHistory } from "react-router-dom";
+import { clearWatchlistsState, fetchWatchlists } from "../../store/watchlist";
 
 
 function HomePage() {
@@ -18,7 +19,8 @@ function HomePage() {
     const portfolio = useSelector(state => state.portfolio.portfolio)
     const portHistory = useSelector(state => state.history.history)
     const investments = useSelector(state => state.investments.investments)
-    const user = useSelector((state) => state.session.user)
+    const user = useSelector(state => state.session.user)
+    const watchlists = useSelector(state => state.watchlists.watchlists)
 
     useEffect(() => {
         getNewsArticles("SPY", setNews)
@@ -28,10 +30,12 @@ function HomePage() {
         dispatch(fetchPortfolio())
         dispatch(fetchAllInvestments())
         dispatch(fetchHistory())
+        dispatch(fetchWatchlists())
         return () => {
             dispatch(clearInvestmentState())
             dispatch(clearPortfolioState())
             dispatch(clearHistoryState())
+            dispatch(clearWatchlistsState())
         }
     }, [dispatch])
 
@@ -77,7 +81,7 @@ function HomePage() {
                     </div>
                 </div>
                 <div className="stock-watchlist-component sticky">
-                    <Investments investments={investments} />
+                    <Investments investments={investments} watchlists={watchlists} />
                 </div>
             </div>
         </div>
