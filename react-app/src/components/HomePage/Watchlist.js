@@ -2,7 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 
-function Watchlists({ watchlists }) {
+function Watchlists() {
+    
 
     return (
         <div>

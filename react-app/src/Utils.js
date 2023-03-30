@@ -152,7 +152,7 @@ export const getNewsArticles = async (ticker, setUseState) => {
 
 }
 
-// Get news articles
+// Get stock about info
 // ------------------------------------------------------------------------------
 export const getStockInfo = async (ticker, setUseState) => {
     const API_KEY = process.env.REACT_APP_API_KEY
@@ -167,6 +167,11 @@ export const getStockInfo = async (ticker, setUseState) => {
     }
 }
 
+// format number with commas
+// ------------------------------------------------------------------------------
+export const addCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 // let top50 = [
 //     "AAPL","MSFT","GOOGL","AMZN","BRK-A","NVDA","TSLA","META","JNJ","TSM",

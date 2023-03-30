@@ -13,13 +13,6 @@ export const getAllTransactions = (payload) => {
     }
 }
 
-// export const newTransaction = (payload) => {
-//     return {
-//         type: CREATE_TRANSACTIONS,
-//         payload
-//     }
-// }
-
 export const clearTransactionState = () => {
     return {
         type: CLEAR_TRANS_STATE,

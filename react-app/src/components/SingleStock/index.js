@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom";
-import { getMarketValue, getPriceChange, getStockData, getStockInfo } from "../../Utils";
+import { getMarketValue, getPriceChange, getStockData, getStockInfo, addCommas } from "../../Utils";
 import SingleStockGraph from "./SingleStockGraph";
 import "./SingleStock.css"
 import BuySellStock from "./BuySellStock";
@@ -110,7 +110,7 @@ function SingleStock() {
                         Your market value
                     </div>
                     <div className="mrkt-inv-val bold">
-                        ${marketValue}
+                        ${addCommas(marketValue)}
                     </div>
                     <div className="mrkt-val-return-div">
                         <div className="mrkt-inv-val-info">

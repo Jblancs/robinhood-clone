@@ -6,7 +6,7 @@ import { clearInvestmentState, fetchAllInvestments } from "../../store/investmen
 import { fetchHistory, clearHistoryState } from "../../store/portfolioHistory";
 import './HomePage.css'
 import Investments from "./Investments";
-import { getNewsArticles } from "../../Utils";
+import { getNewsArticles, addCommas } from "../../Utils";
 import { useHistory } from "react-router-dom";
 
 
@@ -39,7 +39,7 @@ function HomePage() {
         history.push("/login")
     }
 
-    if (!portfolio || !portHistory || !investments || !user) return <div>Loading...</div>
+    if (!portfolio || !portHistory || !investments || !user || !news) return <div>Loading...</div>
 
     return (
         <div className="portfolio-page-container">
@@ -53,7 +53,7 @@ function HomePage() {
                             Buying Power
                         </div>
                         <div className="buy-power-amt">
-                            ${Number(portfolio.buying_power).toFixed(2)}
+                            ${addCommas(Number(portfolio.buying_power).toFixed(2))}
                         </div>
                     </div>
                     <div className="portfolio-news-div">

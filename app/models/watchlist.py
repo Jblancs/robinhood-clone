@@ -19,10 +19,19 @@ class Watchlist(db.Model):
     # watchlist_stocks = db.relationship(
     #     "WatchlistStocks", back_populates="watchlist")
 
+    # def normalizeStocks(self):
+    #     obj = dict()
+    #     print("\n\n\n\n\n", self.stocks)
+    #     for stock in self.stocks:
+    #         if stock:
+    #             stockData = stock.to_dict()
+    #             obj[stock.ticker] = stockData
+    #     return obj
+
     def to_dict(self):
         return {
             'id': self.id,
             'user_id': self.user_id,
             'name': self.name,
-            'stocks': [stock.to_dict() for stock in self.stocks]
+            'stocks': [stock.to_dict()["ticker"] for stock in self.stocks]
         }

@@ -35,8 +35,9 @@ def delete_stock_from_list():
 
     for deleteInfo in res:
         removeStock = delete(watchlists_stocks).where(
-            watchlists_stocks.c.watchlist_id == deleteInfo["watchlist_id"],
-            watchlists_stocks.c.ticker == deleteInfo["ticker"]
+            watchlists_stocks.c.watchlist_id == deleteInfo["watchlist_id"] & watchlists_stocks.c.ticker == deleteInfo["ticker"]
         )
+
+    db.session.commit()
 
     return {"Response": f"Successfully deleted stock from watchlist(s)"}
