@@ -14,6 +14,12 @@ function Watchlists({ watchlists }) {
 
     let lists = watchlists ? Object.values(watchlists) : []
 
+    if (lists.length) {
+        lists.sort((a, b) => {
+            return b.id - a.id
+        })
+    }
+
     useEffect(() => {
         if (listName.length > 64) {
             setError(true)
@@ -22,13 +28,13 @@ function Watchlists({ watchlists }) {
             setError(false)
             setDisableBtn(false)
         }
-    },[listName])
+    }, [listName])
 
     // Event Handlers -----------------------------------------------------------------------------------------
     const submitHandler = async (e) => {
         e.preventDefault()
 
-        if(listName.length < 1){
+        if (listName.length < 1) {
             setError(true)
             setDisableBtn(true)
             return

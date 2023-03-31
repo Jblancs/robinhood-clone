@@ -392,3 +392,9 @@
     cursor: pointer;
     background: transparent;
 }
+
+.watch-stock-ticker{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}

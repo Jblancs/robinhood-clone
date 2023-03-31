@@ -10,6 +10,8 @@ import { clearInvestmentState, fetchStockInvestment } from "../../store/investme
 import { clearTransactionState, fetchAllTransactions } from "../../store/transaction";
 import TransactionHistory from "./TransactionHistory";
 import { addStock, clearStockState, fetchStock } from "../../store/stock";
+import WatchlistAddRemoveModal from "../../WatchlistModal/WatchlistAddRemoveModal";
+import OpenModalButton from "../OpenModalButton";
 
 
 function SingleStock() {
@@ -27,6 +29,7 @@ function SingleStock() {
     const transactions = useSelector(state => state.transactions.transactions)
     const stock = useSelector(state => state.stock.stock)
     const user = useSelector((state) => state.session.user)
+
 
     // API call to retrieve stock info ---------------------------------------------------------------------------
     useEffect(() => {
@@ -49,18 +52,17 @@ function SingleStock() {
     }, [dispatch])
 
     // redirect if stock doesn't exist --------------------------------------------------------------------------
-    if(!user){
+    if (!user) {
         history.push("/login")
     }
 
-    if (stockData === "error"){
+    if (stockData === "error") {
         history.push("/")
     }
 
     if (!stockData || !portfolio || !stock || stockData === "error" || !user) return <div className="loading">Loading...</div>
+
     // if stock is not in db then add it ------------------------------------------------------------------------
-
-
     if (stock.error) {
         let stockInfo = {
             ticker: stockTicker,
@@ -77,6 +79,9 @@ function SingleStock() {
         addStockInfo(stockInfo)
     }
 
+    // check and plus icon for add to watchlist modal btn -------------------------------------------------------
+    let checkIcon = (<i className="fas fa-check"/>)
+    let plusIcon = (<i className="fas fa-plus"/>)
 
     // Investment info display if stock is owned ----------------------------------------------------------------
     let investmentDisplay;
@@ -151,7 +156,7 @@ function SingleStock() {
                             About
                         </div>
                         <div className="stock-info-desc">
-                            {stockAboutInfo?.description}
+                            {stockAboutInfo?.description ? stockAboutInfo?.description : ""}
                         </div>
                         <div className="stock-info-other-div">
                             <div className="stock-info-other-card">
@@ -179,6 +184,14 @@ function SingleStock() {
                 </div>
                 <div className="stock-buy-sell-component">
                     <BuySellStock stockData={stockData} stockTicker={stockTicker} portfolio={portfolio} dispatch={dispatch} />
+                    <div className="add-to-watch-div">
+                        <OpenModalButton
+                            buttonText="Add to Lists"
+                            modalClass="add-list-modal-btn bold"
+                            modalIcon={plusIcon}
+                            modalComponent={<WatchlistAddRemoveModal />}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

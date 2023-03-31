@@ -45,7 +45,8 @@
 .stock-buy-sell-component {
     width: 30%;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     padding-left: 20px;
     /* border: var(--global-border); */
 }
@@ -276,4 +277,21 @@
 
 .trans-price-info{
     text-align: right;
+}
+
+/* Add to watchlist modal button --------------------------------------------- */
+
+.add-list-modal-btn{
+    border: 1px solid var(--rhood-green);
+    background-color: white;
+    color: var(--rhood-green);
+    cursor: pointer;
+    width: 290px;
+    height: 50px;
+    margin-top: 20px;
+    border-radius: 30px;
+}
+
+.add-list-modal-btn:hover{
+    background-color: #00c8071d;
 }
