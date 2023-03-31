@@ -1,0 +1,82 @@
+.watchlist-edit-form-container{
+    padding: 25px 50px;
+    width: 400px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.watchlist-edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.watchlist-edit-icon {
+    width: 20px;
+    height: 20px;
+    padding: 12px 5px;
+    background-color: var(--global-icon-bg-color);
+    border-radius: 5px;
+}
+
+.watchlist-edit-icon-div {
+    width: 15%;
+}
+
+.form-edit-icon {
+    background-color: rgb(222, 222, 222);
+    width:40%
+}
+
+.watchlist-edit-form-div {
+    display: flex;
+    padding: 0px 0px 10px 0px;
+    width: 100%;
+
+}
+
+.watchlist-edit-form-btn-div {
+    display: flex;
+}
+.watchlist-edit-form-buttons {
+    width: 100%;
+
+}
+
+.watchlist-edit-btns {
+    background-color: var(--rhood-green);
+    border: 2px solid gray;
+    box-shadow: 1px 1px 3px gray;
+    border-color: gray;
+    border-radius: 25px;
+    color: white;
+    height: 42px;
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+
+.watchlist-edit-btn {
+    width: 100%;
+}
+
+.watchlist-edit-btn:hover {
+    filter: grayscale(20%);
+}
+
+.watchlist-edit-input-div{
+    width: 100%;
+}
+
+.watchlist-edit-input {
+    border-top: 1px solid gray;
+    background-color: rgba(211, 211, 211, 0.566);
+    padding: 0px 15px 0px 10px;
+    width: 90%;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.watchlist-edit-input:hover {
+    background-color: white;
+}

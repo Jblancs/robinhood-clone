@@ -197,6 +197,36 @@
     background-color: white;
 }
 
+.watchlist-input-error-div{
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    border: 1px solid lightgray;
+    width: 270px;
+    height: 60px;
+    background-color: white;
+    box-shadow: 1px 1px 10px gray;
+    border-radius: 5px;
+    margin-top: 3px;
+    padding: 5px;
+    right: 55px;
+}
+
+.watchlist-info-icon {
+    border: 3px solid black;
+    font-size: 10px;
+    padding: 0px 5px;
+    margin-left: 8px;
+    height: 15px;
+    margin-top: 18px;
+    border-radius: 100%;
+}
+
+.watchlist-info-text{
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
 .watchlist-form {
     display: flex;
     flex-direction: column;
@@ -325,7 +355,7 @@
     border: var(--global-border);
     position: absolute;
     width: 200px;
-    height: 86px;
+    height: 90px;
     right: 70px;
     border: 1px solid lightgray;
     background-color: white;
@@ -339,6 +369,7 @@
     align-items: center;
     margin: 10px 10px;
     height: 30px;
+    border-radius: 5px;
 }
 
 .watchlist-drop-div:hover {

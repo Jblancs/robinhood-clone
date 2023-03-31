@@ -1,45 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../context/Modal";
+import "./WatchlistModal.css"
 
-function WatchlistEditModal() {
+function WatchlistEditModal({ id, name }) {
     const dispatch = useDispatch();
-    let [listName, setListName] = useState("")
-    const [errors, setErrors] = useState([]);
+    let [listName, setListName] = useState(name)
+    let [error, setError] = useState(false)
+    let [disableBtn, setDisableBtn] = useState(false)
     const { closeModal } = useModal();
 
+    useEffect(() => {
+        if (listName.length > 64) {
+            setError(true)
+            setDisableBtn(true)
+        } else {
+            setError(false)
+            setDisableBtn(false)
+        }
+    }, [listName])
+
+    // Event Handlers -----------------------------------------------------------------------------------------
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // const data = await dispatch(login(email, password));
+
         closeModal()
     };
 
 
+    // Component JSX -----------------------------------------------------------------------------------------
     return (
-        <>
-            <div className="watchlist-form-container">
-                <form className="watchlist-form" onSubmit={handleSubmit}>
-                    <div className="watchlist-form-div">
-                        <div className="watchlist-icon-div">
-                            <img className="watchlist-icon form-icon" src="./images/lightbulb-icon.png" alt="lightbulb" />
+        <div className="watchlist-edit-form-container-div">
+            <div className="watchlist-edit-form-container">
+                <h2 className="watchlist-edit-form-header">
+                    Edit List
+                </h2>
+                <form className="watchlist-edit-form" onSubmit={handleSubmit}>
+                    <div className="watchlist-edit-form-div">
+                        <div className="watchlist-edit-icon-div">
+                            <img className="watchlist-edit-icon form-edit-icon" src="./images/lightbulb-icon.png" alt="lightbulb" />
                         </div>
-                        <div className="watchlist-input-div">
-                            <input className="watchlist-input"
-                                onChange={(e) => setListName(e.target.value)}
+                        <div className="watchlist-edit-input-div">
+                            <input className="watchlist-edit-input"
+                                onChange={(e) => setListName(e.target.value.toString())}
                                 placeholder="List Name"
                                 type="text"
                                 name="name"
                                 value={listName} />
+                            <div className={error ? "watchlist-input-error-div" : "hidden"}>
+                                <span className="watchlist-info-icon bold">i</span>
+                                <div className="watchlist-info-text">
+                                    Your list name must be less than 64 characters.
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="watchlist-form-btn-div">
-                        <div className="watchlist-form-buttons">
-                            <button className="watchlist-create-btn watchlist-btns bold">Save</button>
+                    <div className="watchlist-edit-form-btn-div">
+                        <div className="watchlist-edit-form-buttons">
+                            <button className="watchlist-edit-btn watchlist-edit-btns bold" disabled={disableBtn}>Save</button>
                         </div>
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     );
 }
 

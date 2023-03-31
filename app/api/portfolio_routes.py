@@ -14,13 +14,6 @@ def get_portfolio():
     user = current_user.to_dict()
     portfolio = Portfolio.query.get(user["portfolio"]["id"])
 
-    # portfolio_history_data = PortfolioHistory.query.filter(
-    #     PortfolioHistory.portfolio_id == user["portfolio"]["id"])
-
-    # portfolio_history_list = to_dict_list(portfolio_history_data)
-
-    # user["portfolio"]["history"] = portfolio_history_list
-
     return portfolio.to_dict()
 
 # ------------------------------------------------------------------------------

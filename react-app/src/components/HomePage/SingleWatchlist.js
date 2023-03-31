@@ -58,7 +58,7 @@ function SingleWatchlist({ list }) {
                                 <OpenModalButton
                                     buttonText="Edit list"
                                     onItemClick={closeMenu}
-                                    modalComponent={<WatchlistEditModal />}
+                                    modalComponent={<WatchlistEditModal id={list.id} name={list.name}/>}
                                     modalClass="watchlist-modal-btn bold"
                                     modalIcon={editIcon}
                                 />
@@ -67,7 +67,7 @@ function SingleWatchlist({ list }) {
                                 <OpenModalButton
                                     buttonText="Delete list"
                                     onItemClick={closeMenu}
-                                    modalComponent={<WatchlistEditModal />}
+                                    modalComponent={<WatchlistEditModal id={list.id}/>}
                                     modalClass="watchlist-modal-btn bold"
                                     modalIcon={deleteIcon}
                                 />

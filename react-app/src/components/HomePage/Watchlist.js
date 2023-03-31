@@ -8,16 +8,28 @@ import SingleWatchlist from "./SingleWatchlist";
 function Watchlists({ watchlists }) {
     let [showForm, setShowForm] = useState(false)
     let [listName, setListName] = useState("")
+    let [error, setError] = useState(false)
+    let [disableBtn, setDisableBtn] = useState(false)
     const dispatch = useDispatch()
 
     let lists = watchlists ? Object.values(watchlists) : []
+
+    useEffect(() => {
+        if (listName.length > 64) {
+            setError(true)
+            setDisableBtn(true)
+        } else {
+            setError(false)
+            setDisableBtn(false)
+        }
+    },[listName])
 
     // Event Handlers -----------------------------------------------------------------------------------------
     const submitHandler = async (e) => {
         e.preventDefault()
 
         const listInfo = {
-            name: listName.toString()
+            name: listName
         }
 
         let newList = await dispatch(createWatchlists(listInfo))
@@ -29,6 +41,10 @@ function Watchlists({ watchlists }) {
         e.preventDefault()
         setShowForm(false)
         setListName("")
+    }
+
+    const onChangeHandler = (e) => {
+        setListName(e.target.value.toString())
     }
 
     // Watchlist form display ---------------------------------------------------------------------------------
@@ -44,18 +60,24 @@ function Watchlists({ watchlists }) {
                         </div>
                         <div className="watchlist-input-div">
                             <input className="watchlist-input"
-                                onChange={(e) => setListName(e.target.value)}
+                                onChange={onChangeHandler}
                                 placeholder="List Name"
                                 type="text"
                                 name="name"
                                 value={listName} />
+                            <div className={error ? "watchlist-input-error-div" : "hidden"}>
+                                <span className="watchlist-info-icon bold">i</span>
+                                <div className="watchlist-info-text">
+                                    Your list name must be less than 64 characters.
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="watchlist-form-btn-div">
                         <div className="watchlist-form-btn-space"></div>
                         <div className="watchlist-form-buttons">
                             <button className="watchlist-cancel-btn watchlist-btns bold" type="button" onClick={cancelHandler}>Cancel</button>
-                            <button className="watchlist-create-btn watchlist-btns bold">Create List</button>
+                            <button className="watchlist-create-btn watchlist-btns bold" disabled={disableBtn}>Create List</button>
                         </div>
                     </div>
                 </form>
@@ -77,7 +99,7 @@ function Watchlists({ watchlists }) {
             <div className="watch-list">
                 {showWatchlist}
                 {lists.map(list => (
-                    <SingleWatchlist key={list.name} list={list} />
+                    <SingleWatchlist key={list.id} list={list} />
                 ))}
             </div>
         </div>
