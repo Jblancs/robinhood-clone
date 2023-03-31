@@ -7,7 +7,8 @@ function OpenModalButton({
   onButtonClick, // optional: callback function that will be called once the button that opens the modal is clicked
   onModalClose, // optional: callback function that will be called once the modal is closed
   modalClass,
-  modalDisabled
+  modalDisabled,
+  modalIcon
 }) {
   const { setModalContent, setOnModalClose } = useModal();
 
@@ -26,7 +27,7 @@ function OpenModalButton({
   }
 
   return (
-    <button onClick={onClick} className={modalClass} disabled={disableBtn()}>{buttonText}</button>
+    <button onClick={onClick} className={modalClass} disabled={disableBtn()}>{modalIcon}{buttonText}</button>
   );
 }
 

@@ -159,7 +159,7 @@
 
 /* Watchlist --------------------------------------------------------- */
 
-.watchlist-name-div{
+.watchlist-name-div {
     width: 70%;
     display: flex;
 
@@ -173,11 +173,11 @@
     border-radius: 5px;
 }
 
-.watchlist-icon-div{
+.watchlist-icon-div {
     width: 15%;
 }
 
-.add-list-icon{
+.add-list-icon {
     margin-right: 3px;
     padding: 0px 7px 2px 7px;
 }
@@ -193,33 +193,33 @@
     text-align: left;
 }
 
-.watchlist-input:hover{
+.watchlist-input:hover {
     background-color: white;
 }
 
-.watchlist-form{
+.watchlist-form {
     display: flex;
     flex-direction: column;
 }
 
-.form-icon{
+.form-icon {
     background-color: rgb(222, 222, 222);
 }
 
-.watchlist-form-div{
+.watchlist-form-div {
     display: flex;
 
 }
 
-.watchlist-form-btn-div{
+.watchlist-form-btn-div {
     display: flex;
 }
 
-.watchlist-form-btn-space{
+.watchlist-form-btn-space {
     width: 15%;
 }
 
-.watchlist-form-buttons{
+.watchlist-form-buttons {
     width: 85%;
 }
 
@@ -248,7 +248,7 @@
     background-color: rgb(202, 202, 202);
 }
 
-.watchlist-create-btn{
+.watchlist-create-btn {
     width: 50%;
 
 }
@@ -259,14 +259,14 @@
 
 /* Watchlist Display ------------------------------------------------ */
 
-.watchlist-name{
+.watchlist-name {
     width: 80%;
     padding-top: 10px;
     padding: 10px 0px 0px 10px;
     text-overflow: ellipsis;
 }
 
-.watchlist-buttons-container{
+.watchlist-buttons-container {
     /* border: var(--global-border); */
     width: 30%;
     display: flex;
@@ -274,29 +274,29 @@
     justify-content: flex-end;
 }
 
-.watchlist-buttons-div{
+.watchlist-buttons-div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.watchlist-button{
+.watchlist-button {
     /* border: var(--global-border); */
     padding: 5px 2px 2px 5px;
     width: 20px;
     height: 20px;
 }
 
-.fa-ellipsis-h{
+.fa-ellipsis-h {
     margin-right: 2px;
 }
 
 
-.fa-chevron-up{
+.fa-chevron-up {
     margin-right: 2px;
 }
 
-.watchlist-card{
+.watchlist-card {
     width: 100%;
     height: 45px;
     cursor: pointer;
@@ -306,22 +306,22 @@
 }
 
 
-.watchlist-card:hover{
+.watchlist-card:hover {
     background-color: var(--global-gray);
 }
 
 .add-list-icon:hover,
-.fa-ellipsis-h:hover{
+.fa-ellipsis-h:hover {
     border-radius: 5px;
     background-color: var(--global-icon-bg-color);
 }
 
-.watchlist-card:hover .fa-chevron-up{
+.watchlist-card:hover .fa-chevron-up {
     color: var(--rhood-green);
 
 }
 
-.watchlist-drop-options{
+.watchlist-drop-options {
     border: var(--global-border);
     position: absolute;
     width: 200px;
@@ -329,16 +329,35 @@
     right: 70px;
     border: 1px solid lightgray;
     background-color: white;
+    border-radius: 5px;
     z-index: 1;
 }
 
-.watchlist-drop-div{
-    border: var(--global-border);
+.watchlist-drop-div {
+    /* border: var(--global-border); */
     display: flex;
     align-items: center;
-    padding: 10px 10px;
+    margin: 10px 10px;
+    height: 30px;
 }
 
-.watchlist-drop-icon{
-    padding: 5px 6px 0px 0px;
+.watchlist-drop-div:hover {
+    background-color: var(--global-gray);
+}
+
+.watchlist-drop-icon {
+    padding: 5px 8px 0px 0px;
+    font-size: 15px;
+}
+
+.watchlist-modal-btn {
+    text-align: left;
+    border: none;
+    font-size: 15px;
+    font-family: var(--global-font);
+    width: 100%;
+    height: 100%;
+    text-decoration: underline;
+    cursor: pointer;
+    background: transparent;
 }

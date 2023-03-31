@@ -2,30 +2,41 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux"
 import { NavLink } from "react-router-dom";
 import { createWatchlists } from "../../store/watchlist";
+import OpenModalButton from "../OpenModalButton";
+import WatchlistEditModal from "../../WatchlistModal/WatchlistEditModal";
 
 
 function SingleWatchlist({ list }) {
     const dropdownRef = useRef();
     let [showMenu, setShowMenu] = useState(false)
 
-    const openMenu = () => {
-        if (showMenu) return;
-        setShowMenu(true);
-      };
 
-      useEffect(() => {
+    useEffect(() => {
         if (!showMenu) return;
 
         const closeMenu = (e) => {
-          if (!dropdownRef.current.contains(e.target)) {
-            setShowMenu(false);
-          }
+            if (!dropdownRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
         };
 
         document.addEventListener("click", closeMenu);
         return () => document.removeEventListener("click", closeMenu);
-      }, [showMenu]);
+    }, [showMenu]);
 
+    // Event Handlers ------------------------------------------------------------------------------------------------------------
+    const openMenu = () => {
+        if (showMenu) return;
+        setShowMenu(true);
+    };
+
+    const closeMenu = () => setShowMenu(false);
+
+    // Modal Icons ------------------------------------------------------------------------------------------------------------
+    const editIcon = (<i className="fas fa-cog watchlist-drop-icon" />)
+    const deleteIcon = (<i className="far fa-times-circle watchlist-drop-icon" />)
+
+    // Component JSX ------------------------------------------------------------------------------------------------------------
     return (
         <>
             <div className="watchlist-card flex-btwn">
@@ -40,20 +51,26 @@ function SingleWatchlist({ list }) {
                 <div className="watchlist-buttons-container">
                     <div className="watchlist-option-div">
                         <div className="watchlist-button-div">
-                            <i className="fas fa-ellipsis-h watchlist-button" onClick={openMenu}/>
+                            <i className="fas fa-ellipsis-h watchlist-button" onClick={openMenu} />
                         </div>
                         <div ref={dropdownRef} className={showMenu ? `watchlist-drop-options` : `watchlist-drop-options hidden`}>
                             <div className="watchlist-drop-div bold">
-                                <i className="fas fa-cog watchlist-drop-icon" />
-                                <div className="watchlist-drop-text">
-                                    Edit list
-                                </div>
+                                <OpenModalButton
+                                    buttonText="Edit list"
+                                    onItemClick={closeMenu}
+                                    modalComponent={<WatchlistEditModal />}
+                                    modalClass="watchlist-modal-btn bold"
+                                    modalIcon={editIcon}
+                                />
                             </div>
                             <div className="watchlist-drop-div bold">
-                                <i className="far fa-times-circle watchlist-drop-icon" />
-                                <div className="watchlist-drop-text">
-                                    Delete list
-                                </div>
+                                <OpenModalButton
+                                    buttonText="Delete list"
+                                    onItemClick={closeMenu}
+                                    modalComponent={<WatchlistEditModal />}
+                                    modalClass="watchlist-modal-btn bold"
+                                    modalIcon={deleteIcon}
+                                />
                             </div>
                         </div>
                     </div>

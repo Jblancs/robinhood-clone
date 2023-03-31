@@ -22,6 +22,13 @@ function Watchlists({ watchlists }) {
 
         let newList = await dispatch(createWatchlists(listInfo))
         setShowForm(false)
+        setListName("")
+    }
+
+    const cancelHandler = (e) => {
+        e.preventDefault()
+        setShowForm(false)
+        setListName("")
     }
 
     // Watchlist form display ---------------------------------------------------------------------------------
@@ -47,7 +54,7 @@ function Watchlists({ watchlists }) {
                     <div className="watchlist-form-btn-div">
                         <div className="watchlist-form-btn-space"></div>
                         <div className="watchlist-form-buttons">
-                            <button className="watchlist-cancel-btn watchlist-btns bold" type="button" onClick={() => setShowForm(false)}>Cancel</button>
+                            <button className="watchlist-cancel-btn watchlist-btns bold" type="button" onClick={cancelHandler}>Cancel</button>
                             <button className="watchlist-create-btn watchlist-btns bold">Create List</button>
                         </div>
                     </div>
