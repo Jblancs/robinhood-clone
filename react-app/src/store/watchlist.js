@@ -71,11 +71,10 @@ export const updateWatchlistsName = (watchlistInfo, id) => async (dispatch) => {
     }
 }
 
-export const deleteWatchlists = (watchlistInfo) => async (dispatch) => {
-    const response = await fetch(`/api/watchlists/`, {
+export const deleteWatchlists = (id) => async (dispatch) => {
+    const response = await fetch(`/api/watchlists/${id}`, {
         method: 'DELETE',
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(watchlistInfo)
     })
     if (response.ok) {
         const data = await response.json();

@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { createWatchlists } from "../../store/watchlist";
 import OpenModalButton from "../OpenModalButton";
 import WatchlistEditModal from "../../WatchlistModal/WatchlistEditModal";
+import WatchlistDeleteModal from "../../WatchlistModal/WatchlistDeleteModal";
 
 
 function SingleWatchlist({ list }) {
@@ -67,7 +68,7 @@ function SingleWatchlist({ list }) {
                                 <OpenModalButton
                                     buttonText="Delete list"
                                     onItemClick={closeMenu}
-                                    modalComponent={<WatchlistEditModal id={list.id}/>}
+                                    modalComponent={<WatchlistDeleteModal id={list.id} name={list.name} stocks={list.stocks}/>}
                                     modalClass="watchlist-modal-btn bold"
                                     modalIcon={deleteIcon}
                                 />
