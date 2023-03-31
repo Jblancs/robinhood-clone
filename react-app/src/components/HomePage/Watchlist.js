@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"
 import { NavLink } from "react-router-dom";
 import { createWatchlists } from "../../store/watchlist";
+import SingleWatchlist from "./SingleWatchlist";
 
 
 function Watchlists({ watchlists }) {
@@ -20,12 +21,7 @@ function Watchlists({ watchlists }) {
         }
 
         let newList = await dispatch(createWatchlists(listInfo))
-        console.log(newList)
-
-        if(newList){
-            setShowForm(false)
-        }
-
+        setShowForm(false)
     }
 
     // Watchlist form display ---------------------------------------------------------------------------------
@@ -51,8 +47,8 @@ function Watchlists({ watchlists }) {
                     <div className="watchlist-form-btn-div">
                         <div className="watchlist-form-btn-space"></div>
                         <div className="watchlist-form-buttons">
-                            <button className="watchlist-cancel-btn watchlist-btns" type="button" onClick={() => setShowForm(false)}>Cancel</button>
-                            <button className="watchlist-create-btn watchlist-btns">Create List</button>
+                            <button className="watchlist-cancel-btn watchlist-btns bold" type="button" onClick={() => setShowForm(false)}>Cancel</button>
+                            <button className="watchlist-create-btn watchlist-btns bold">Create List</button>
                         </div>
                     </div>
                 </form>
@@ -74,24 +70,7 @@ function Watchlists({ watchlists }) {
             <div className="watch-list">
                 {showWatchlist}
                 {lists.map(list => (
-                    <div key={list.name} className="watchlist-card flex-btwn">
-                        <div className="watchlist-name-div ">
-                            <div className="watchlist-icon-div">
-                                <img className="watchlist-icon" src="./images/lightbulb-icon.png" alt="lightbulb" />
-                            </div>
-                            <div className="watchlist-name">
-                                {list.name}
-                            </div>
-                        </div>
-                        <div className="watchlist-buttons-container">
-                            <div className="watchlist-button-div">
-                                <i className="fas fa-ellipsis-h watchlist-button" />
-                            </div>
-                            <div className="watchlist-button-div">
-                                <i className="fas fa-chevron-up watchlist-button" />
-                            </div>
-                        </div>
-                    </div>
+                    <SingleWatchlist key={list.name} list={list} />
                 ))}
             </div>
         </div>

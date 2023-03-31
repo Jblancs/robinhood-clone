@@ -237,8 +237,10 @@
 
 
 .watchlist-cancel-btn {
+    border-color: var(--rhood-green);
     width: 40%;
-    background-color: lightgray;
+    background-color: white;
+    color: var(--rhood-green);
     margin-right: 10px;
 }
 
@@ -258,7 +260,6 @@
 /* Watchlist Display ------------------------------------------------ */
 
 .watchlist-name{
-    /* border: var(--global-border); */
     width: 80%;
     padding-top: 10px;
     padding: 10px 0px 0px 10px;
@@ -266,6 +267,7 @@
 }
 
 .watchlist-buttons-container{
+    /* border: var(--global-border); */
     width: 30%;
     display: flex;
     align-items: center;
@@ -317,4 +319,26 @@
 .watchlist-card:hover .fa-chevron-up{
     color: var(--rhood-green);
 
+}
+
+.watchlist-drop-options{
+    border: var(--global-border);
+    position: absolute;
+    width: 200px;
+    height: 86px;
+    right: 70px;
+    border: 1px solid lightgray;
+    background-color: white;
+    z-index: 1;
+}
+
+.watchlist-drop-div{
+    border: var(--global-border);
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+}
+
+.watchlist-drop-icon{
+    padding: 5px 6px 0px 0px;
 }

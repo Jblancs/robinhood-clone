@@ -47,17 +47,17 @@ function ProfileButton({ user }) {
           <>
             <div>{user.username}</div>
             <div>
-              <div>
+              <div className="not-allowed">
                 Transfers
               </div>
             </div>
             <div>
-              <div>
+              <div className="not-allowed">
                 History
               </div>
             </div>
             <div>
-              <div>
+              <div className="not-allowed">
                 Recurring
               </div>
             </div>
