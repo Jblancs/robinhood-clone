@@ -43,7 +43,6 @@ export const fetchWatchlists = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getWatchlists(data));
-        return
     }
 };
 
@@ -53,9 +52,10 @@ export const createWatchlists = (watchlistInfo) => async (dispatch) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(watchlistInfo)
     })
+
     if (response.ok) {
         const data = await response.json();
-        dispatch(updateWatchlists(data));
+        dispatch(fetchWatchlists());
     }
 }
 
@@ -98,8 +98,8 @@ export default function watchlistsReducer(state = initialState, action) {
             return newState
 
         case UPDATE_WATCHLISTS:
-            newState.watchlists[action.payload.id] = action.payload
-            return newState
+            newState.watchlists[action.payload.id] = {...action.payload}
+            return {...newState}
 
         case DELETE_WATCHLISTS:
             delete newState.watchlists[action.payload]

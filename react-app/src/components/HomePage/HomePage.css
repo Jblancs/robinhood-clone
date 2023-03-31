@@ -159,13 +159,6 @@
 
 /* Watchlist --------------------------------------------------------- */
 
-.watchlist-card{
-    width: 100%;
-    height: 45px;
-    cursor: pointer;
-    /* border: var(--global-border); */
-}
-
 .watchlist-name-div{
     width: 70%;
     display: flex;
@@ -296,14 +289,29 @@
     margin-right: 2px;
 }
 
+
+.fa-chevron-up{
+    margin-right: 2px;
+}
+
+.watchlist-card{
+    width: 100%;
+    height: 45px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    /* border: var(--global-border); */
+}
+
+
+.watchlist-card:hover{
+    background-color: var(--global-gray);
+}
+
 .add-list-icon:hover,
 .fa-ellipsis-h:hover{
     border-radius: 5px;
     background-color: var(--global-icon-bg-color);
-}
-
-.fa-chevron-up{
-    margin-right: 2px;
 }
 
 .watchlist-card:hover .fa-chevron-up{

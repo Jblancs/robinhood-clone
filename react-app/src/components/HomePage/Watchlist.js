@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux"
 import { NavLink } from "react-router-dom";
+import { createWatchlists } from "../../store/watchlist";
 
 
 function Watchlists({ watchlists }) {
     let [showForm, setShowForm] = useState(false)
-    let [listName, setListName] = useState()
+    let [listName, setListName] = useState("")
+    const dispatch = useDispatch()
+
     let lists = watchlists ? Object.values(watchlists) : []
 
     // Event Handlers -----------------------------------------------------------------------------------------
+    const submitHandler = async (e) => {
+        e.preventDefault()
 
+        const listInfo = {
+            name: listName.toString()
+        }
+
+        let newList = await dispatch(createWatchlists(listInfo))
+        console.log(newList)
+
+        if(newList){
+            setShowForm(false)
+        }
+
+    }
 
     // Watchlist form display ---------------------------------------------------------------------------------
     let showWatchlist;
@@ -16,7 +34,7 @@ function Watchlists({ watchlists }) {
     if (showForm) {
         showWatchlist = (
             <div className="watchlist-form-container">
-                <form className="watchlist-form">
+                <form className="watchlist-form" onSubmit={submitHandler}>
                     <div className="watchlist-form-div">
                         <div className="watchlist-icon-div">
                             <img className="watchlist-icon form-icon" src="./images/lightbulb-icon.png" alt="lightbulb" />

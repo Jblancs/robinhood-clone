@@ -19,18 +19,19 @@ def get_user_watchlists():
     return watchlists_list
 
 # ------------------------------------------------------------------------------
-@watchlists_routes.route("/<int:id>", methods=["POST"])
-def create_watchlist(id):
+@watchlists_routes.route("/", methods=["POST"])
+def create_watchlist():
     '''
     create a user watchlist
     '''
+    user_id = current_user.to_dict()["id"]
     res = request.get_json()
     form = WatchlistForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
         new_watchlist = Watchlist(
-            user_id=res["userId"],
+            user_id=user_id,
             name=res["name"]
         )
         db.session.add(new_watchlist)
