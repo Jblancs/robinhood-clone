@@ -59,15 +59,15 @@ export const createWatchlists = (watchlistInfo) => async (dispatch) => {
     }
 }
 
-export const updateWatchlistsName = (watchlistInfo) => async (dispatch) => {
-    const response = await fetch(`/api/watchlists/`, {
+export const updateWatchlistsName = (watchlistInfo, id) => async (dispatch) => {
+    const response = await fetch(`/api/watchlists/${id}`, {
         method: 'PUT',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(watchlistInfo)
     })
     if (response.ok) {
         const data = await response.json();
-        dispatch(updateWatchlists(data));
+        dispatch(fetchWatchlists());
     }
 }
 
@@ -79,7 +79,7 @@ export const deleteWatchlists = (watchlistInfo) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json();
-        dispatch(removeWatchlists(data));
+        dispatch(fetchWatchlists());
     }
 }
 
@@ -95,14 +95,6 @@ export default function watchlistsReducer(state = initialState, action) {
                 watchlist[list.id] = list
             })
             newState.watchlists = watchlist
-            return newState
-
-        case UPDATE_WATCHLISTS:
-            newState.watchlists[action.payload.id] = {...action.payload}
-            return {...newState}
-
-        case DELETE_WATCHLISTS:
-            delete newState.watchlists[action.payload]
             return newState
 
         case CLEAR_WATCH_STATE:

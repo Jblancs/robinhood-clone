@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../context/Modal";
+import { updateWatchlistsName } from "../store/watchlist";
 import "./WatchlistModal.css"
 
 function WatchlistEditModal({ id, name }) {
@@ -10,8 +11,9 @@ function WatchlistEditModal({ id, name }) {
     let [disableBtn, setDisableBtn] = useState(false)
     const { closeModal } = useModal();
 
+    // Error handler useEffect --------------------------------------------------------------------------------
     useEffect(() => {
-        if (listName.length > 64) {
+        if (listName.length > 64 || listName.length < 1) {
             setError(true)
             setDisableBtn(true)
         } else {
@@ -24,6 +26,11 @@ function WatchlistEditModal({ id, name }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const listInfo = {
+            name: listName
+        }
+
+        let newList = await dispatch(updateWatchlistsName(listInfo, id))
         closeModal()
     };
 
@@ -50,7 +57,7 @@ function WatchlistEditModal({ id, name }) {
                             <div className={error ? "watchlist-input-error-div" : "hidden"}>
                                 <span className="watchlist-info-icon bold">i</span>
                                 <div className="watchlist-info-text">
-                                    Your list name must be less than 64 characters.
+                                    Your list name must be between 1 and 64 characters.
                                 </div>
                             </div>
                         </div>

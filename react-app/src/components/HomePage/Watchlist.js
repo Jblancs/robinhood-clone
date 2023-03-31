@@ -28,6 +28,12 @@ function Watchlists({ watchlists }) {
     const submitHandler = async (e) => {
         e.preventDefault()
 
+        if(listName.length < 1){
+            setError(true)
+            setDisableBtn(true)
+            return
+        }
+
         const listInfo = {
             name: listName
         }
@@ -68,7 +74,7 @@ function Watchlists({ watchlists }) {
                             <div className={error ? "watchlist-input-error-div" : "hidden"}>
                                 <span className="watchlist-info-icon bold">i</span>
                                 <div className="watchlist-info-text">
-                                    Your list name must be less than 64 characters.
+                                    Your list name must be between 1 and 64 characters.
                                 </div>
                             </div>
                         </div>
