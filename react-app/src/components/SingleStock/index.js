@@ -192,7 +192,7 @@ function SingleStock() {
                             buttonText="Add to Lists"
                             modalClass="add-list-modal-btn bold"
                             modalIcon={plusIcon}
-                            modalComponent={<WatchlistAddRemoveModal watchlists={watchlists} ticker={stockTicker}/>}
+                            modalComponent={<WatchlistAddRemoveModal ticker={stockTicker}/>}
                         />
                     </div>
                 </div>

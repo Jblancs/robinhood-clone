@@ -205,7 +205,6 @@
 
 .watch-modal-card-div{
     display: flex;
-    border: var(--global-border);
     padding-top: 13px;
     overflow: auto;
 }

@@ -12,6 +12,7 @@ function WatchlistAddRemoveModal({ ticker }) {
     let [listName, setListName] = useState("")
     let [error, setError] = useState(false)
     let [disableBtn, setDisableBtn] = useState(false)
+    let [disableSaveChanges, setDisableSaveChanges] = useState(false)
     const watchlists = useSelector(state => state.watchlists.watchlists)
 
     useEffect(() => {
@@ -29,16 +30,37 @@ function WatchlistAddRemoveModal({ ticker }) {
         }
     }, [listName])
 
-    // sort lists in descending by id ------------------------------------------------------------------------
+    // sort lists in descending by id and create default state obj -------------------------------------------
     let lists = watchlists ? Object.values(watchlists) : []
+    let defaultObj = {}
+
     if (lists.length) {
         lists.sort((a, b) => {
             return b.id - a.id
         })
+
+        for(let i = 0; i < lists.length; i++){
+            defaultObj[lists[i].id] = lists[i].stocks.includes(ticker)
+        }
     }
 
+    // Check if any changes in watchlists ---------------------------------------------------------------------
+    const [updateInfo, setUpdateInfo] = useState(defaultObj)
+
+    useEffect(() => {
+        if(JSON.stringify(defaultObj) === JSON.stringify(updateInfo)){
+            setDisableSaveChanges(true)
+        }else{
+            setDisableSaveChanges(false)
+        }
+    }, [updateInfo])
+
+    // console.log(defaultObj)
+    // console.log(JSON.stringify(defaultObj))
+
     // Event Handlers -----------------------------------------------------------------------------------------
-    const submitHandler = async (e) => {
+    // Create List Handlers -----------------------------------------------------------------------------------
+    const submitFormHandler = async (e) => {
         e.preventDefault()
 
         if (listName.length < 1) {
@@ -53,17 +75,34 @@ function WatchlistAddRemoveModal({ ticker }) {
 
         let newList = await dispatch(createWatchlists(listInfo))
         setListName("")
+        setShowForm(false)
     }
 
-    const cancelHandler = (e) => {
+    const cancelFormHandler = (e) => {
         e.preventDefault()
         setShowForm(false)
         setListName("")
     }
 
-    const onChangeHandler = (e) => {
+    const onChangeFormHandler = (e) => {
         setListName(e.target.value.toString())
     }
+
+    // Update List Handlers -----------------------------------------------------------------------------------
+    const checkedHandler = (id) => {
+        return updateInfo[id]
+    }
+
+    const boxOnChangeHandler = (e) => {
+        updateInfo[e.target.name] = !updateInfo[e.target.name]
+        setUpdateInfo({...updateInfo})
+    }
+
+    const saveChanges = (e) => {
+        e.preventDefault()
+        closeModal()
+    }
+    console.log("updateInfo ~~~~~~",updateInfo)
 
     // Watchlist form display ---------------------------------------------------------------------------------
     let showWatchlist;
@@ -71,14 +110,14 @@ function WatchlistAddRemoveModal({ ticker }) {
     if (showForm) {
         showWatchlist = (
             <div className="watchlist-form-container">
-                <form className="watchlist-form" onSubmit={submitHandler}>
+                <form className="watchlist-form" onSubmit={submitFormHandler}>
                     <div className="watchlist-add-form-div">
                         <div className="watchlist-icon-div">
                             <img className="watchlist-add-to-icon form-icon" src="../images/lightbulb-icon.png" alt="lightbulb" />
                         </div>
                         <div className="watchlist-input-div">
                             <input className="watchlist-add-input"
-                                onChange={onChangeHandler}
+                                onChange={onChangeFormHandler}
                                 placeholder="List Name"
                                 type="text"
                                 name="name"
@@ -94,7 +133,7 @@ function WatchlistAddRemoveModal({ ticker }) {
                     <div className="watchlist-form-btn-div">
                         <div className="watchlist-form-btn-space"></div>
                         <div className="watchlist-form-buttons">
-                            <button className="watchlist-cancel-btn watchlist-btns bold" type="button" onClick={cancelHandler}>Cancel</button>
+                            <button className="watchlist-cancel-btn watchlist-btns bold" type="button" onClick={cancelFormHandler}>Cancel</button>
                             <button className="watchlist-create-btn watchlist-btns bold" disabled={disableBtn}>Create List</button>
                         </div>
                     </div>
@@ -105,7 +144,6 @@ function WatchlistAddRemoveModal({ ticker }) {
 
     // Watchlist list display --------------------------------------------------------------------------------
     let watchlistDisplay;
-    console.log(lists)
     if (lists.length) {
         watchlistDisplay = (
             <>
@@ -117,10 +155,12 @@ function WatchlistAddRemoveModal({ ticker }) {
                                     type="checkbox"
                                     name={`${list.id}`}
                                     id={`${list.id}`}
+                                    onChange={boxOnChangeHandler}
                                     className="watch-modal-checkbox"
+                                    checked={checkedHandler(list.id)}
                                 />
                             </div>
-                            <label for={`${list.id}`} className="watch-modal-label">
+                            <label htmlFor={`${list.id}`} className="watch-modal-label">
                                 <div className="watch-modal-img-div">
                                     <img className="watch-modal-display-icon" src="../images/lightbulb-icon.png" alt="lightbulb" />
                                 </div>
@@ -160,7 +200,7 @@ function WatchlistAddRemoveModal({ ticker }) {
                 {watchlistDisplay}
             </div>
             <div>
-                <button className="watchlist-save-changes bold" disabled={disableBtn}>Save Changes</button>
+                <button className="watchlist-save-changes bold" onClick={saveChanges} disabled={disableSaveChanges}>Save Changes</button>
             </div>
         </div>
     );
