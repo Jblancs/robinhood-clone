@@ -73,12 +73,15 @@ def update_investment(ticker):
         Investment.ticker == ticker
         ).first()
 
+    investment_dict = investment.to_dict()
+
     if res["type"] == "buy":
         investment.value = investment.value + res["total_cost"]
         investment.shares = investment.shares + res["shares"]
         db.session.commit()
     else:
-        investment.value = investment.value - res["total_cost"]
+    # Deduct based on average price per share until I implement auto updating investment using live data
+        investment.value = investment.value - (res["shares"] * investment_dict["price_per_share"])
         investment.shares = investment.shares - res["shares"]
         db.session.commit()
 
