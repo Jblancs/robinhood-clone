@@ -10,7 +10,7 @@ import { clearInvestmentState, fetchStockInvestment } from "../../store/investme
 import { clearTransactionState, fetchAllTransactions } from "../../store/transaction";
 import TransactionHistory from "./TransactionHistory";
 import { addStock, clearStockState, fetchStock } from "../../store/stock";
-import WatchlistAddRemoveModal from "../../WatchlistModal/WatchlistAddRemoveModal";
+import WatchlistAddRemoveModal from "../WatchlistModal/WatchlistAddRemoveModal";
 import OpenModalButton from "../OpenModalButton";
 
 
@@ -29,7 +29,7 @@ function SingleStock() {
     const transactions = useSelector(state => state.transactions.transactions)
     const stock = useSelector(state => state.stock.stock)
     const user = useSelector((state) => state.session.user)
-
+    const watchlists = useSelector(state => state.watchlists.watchlists)
 
     // API call to retrieve stock info ---------------------------------------------------------------------------
     useEffect(() => {
@@ -80,8 +80,8 @@ function SingleStock() {
     }
 
     // check and plus icon for add to watchlist modal btn -------------------------------------------------------
-    let checkIcon = (<i className="fas fa-check"/>)
-    let plusIcon = (<i className="fas fa-plus"/>)
+    let checkIcon = (<i className="fas fa-check single-stock-add-watch-check"/>)
+    let plusIcon = (<i className="fas fa-plus single-stock-add-watch-plus"/>)
 
     // Investment info display if stock is owned ----------------------------------------------------------------
     let investmentDisplay;
@@ -189,7 +189,7 @@ function SingleStock() {
                             buttonText="Add to Lists"
                             modalClass="add-list-modal-btn bold"
                             modalIcon={plusIcon}
-                            modalComponent={<WatchlistAddRemoveModal />}
+                            modalComponent={<WatchlistAddRemoveModal watchlists={watchlists} ticker={stockTicker}/>}
                         />
                     </div>
                 </div>

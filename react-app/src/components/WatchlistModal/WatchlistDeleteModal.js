@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useModal } from "../context/Modal";
-import { deleteWatchlists } from "../store/watchlist";
+import { useModal } from "../../context/Modal";
+import { deleteWatchlists } from "../../store/watchlist";
 import "./WatchlistModal.css"
 
 function WatchlistDeleteModal({ id, name, stocks }) {

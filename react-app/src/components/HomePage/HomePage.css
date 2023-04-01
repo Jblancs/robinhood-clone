@@ -27,7 +27,7 @@
 }
 
 
-/* Graph ---------------------------------------- */
+/* Graph --------------------------------------------------- */
 .portfolio-graph-div {
     padding-bottom: 20px;
 }
@@ -97,7 +97,7 @@
     padding: 10px 20px 10px 20px;
 }
 
-/* Buying power ---------------------------------------- */
+/* Buying power ------------------------------------------ */
 .buy-power-div {
     display: flex;
     justify-content: space-between;
@@ -114,7 +114,7 @@
     background-color: var(--global-gray);
 }
 
-/* News Card ---------------------------------------- */
+/* News Card --------------------------------------------- */
 .news-img {
     width: 150px;
     height: 100px;

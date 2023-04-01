@@ -295,3 +295,9 @@
 .add-list-modal-btn:hover{
     background-color: #00c8071d;
 }
+
+.single-stock-add-watch-check,
+.single-stock-add-watch-plus{
+    font-size: 15px;
+    padding-right: 10px;
+}

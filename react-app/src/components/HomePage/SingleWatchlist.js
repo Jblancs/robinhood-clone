@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux"
 import { NavLink } from "react-router-dom";
 import { createWatchlists } from "../../store/watchlist";
 import OpenModalButton from "../OpenModalButton";
-import WatchlistEditModal from "../../WatchlistModal/WatchlistEditModal";
-import WatchlistDeleteModal from "../../WatchlistModal/WatchlistDeleteModal";
+import WatchlistEditModal from "../WatchlistModal/WatchlistEditModal";
+import WatchlistDeleteModal from "../WatchlistModal/WatchlistDeleteModal";
 
 
 function SingleWatchlist({ list }) {
@@ -36,7 +36,6 @@ function SingleWatchlist({ list }) {
     const editIcon = (<i className="fas fa-cog watchlist-drop-icon" />)
     const deleteIcon = (<i className="far fa-times-circle watchlist-drop-icon" />)
 
-
     // Stocks Display ------------------------------------------------------------------------------------------------------------
     let stockDisplay;
     let stockList = list.stocks
@@ -67,7 +66,6 @@ function SingleWatchlist({ list }) {
             ))
         )
     }
-
 
     // Component JSX ------------------------------------------------------------------------------------------------------------
     return (
