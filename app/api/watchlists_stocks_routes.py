@@ -13,7 +13,6 @@ def add_stock_to_list():
     Add a stock to one or multiple watchlists
     '''
     res = request.get_json()
-    print_data("request json array",res)
 
     for addInfo in res:
         added_stock = insert(watchlists_stocks).values(
@@ -33,11 +32,13 @@ def delete_stock_from_list():
     remove a stock from one or multiple watchlists
     '''
     res = request.get_json()
+    print_data("request json array",res)
 
     for deleteInfo in res:
         removeStock = delete(watchlists_stocks).where(
-            watchlists_stocks.c.watchlist_id == int(deleteInfo["watchlistId"]) & watchlists_stocks.c.ticker == deleteInfo["ticker"]
+            watchlists_stocks.c.watchlist_id == int(deleteInfo["watchlistId"]), watchlists_stocks.c.ticker == deleteInfo["ticker"]
         )
+        db.session.execute(removeStock)
 
     db.session.commit()
 
