@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, Portfolio, db
+from app.models import User, Portfolio, PortfolioHistory, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
+from datetime import datetime
 
 from flask_login import current_user, login_user, logout_user, login_required
 
@@ -77,6 +78,15 @@ def sign_up():
             buying_power=0
         )
         db.session.add(portfolio)
+        db.session.commit()
+
+        # create history snapshot on signup
+        portfolio_history = PortfolioHistory(
+            portfolio_id = portfolio.to_dict()["id"],
+            value_at_time = 0,
+            date=datetime.now()
+        )
+        db.session.add(portfolio_history)
         db.session.commit()
 
         login_user(user)
