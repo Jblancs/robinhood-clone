@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createWatchlists, fetchWatchlists } from "../../store/watchlist";
+import { addStockToList, createWatchlists, fetchWatchlists, removeStockFromList } from "../../store/watchlist";
 
 
 
@@ -39,7 +39,7 @@ function WatchlistAddRemoveModal({ ticker }) {
             return b.id - a.id
         })
 
-        for(let i = 0; i < lists.length; i++){
+        for (let i = 0; i < lists.length; i++) {
             defaultObj[lists[i].id] = lists[i].stocks.includes(ticker)
         }
     }
@@ -48,9 +48,9 @@ function WatchlistAddRemoveModal({ ticker }) {
     const [updateObj, setUpdateObj] = useState(defaultObj)
 
     useEffect(() => {
-        if(JSON.stringify(defaultObj) === JSON.stringify(updateObj)){
+        if (JSON.stringify(defaultObj) === JSON.stringify(updateObj)) {
             setDisableSaveChanges(true)
-        }else{
+        } else {
             setDisableSaveChanges(false)
         }
     }, [updateObj])
@@ -92,33 +92,35 @@ function WatchlistAddRemoveModal({ ticker }) {
 
     const boxOnChangeHandler = (e) => {
         updateObj[e.target.name] = !updateObj[e.target.name]
-        setUpdateObj({...updateObj})
+        setUpdateObj({ ...updateObj })
     }
 
-    const saveChanges = (e) => {
+    const saveChanges = async (e) => {
         e.preventDefault()
 
         let addArray = []
         let deleteArray = []
 
-        for (let listId in updateObj){
+        for (let listId in updateObj) {
             let updateInfo = {}
-            if(defaultObj[listId] !== updateObj[listId]){
+            if (defaultObj[listId] !== updateObj[listId]) {
                 updateInfo.watchlistId = listId
                 updateInfo.ticker = ticker
 
-                if(updateObj[listId]){
+                if (updateObj[listId]) {
                     addArray.push(updateInfo)
-                }else{
+                } else {
                     deleteArray.push(updateInfo)
                 }
             }
         }
 
+        let added = await dispatch(addStockToList(addArray))
+        let deleted = await dispatch(removeStockFromList(deleteArray))
 
         closeModal()
     }
-    console.log("updateObj ~~~~~~",updateObj)
+    console.log("updateObj ~~~~~~", updateObj)
 
     // Watchlist form display ---------------------------------------------------------------------------------
     let showWatchlist;
@@ -216,7 +218,7 @@ function WatchlistAddRemoveModal({ ticker }) {
                 {watchlistDisplay}
             </div>
             <div>
-                <button className={!disableSaveChanges ? "watchlist-save-changes bold" : "watchlist-save-changes disable bold" } onClick={saveChanges} disabled={disableSaveChanges}>Save Changes</button>
+                <button className={!disableSaveChanges ? "watchlist-save-changes bold" : "watchlist-save-changes disable bold"} onClick={saveChanges} disabled={disableSaveChanges}>Save Changes</button>
             </div>
         </div>
     );

@@ -86,12 +86,12 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
             await dispatch(createInvestment(stockTicker, transactionData))
             await dispatch(updatePortfolio(transactionData))
 
-            // for if SELL all shares of the stock
+        // for if SELL all shares of the stock
         } else if (!newTransaction.errors && investment[stockTicker].shares === shares && type === "sell") {
             await dispatch(sellAllInvestments(stockTicker))
             await dispatch(updatePortfolio(transactionData))
 
-            // for if you BUY and OWN the stock
+        // for if you BUY and OWN the stock
         } else if (!newTransaction.errors && investment) {
             await dispatch(updateInvestment(stockTicker, transactionData))
             await dispatch(updatePortfolio(transactionData))

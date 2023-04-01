@@ -77,9 +77,38 @@ export const deleteWatchlists = (id) => async (dispatch) => {
         method: 'DELETE',
         headers: { "Content-Type": "application/json" },
     })
+
     if (response.ok) {
         const data = await response.json();
         dispatch(fetchWatchlists());
+    }
+}
+
+export const addStockToList = (dataArr) => async (dispatch) => {
+    const response = await fetch(`/api/watchlists_stocks/`, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataArr)
+    })
+
+    if(response.ok){
+        const data = await response.json()
+        dispatch(fetchWatchlists())
+        return data
+    }
+}
+
+export const removeStockFromList = (dataArr) => async (dispatch) => {
+    const response = await fetch(`/api/watchlists_stocks/`, {
+        method: 'DELETE',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataArr)
+    })
+
+    if(response.ok){
+        const data = await response.json()
+        dispatch(fetchWatchlists())
+        return data
     }
 }
 
