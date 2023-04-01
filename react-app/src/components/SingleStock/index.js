@@ -12,6 +12,7 @@ import TransactionHistory from "./TransactionHistory";
 import { addStock, clearStockState, fetchStock } from "../../store/stock";
 import WatchlistAddRemoveModal from "../WatchlistModal/WatchlistAddRemoveModal";
 import OpenModalButton from "../OpenModalButton";
+import { clearWatchlistsState, fetchWatchlists } from "../../store/watchlist";
 
 
 function SingleStock() {
@@ -43,11 +44,13 @@ function SingleStock() {
         dispatch(fetchStockInvestment(stockTicker))
         dispatch(fetchAllTransactions(stockTicker))
         dispatch(fetchStock(stockTicker))
+        dispatch(fetchWatchlists())
         return () => {
             dispatch(clearInvestmentState())
             dispatch(clearTransactionState())
             dispatch(clearPortfolioState())
             dispatch(clearStockState())
+            dispatch(clearWatchlistsState())
         }
     }, [dispatch])
 

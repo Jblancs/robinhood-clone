@@ -8,7 +8,6 @@ import { createWatchlists } from "../../store/watchlist";
 function WatchlistAddRemoveModal({ ticker, watchlists }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-
     let [showForm, setShowForm] = useState(false)
     let [listName, setListName] = useState("")
     let [error, setError] = useState(false)
@@ -21,6 +20,8 @@ function WatchlistAddRemoveModal({ ticker, watchlists }) {
             return b.id - a.id
         })
     }
+
+    console.log(lists)
 
     useEffect(() => {
         if (listName.length > 64) {
@@ -99,6 +100,29 @@ function WatchlistAddRemoveModal({ ticker, watchlists }) {
         )
     }
 
+    // Watchlist list display --------------------------------------------------------------------------------
+    let watchlistDisplay;
+    console.log(lists)
+    if (lists.length) {
+        watchlistDisplay = (
+            <>
+                {
+                    lists.map(list => (
+                        <div key={list.id} className="watch-modal-card-div">
+                            <input
+                                type="checkbox"
+                                name={list.id}
+                            />
+                            <div className="watch-modal-img-div">
+                                <img className="watch-modal-display-icon" src="../images/lightbulb-icon.png" alt="lightbulb" />
+                            </div>
+                        </div>
+                    ))
+                }
+            </>
+        )
+    }
+
     // Component JSX -----------------------------------------------------------------------------------------
     return (
         <div className="watch-add-stock-container">
@@ -114,6 +138,9 @@ function WatchlistAddRemoveModal({ ticker, watchlists }) {
                     </div>
                 </div>
                 {showWatchlist}
+            </div>
+            <div className="watchlist-modal-display-div">
+                test
             </div>
             <div>
                 <button className="watchlist-save-changes bold" disabled={disableBtn}>Save Changes</button>
