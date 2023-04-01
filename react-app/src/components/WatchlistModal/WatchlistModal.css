@@ -138,7 +138,7 @@
 }
 
 .watch-add-list-icon{
-    margin: 0px 20px 0px 20px;
+    margin: 0px 20px 0px 38px;
     color: var(--rhood-green);
     border: 1px solid #00c80701;
     background-color: #00c80729;
@@ -161,8 +161,8 @@
 .watchlist-add-to-icon {
     width: 20px;
     height: 20px;
-    margin-left: 20px;
-    padding: 12px 10px;
+    margin-left: 30px;
+    padding: 14px 15px;
     background-color: var(--global-icon-bg-color);
     border-radius: 5px;
 }
@@ -174,12 +174,12 @@
 .watchlist-add-input {
     border-top: 1px solid gray;
     background-color: rgba(211, 211, 211, 0.566);
-    padding: 0px 15px;
-    width: 98%;
+    padding: 2px 15px;
+    width: 95%;
     height: 40px;
     font-size: 18px;
     border-radius: 5px;
-    margin-left: 20px;
+    margin-left: 25px;
     text-align: left;
 }
 
@@ -201,4 +201,50 @@
 
 .watchlist-save-changes:hover{
     filter: grayscale(20%);
+}
+
+.watch-modal-card-div{
+    display: flex;
+    border: var(--global-border);
+    padding-top: 13px;
+    overflow: auto;
+}
+
+.watch-modal-label{
+    display: flex;
+}
+
+.watch-modal-checkbox-div{
+    display: flex;
+    align-items: center;
+}
+
+.watch-modal-checkbox{
+    width: 20px;
+    height: 20px;
+}
+
+input[type="checkbox"]:checked{
+    color: white;
+    accent-color: var(--rhood-green);
+}
+
+.watch-modal-img-div{
+    /* border: var(--global-border); */
+    padding: 15px 10px 15px 10px;
+    margin-left: 10px;
+    background-color: rgba(211, 211, 211, 0.656);
+    border-radius: 5px;
+}
+
+.watch-modal-display-icon{
+    width: 30px;
+    height: 30px;
+}
+
+.watch-modal-box-label-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
 }

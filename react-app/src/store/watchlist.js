@@ -56,6 +56,7 @@ export const createWatchlists = (watchlistInfo) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(fetchWatchlists());
+        return data
     }
 }
 

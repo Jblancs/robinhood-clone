@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createWatchlists } from "../../store/watchlist";
+import { createWatchlists, fetchWatchlists } from "../../store/watchlist";
 
 
 
-function WatchlistAddRemoveModal({ ticker, watchlists }) {
+function WatchlistAddRemoveModal({ ticker }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     let [showForm, setShowForm] = useState(false)
     let [listName, setListName] = useState("")
     let [error, setError] = useState(false)
     let [disableBtn, setDisableBtn] = useState(false)
+    const watchlists = useSelector(state => state.watchlists.watchlists)
 
-    let lists = watchlists ? Object.values(watchlists) : []
+    useEffect(() => {
+        dispatch(fetchWatchlists())
+    }, [dispatch])
 
-    if (lists.length) {
-        lists.sort((a, b) => {
-            return b.id - a.id
-        })
-    }
-
-    console.log(lists)
 
     useEffect(() => {
         if (listName.length > 64) {
@@ -32,6 +28,14 @@ function WatchlistAddRemoveModal({ ticker, watchlists }) {
             setDisableBtn(false)
         }
     }, [listName])
+
+    // sort lists in descending by id ------------------------------------------------------------------------
+    let lists = watchlists ? Object.values(watchlists) : []
+    if (lists.length) {
+        lists.sort((a, b) => {
+            return b.id - a.id
+        })
+    }
 
     // Event Handlers -----------------------------------------------------------------------------------------
     const submitHandler = async (e) => {
@@ -48,7 +52,6 @@ function WatchlistAddRemoveModal({ ticker, watchlists }) {
         }
 
         let newList = await dispatch(createWatchlists(listInfo))
-        setShowForm(false)
         setListName("")
     }
 
@@ -109,13 +112,27 @@ function WatchlistAddRemoveModal({ ticker, watchlists }) {
                 {
                     lists.map(list => (
                         <div key={list.id} className="watch-modal-card-div">
-                            <input
-                                type="checkbox"
-                                name={list.id}
-                            />
-                            <div className="watch-modal-img-div">
-                                <img className="watch-modal-display-icon" src="../images/lightbulb-icon.png" alt="lightbulb" />
+                            <div className="watch-modal-checkbox-div">
+                                <input
+                                    type="checkbox"
+                                    name={`${list.id}`}
+                                    id={`${list.id}`}
+                                    className="watch-modal-checkbox"
+                                />
                             </div>
+                            <label for={`${list.id}`} className="watch-modal-label">
+                                <div className="watch-modal-img-div">
+                                    <img className="watch-modal-display-icon" src="../images/lightbulb-icon.png" alt="lightbulb" />
+                                </div>
+                                <div className="watch-modal-box-label-div">
+                                    <div className="watch-modal-box-label-name bold">
+                                        {list.name}
+                                    </div>
+                                    <div className="watch-modal-box-label-items">
+                                        {list.stocks.length} item(s)
+                                    </div>
+                                </div>
+                            </label>
                         </div>
                     ))
                 }
@@ -140,7 +157,7 @@ function WatchlistAddRemoveModal({ ticker, watchlists }) {
                 {showWatchlist}
             </div>
             <div className="watchlist-modal-display-div">
-                test
+                {watchlistDisplay}
             </div>
             <div>
                 <button className="watchlist-save-changes bold" disabled={disableBtn}>Save Changes</button>
