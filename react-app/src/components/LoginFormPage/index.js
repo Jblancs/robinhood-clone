@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import './LoginForm.css';
 
 function LoginFormPage() {
@@ -30,7 +30,7 @@ function LoginFormPage() {
   return (
     <div className="login-page-container">
       <img className="login-form-img" src="./images/signin-background.PNG" alt="login" />
-      <div className="login-form-container">\
+      <div className="login-form-container">
         <div className="login-form-div">
           <h1>Log in to Robingood</h1>
           <form onSubmit={handleSubmit}>
@@ -74,7 +74,9 @@ function LoginFormPage() {
           </form>
           <div className="login-line-split"></div>
           <div className="signup-link-div">
+            <NavLink to="/signup" style={{textDecoration:"none", color:"black"}}>
             Not on Robingood? <span className="bold under">Create an account</span>
+            </NavLink>
           </div>
         </div>
       </div>

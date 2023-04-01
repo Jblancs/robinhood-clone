@@ -1,4 +1,4 @@
-.watchlist-edit-form-container{
+.watchlist-edit-form-container {
     padding: 25px 50px;
     width: 400px;
     height: 200px;
@@ -24,7 +24,7 @@
 
 .form-edit-icon {
     background-color: rgb(222, 222, 222);
-    width:40%
+    width: 40%
 }
 
 .watchlist-edit-form-div {
@@ -37,6 +37,7 @@
 .watchlist-edit-form-btn-div {
     display: flex;
 }
+
 .watchlist-edit-form-buttons {
     width: 100%;
 
@@ -62,7 +63,7 @@
     filter: grayscale(20%);
 }
 
-.watchlist-edit-input-div{
+.watchlist-edit-input-div {
     width: 100%;
 }
 
@@ -83,29 +84,29 @@
 
 /* delete css ----------------------------------------------------------- */
 
-.watchlist-delete-form-container{
+.watchlist-delete-form-container {
     padding: 40px;
 }
 
-.watchlist-delete-form-header{
+.watchlist-delete-form-header {
     display: flex;
 }
 
-.fa-times{
+.fa-times {
     font-size: 30px;
     padding-left: 30px;
     cursor: pointer;
 }
 
-.watchlist-delete-text{
+.watchlist-delete-text {
     padding: 0px 0px 25px 0px;
 }
 
-.watchlist-delete-btn-div{
+.watchlist-delete-btn-div {
     width: 100%;
 }
 
-.watchlist-delete-btn{
+.watchlist-delete-btn {
     background-color: var(--rhood-orange);
     width: 100%;
     height: 50px;
@@ -116,28 +117,28 @@
 
 /* add/remove stock css --------------------------------------------------- */
 
-.watch-add-stock-container{
+.watch-add-stock-container {
     width: 400px;
     padding: 30px 50px 50px 50px;
 }
 
-.watch-add-stock-header{
+.watch-add-stock-header {
     display: flex;
     justify-content: space-between;
 }
 
-.watch-create-form-div{
+.watch-create-form-div {
     display: flex;
     flex-direction: column;
 }
 
-.watch-add-to-watchlist-div{
+.watch-add-to-watchlist-div {
     display: flex;
     align-items: center;
     cursor: pointer;
 }
 
-.watch-add-list-icon{
+.watch-add-list-icon {
     margin: 0px 20px 0px 38px;
     color: var(--rhood-green);
     border: 1px solid #00c80701;
@@ -147,7 +148,7 @@
     padding: 15px 10px 15px 10px;
 }
 
-.watch-add-list-text{
+.watch-add-list-text {
     padding-bottom: 5px;
     font-size: 20px;
 }
@@ -189,7 +190,7 @@
 
 /* watchlist outside add stock modal form --------------- */
 
-.watchlist-save-changes{
+.watchlist-save-changes {
     margin-top: 20px;
     width: 100%;
     height: 45px;
@@ -199,36 +200,36 @@
     cursor: pointer;
 }
 
-.watchlist-save-changes:hover{
+.watchlist-save-changes:hover {
     filter: grayscale(20%);
 }
 
-.watch-modal-card-div{
+.watch-modal-card-div {
     display: flex;
     padding-top: 13px;
     overflow: auto;
 }
 
-.watch-modal-label{
+.watch-modal-label {
     display: flex;
 }
 
-.watch-modal-checkbox-div{
+.watch-modal-checkbox-div {
     display: flex;
     align-items: center;
 }
 
-.watch-modal-checkbox{
+.watch-modal-checkbox {
     width: 20px;
     height: 20px;
 }
 
-input[type="checkbox"]:checked{
+input[type="checkbox"]:checked {
     color: white;
     accent-color: var(--rhood-green);
 }
 
-.watch-modal-img-div{
+.watch-modal-img-div {
     /* border: var(--global-border); */
     padding: 15px 10px 15px 10px;
     margin-left: 10px;
@@ -236,19 +237,28 @@ input[type="checkbox"]:checked{
     border-radius: 5px;
 }
 
-.watch-modal-display-icon{
+.watch-modal-display-icon {
     width: 30px;
     height: 30px;
 }
 
-.watch-modal-box-label-div{
+.watch-modal-box-label-div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 10px;
 }
 
-.disable{
+.disable {
     background-color: rgba(211, 211, 211, 0.571);
     color: gray;
+}
+
+.watchlist-modal-display-div {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.watchlist-modal-display-div::-webkit-scrollbar {
+    display: none;
 }
