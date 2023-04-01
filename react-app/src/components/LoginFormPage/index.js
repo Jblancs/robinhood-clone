@@ -34,7 +34,7 @@ function LoginFormPage() {
         <div className="login-form-div">
           <h1>Log in to Robingood</h1>
           <form onSubmit={handleSubmit}>
-            <ul>
+            <ul className="log-sign-errors">
               {errors.map((error, idx) => (
                 <li key={idx}>{error}</li>
               ))}
