@@ -1,0 +1,22 @@
+.signup-page-container {
+    display: flex
+}
+
+.signup-form-img {
+    min-width: 750px;
+    max-width: 750px;
+    min-height: 900px;
+    max-height: 900px;
+    width: 55vw;
+    height: 100vh;
+}
+
+.signup-form-container {
+    background-color: white;
+    position: absolute;
+    width: 45vw;
+    height: 100vh;
+    min-height: 900px;
+    right: 0px;
+    z-index: 1;
+}

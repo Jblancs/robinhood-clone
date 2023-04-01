@@ -26,3 +26,7 @@
 .not-allowed{
     cursor: not-allowed;
 }
+
+.under{
+    text-decoration: underline;
+}

@@ -64,10 +64,25 @@ export const buildGraph = (chartData, type, days) => {
             yAxis.push(chartData[i]["c"])
         }
     } else {
-        for (let i = chartData.length - days; i < chartData.length; i++) {
-            let date = chartData[i]["date"]
-            xAxis.push(date)
-            yAxis.push(chartData[i]["value_at_time"])
+        if (chartData.length > days) {
+            for (let i = chartData.length - days; i < chartData.length; i++) {
+                let date = chartData[i]["date"]
+                xAxis.push(date)
+                yAxis.push(chartData[i]["value_at_time"])
+            }
+        } else {
+            for (let i = -1; i < chartData.length; i++) {
+                if (!chartData[i]) {
+                    let earliestDate = new Date(chartData[0]["date"])
+                    let priorDate = earliestDate.setDate(earliestDate.getDate() - 1)
+                    xAxis.push(priorDate)
+                    yAxis.push(0)
+                } else {
+                    let date = chartData[i]["date"]
+                    xAxis.push(date)
+                    yAxis.push(chartData[i]["value_at_time"])
+                }
+            }
         }
     }
 
