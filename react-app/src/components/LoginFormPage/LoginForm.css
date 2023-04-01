@@ -1,0 +1,55 @@
+.login-page-container {
+    display: flex
+}
+
+.login-form-img {
+    min-width: 900px;
+    min-height: 1300px;
+    max-height: 1300px;
+    width: 50vw;
+    height: 100vh;
+}
+
+.login-form-container {
+    background-color: white;
+    position: absolute;
+    width: 50vw;
+    height: 100vh;
+    min-height: 1300px;
+    right: 0px;
+    z-index: 1;
+}
+
+.login-form-div {
+    padding: 70px 50px;
+}
+
+.login-label-text{
+    padding: 10px 0px;
+}
+
+.login-input{
+    width: 70%;
+}
+
+.login-pass-div {
+    margin: 20px 0px 10px 0px;
+}
+
+.login-form-button {
+    width: 200px;
+    height: 45px;
+    color: white;
+    background-color: black;
+    border-radius: 30px;
+    margin: 20px 0px 10px 0px;
+    cursor: pointer;
+}
+
+.login-form-button:hover {
+    background-color: rgba(0, 0, 0, 0.849);;
+}
+
+.signup-link-div {
+    padding-top: 20px;
+}

@@ -39,7 +39,7 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <div onClick={openMenu} className="profile-account-btn bold navhover">
+      <div onClick={openMenu} className={user ? "profile-account-btn bold navhover" : "profile-account-btn bold navhover not-allowed"}>
         Account
       </div>
       <div className={ulClassName} ref={ulRef}>
@@ -67,7 +67,7 @@ function ProfileButton({ user }) {
           </>
         ) : (
           <div>
-            <OpenModalButton
+            {/* <OpenModalButton
               buttonText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
@@ -77,7 +77,7 @@ function ProfileButton({ user }) {
               buttonText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
-            />
+            /> */}
           </div>
         )}
       </div>
