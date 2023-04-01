@@ -5,7 +5,8 @@
     --global-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --global-orange-filter: invert(46%) sepia(94%) saturate(1974%) hue-rotate(349deg) brightness(102%) contrast(101%);
     --global-font-size: 17px;
-    --global-gray: rgba(228, 228, 228, 0.611)
+    --global-gray: rgba(228, 228, 228, 0.611);
+    --global-icon-bg-color: rgb(218, 236, 240);
 }
 
 * {
@@ -20,4 +21,8 @@
     display: flex;
     justify-content: space-between;
     align-content: center;
+}
+
+.not-allowed{
+    cursor: not-allowed;
 }

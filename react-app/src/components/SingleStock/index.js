@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom";
-import { getMarketValue, getPriceChange, getStockData, getStockInfo } from "../../Utils";
+import { getMarketValue, getPriceChange, getStockData, getStockInfo, addCommas } from "../../Utils";
 import SingleStockGraph from "./SingleStockGraph";
 import "./SingleStock.css"
 import BuySellStock from "./BuySellStock";
@@ -10,6 +10,9 @@ import { clearInvestmentState, fetchStockInvestment } from "../../store/investme
 import { clearTransactionState, fetchAllTransactions } from "../../store/transaction";
 import TransactionHistory from "./TransactionHistory";
 import { addStock, clearStockState, fetchStock } from "../../store/stock";
+import WatchlistAddRemoveModal from "../WatchlistModal/WatchlistAddRemoveModal";
+import OpenModalButton from "../OpenModalButton";
+import { clearWatchlistsState, fetchWatchlists } from "../../store/watchlist";
 
 
 function SingleStock() {
@@ -26,6 +29,8 @@ function SingleStock() {
     const investment = useSelector(state => state.investments.investments)
     const transactions = useSelector(state => state.transactions.transactions)
     const stock = useSelector(state => state.stock.stock)
+    const user = useSelector((state) => state.session.user)
+    const watchlists = useSelector(state => state.watchlists.watchlists)
 
     // API call to retrieve stock info ---------------------------------------------------------------------------
     useEffect(() => {
@@ -39,23 +44,28 @@ function SingleStock() {
         dispatch(fetchStockInvestment(stockTicker))
         dispatch(fetchAllTransactions(stockTicker))
         dispatch(fetchStock(stockTicker))
+        dispatch(fetchWatchlists())
         return () => {
             dispatch(clearInvestmentState())
             dispatch(clearTransactionState())
             dispatch(clearPortfolioState())
             dispatch(clearStockState())
+            dispatch(clearWatchlistsState())
         }
     }, [dispatch])
 
     // redirect if stock doesn't exist --------------------------------------------------------------------------
-    if (stockData === "error"){
+    if (!user) {
+        history.push("/login")
+    }
+
+    if (stockData === "error") {
         history.push("/")
     }
 
-    if (!stockData || !portfolio || !stock || stockData === "error") return <div className="loading">Loading...</div>
+    if (!stockData || !portfolio || !stock || stockData === "error" || !user) return <div className="loading">Loading...</div>
+
     // if stock is not in db then add it ------------------------------------------------------------------------
-
-
     if (stock.error) {
         let stockInfo = {
             ticker: stockTicker,
@@ -72,6 +82,9 @@ function SingleStock() {
         addStockInfo(stockInfo)
     }
 
+    // check and plus icon for add to watchlist modal btn -------------------------------------------------------
+    let checkIcon = (<i className="fas fa-check single-stock-add-watch-check"/>)
+    let plusIcon = (<i className="fas fa-plus single-stock-add-watch-plus"/>)
 
     // Investment info display if stock is owned ----------------------------------------------------------------
     let investmentDisplay;
@@ -82,7 +95,7 @@ function SingleStock() {
         let percentChange = Number(dollarChange / invValue).toFixed(2)
 
         let returnDisplay;
-        if (invValue < marketValue) {
+        if (invValue <= marketValue) {
             returnDisplay = (
                 <div>
                     <span className="dollar-change">+${dollarChange}</span>
@@ -105,7 +118,7 @@ function SingleStock() {
                         Your market value
                     </div>
                     <div className="mrkt-inv-val bold">
-                        ${marketValue}
+                        ${addCommas(marketValue)}
                     </div>
                     <div className="mrkt-val-return-div">
                         <div className="mrkt-inv-val-info">
@@ -146,7 +159,7 @@ function SingleStock() {
                             About
                         </div>
                         <div className="stock-info-desc">
-                            {stockAboutInfo?.description}
+                            {stockAboutInfo?.description ? stockAboutInfo?.description : ""}
                         </div>
                         <div className="stock-info-other-div">
                             <div className="stock-info-other-card">
@@ -174,6 +187,14 @@ function SingleStock() {
                 </div>
                 <div className="stock-buy-sell-component">
                     <BuySellStock stockData={stockData} stockTicker={stockTicker} portfolio={portfolio} dispatch={dispatch} />
+                    <div className="add-to-watch-div">
+                        <OpenModalButton
+                            buttonText="Add to Lists"
+                            modalClass="add-list-modal-btn bold"
+                            modalIcon={plusIcon}
+                            modalComponent={<WatchlistAddRemoveModal ticker={stockTicker}/>}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

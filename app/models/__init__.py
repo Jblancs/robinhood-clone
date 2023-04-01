@@ -6,6 +6,6 @@ from .portfolio import Portfolio
 from .stock import Stock
 from .transaction import Transaction
 from .transfers import Transfer
-# from .watchlist_stocks import WatchlistStocks
+from .watchlist_stocks import watchlists_stocks
 from .watchlist import Watchlist
 from .db import environment, SCHEMA

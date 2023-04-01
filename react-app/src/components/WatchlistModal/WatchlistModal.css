@@ -1,0 +1,254 @@
+.watchlist-edit-form-container{
+    padding: 25px 50px;
+    width: 400px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.watchlist-edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.watchlist-edit-icon {
+    width: 20px;
+    height: 20px;
+    padding: 12px 5px;
+    background-color: var(--global-icon-bg-color);
+    border-radius: 5px;
+}
+
+.watchlist-edit-icon-div {
+    width: 15%;
+}
+
+.form-edit-icon {
+    background-color: rgb(222, 222, 222);
+    width:40%
+}
+
+.watchlist-edit-form-div {
+    display: flex;
+    padding: 0px 0px 10px 0px;
+    width: 100%;
+
+}
+
+.watchlist-edit-form-btn-div {
+    display: flex;
+}
+.watchlist-edit-form-buttons {
+    width: 100%;
+
+}
+
+.watchlist-edit-btns {
+    background-color: var(--rhood-green);
+    border: 2px solid gray;
+    box-shadow: 1px 1px 3px gray;
+    border-color: gray;
+    border-radius: 25px;
+    color: white;
+    height: 42px;
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+
+.watchlist-edit-btn {
+    width: 100%;
+}
+
+.watchlist-edit-btn:hover {
+    filter: grayscale(20%);
+}
+
+.watchlist-edit-input-div{
+    width: 100%;
+}
+
+.watchlist-edit-input {
+    border-top: 1px solid gray;
+    background-color: rgba(211, 211, 211, 0.566);
+    padding: 0px 15px 0px 10px;
+    width: 90%;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.watchlist-edit-input:hover {
+    background-color: white;
+}
+
+/* delete css ----------------------------------------------------------- */
+
+.watchlist-delete-form-container{
+    padding: 40px;
+}
+
+.watchlist-delete-form-header{
+    display: flex;
+}
+
+.fa-times{
+    font-size: 30px;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.watchlist-delete-text{
+    padding: 0px 0px 25px 0px;
+}
+
+.watchlist-delete-btn-div{
+    width: 100%;
+}
+
+.watchlist-delete-btn{
+    background-color: var(--rhood-orange);
+    width: 100%;
+    height: 50px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+/* add/remove stock css --------------------------------------------------- */
+
+.watch-add-stock-container{
+    width: 400px;
+    padding: 30px 50px 50px 50px;
+}
+
+.watch-add-stock-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.watch-create-form-div{
+    display: flex;
+    flex-direction: column;
+}
+
+.watch-add-to-watchlist-div{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.watch-add-list-icon{
+    margin: 0px 20px 0px 38px;
+    color: var(--rhood-green);
+    border: 1px solid #00c80701;
+    background-color: #00c80729;
+    border-radius: 5px;
+    font-size: 30px;
+    padding: 15px 10px 15px 10px;
+}
+
+.watch-add-list-text{
+    padding-bottom: 5px;
+    font-size: 20px;
+}
+
+
+.watchlist-add-form-div {
+    display: flex;
+    padding: 20px 0px;
+}
+
+.watchlist-add-to-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 30px;
+    padding: 14px 15px;
+    background-color: var(--global-icon-bg-color);
+    border-radius: 5px;
+}
+
+.watchlist-icon-div {
+    width: 15%;
+}
+
+.watchlist-add-input {
+    border-top: 1px solid gray;
+    background-color: rgba(211, 211, 211, 0.566);
+    padding: 2px 15px;
+    width: 95%;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-left: 25px;
+    text-align: left;
+}
+
+.watchlist-add-input:hover {
+    background-color: white;
+}
+
+/* watchlist outside add stock modal form --------------- */
+
+.watchlist-save-changes{
+    margin-top: 20px;
+    width: 100%;
+    height: 45px;
+    border-radius: 20px;
+    color: white;
+    background-color: var(--rhood-green);
+    cursor: pointer;
+}
+
+.watchlist-save-changes:hover{
+    filter: grayscale(20%);
+}
+
+.watch-modal-card-div{
+    display: flex;
+    padding-top: 13px;
+    overflow: auto;
+}
+
+.watch-modal-label{
+    display: flex;
+}
+
+.watch-modal-checkbox-div{
+    display: flex;
+    align-items: center;
+}
+
+.watch-modal-checkbox{
+    width: 20px;
+    height: 20px;
+}
+
+input[type="checkbox"]:checked{
+    color: white;
+    accent-color: var(--rhood-green);
+}
+
+.watch-modal-img-div{
+    /* border: var(--global-border); */
+    padding: 15px 10px 15px 10px;
+    margin-left: 10px;
+    background-color: rgba(211, 211, 211, 0.656);
+    border-radius: 5px;
+}
+
+.watch-modal-display-icon{
+    width: 30px;
+    height: 30px;
+}
+
+.watch-modal-box-label-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+}
+
+.disable{
+    background-color: rgba(211, 211, 211, 0.571);
+    color: gray;
+}

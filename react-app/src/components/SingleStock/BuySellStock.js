@@ -4,6 +4,7 @@ import { createInvestment, updateInvestment, sellAllInvestments } from "../../st
 import { updatePortfolio } from "../../store/portfolio";
 import { createTransaction } from "../../store/transaction";
 import "./SingleStock.css"
+import { addCommas } from "../../Utils";
 
 function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
     const [disbleInput, setDisableInput] = useState(false)
@@ -85,12 +86,12 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
             await dispatch(createInvestment(stockTicker, transactionData))
             await dispatch(updatePortfolio(transactionData))
 
-            // for if SELL all shares of the stock
+        // for if SELL all shares of the stock
         } else if (!newTransaction.errors && investment[stockTicker].shares === shares && type === "sell") {
             await dispatch(sellAllInvestments(stockTicker))
             await dispatch(updatePortfolio(transactionData))
 
-            // for if you BUY and OWN the stock
+        // for if you BUY and OWN the stock
         } else if (!newTransaction.errors && investment) {
             await dispatch(updateInvestment(stockTicker, transactionData))
             await dispatch(updatePortfolio(transactionData))
@@ -227,7 +228,7 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
                     </form>
                 </div>
                 <div className="buying-power-div">
-                    {type === "buy" ? `$${Number(portfolio.buying_power).toFixed(2)} buying power available` : `${investment ? investment[stockTicker].shares : 0} Share(s) available`}
+                    {type === "buy" ? `$${addCommas(Number(portfolio.buying_power).toFixed(2))} buying power available` : `${investment ? investment[stockTicker].shares : 0} Share(s) available`}
                 </div>
             </div>
         </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Watchlists from "./Watchlist";
 
-function InvestWatchlist({ investments }) {
+function Investments({ investments, watchlists }) {
     let investmentsList = Object.values(investments)
 
     return (
@@ -42,21 +43,11 @@ function InvestWatchlist({ investments }) {
                     </div>
                 </div>
                 <div className="watch-container">
-                    <div className="list-header watchlist-header">
-                        <div className="list-header-text bold">
-                            Lists
-                        </div>
-                        <div className="add-list-icon bold">
-                            +
-                        </div>
-                    </div>
-                    <div className="watch-list">
-                        Map Watchlists
-                    </div>
+                    <Watchlists watchlists={watchlists}/>
                 </div>
             </div>
         </div>
     )
 }
 
-export default InvestWatchlist
+export default Investments

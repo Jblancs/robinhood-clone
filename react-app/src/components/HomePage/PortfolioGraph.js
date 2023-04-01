@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { buildGraph } from "../../Utils";
+import { buildGraph, addCommas } from "../../Utils";
 import Chart from 'chart.js/auto';
 import { Line } from 'react-chartjs-2'
 import './HomePage.css'
 
 
-function PortfolioGraph({ history, portfolio }) {
+function PortfolioGraph({ portHistory, portfolio }) {
     let [period, setPeriod] = useState(365)
-    let historyArray = Object.values(history)
+    let historyArray = Object.values(portHistory)
 
     let graph = buildGraph(historyArray, "portfolio", period)
 
@@ -16,7 +16,7 @@ function PortfolioGraph({ history, portfolio }) {
         <div className="portfolio-container">
             <div className="stock-header">
                 <div className="stock-price bold">
-                    ${Number(portfolio.portfolio_total).toFixed(2)}
+                    ${addCommas(Number(portfolio.portfolio_total).toFixed(2))}
                 </div>
                 <div className="stock-change">
                     <span className="price-change bold">

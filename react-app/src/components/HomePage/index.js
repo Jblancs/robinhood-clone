@@ -5,17 +5,22 @@ import { clearPortfolioState, fetchPortfolio } from "../../store/portfolio";
 import { clearInvestmentState, fetchAllInvestments } from "../../store/investment";
 import { fetchHistory, clearHistoryState } from "../../store/portfolioHistory";
 import './HomePage.css'
-import InvestWatchlist from "./InvestWatchlist";
-import { getNewsArticles } from "../../Utils";
+import Investments from "./Investments";
+import { getNewsArticles, addCommas } from "../../Utils";
+import { useHistory } from "react-router-dom";
+import { clearWatchlistsState, fetchWatchlists } from "../../store/watchlist";
 
 
 function HomePage() {
     const dispatch = useDispatch()
+    const history = useHistory()
     const [news, setNews] = useState()
 
     const portfolio = useSelector(state => state.portfolio.portfolio)
-    const history = useSelector(state => state.history.history)
+    const portHistory = useSelector(state => state.history.history)
     const investments = useSelector(state => state.investments.investments)
+    const user = useSelector(state => state.session.user)
+    const watchlists = useSelector(state => state.watchlists.watchlists)
 
     useEffect(() => {
         getNewsArticles("SPY", setNews)
@@ -25,28 +30,34 @@ function HomePage() {
         dispatch(fetchPortfolio())
         dispatch(fetchAllInvestments())
         dispatch(fetchHistory())
+        dispatch(fetchWatchlists())
         return () => {
             dispatch(clearInvestmentState())
             dispatch(clearPortfolioState())
             dispatch(clearHistoryState())
+            dispatch(clearWatchlistsState())
         }
     }, [dispatch])
 
-    if (!portfolio || !history || !investments) return <div>Loading...</div>
+    if(!user){
+        history.push("/login")
+    }
+
+    if (!portfolio || !portHistory || !investments || !user || !news) return <div>Loading...</div>
 
     return (
         <div className="portfolio-page-container">
             <div className="portfolio-page-div">
                 <div className="portfolio-info-div">
                     <div className="portfolio-graph-div">
-                        <PortfolioGraph history={history} portfolio={portfolio} />
+                        <PortfolioGraph portHistory={portHistory} portfolio={portfolio} />
                     </div>
                     <div className="buy-power-div bold" onClick={() => alert("Deposit feature coming soon!")}>
                         <div className="buy-power-text">
                             Buying Power
                         </div>
                         <div className="buy-power-amt">
-                            ${Number(portfolio.buying_power).toFixed(2)}
+                            ${addCommas(Number(portfolio.buying_power).toFixed(2))}
                         </div>
                     </div>
                     <div className="portfolio-news-div">
@@ -70,7 +81,7 @@ function HomePage() {
                     </div>
                 </div>
                 <div className="stock-watchlist-component sticky">
-                    <InvestWatchlist investments={investments} />
+                    <Investments investments={investments} watchlists={watchlists} />
                 </div>
             </div>
         </div>
