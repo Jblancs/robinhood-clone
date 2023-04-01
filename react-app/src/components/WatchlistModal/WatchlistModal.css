@@ -247,3 +247,8 @@ input[type="checkbox"]:checked{
     justify-content: center;
     padding-left: 10px;
 }
+
+.disable{
+    background-color: rgba(211, 211, 211, 0.571);
+    color: gray;
+}

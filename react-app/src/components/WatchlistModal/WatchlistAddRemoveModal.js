@@ -45,18 +45,15 @@ function WatchlistAddRemoveModal({ ticker }) {
     }
 
     // Check if any changes in watchlists ---------------------------------------------------------------------
-    const [updateInfo, setUpdateInfo] = useState(defaultObj)
+    const [updateObj, setUpdateObj] = useState(defaultObj)
 
     useEffect(() => {
-        if(JSON.stringify(defaultObj) === JSON.stringify(updateInfo)){
+        if(JSON.stringify(defaultObj) === JSON.stringify(updateObj)){
             setDisableSaveChanges(true)
         }else{
             setDisableSaveChanges(false)
         }
-    }, [updateInfo])
-
-    // console.log(defaultObj)
-    // console.log(JSON.stringify(defaultObj))
+    }, [updateObj])
 
     // Event Handlers -----------------------------------------------------------------------------------------
     // Create List Handlers -----------------------------------------------------------------------------------
@@ -90,19 +87,38 @@ function WatchlistAddRemoveModal({ ticker }) {
 
     // Update List Handlers -----------------------------------------------------------------------------------
     const checkedHandler = (id) => {
-        return updateInfo[id]
+        return updateObj[id]
     }
 
     const boxOnChangeHandler = (e) => {
-        updateInfo[e.target.name] = !updateInfo[e.target.name]
-        setUpdateInfo({...updateInfo})
+        updateObj[e.target.name] = !updateObj[e.target.name]
+        setUpdateObj({...updateObj})
     }
 
     const saveChanges = (e) => {
         e.preventDefault()
+
+        let addArray = []
+        let deleteArray = []
+
+        for (let listId in updateObj){
+            let updateInfo = {}
+            if(defaultObj[listId] !== updateObj[listId]){
+                updateInfo.watchlistId = listId
+                updateInfo.ticker = ticker
+
+                if(updateObj[listId]){
+                    addArray.push(updateInfo)
+                }else{
+                    deleteArray.push(updateInfo)
+                }
+            }
+        }
+
+
         closeModal()
     }
-    console.log("updateInfo ~~~~~~",updateInfo)
+    console.log("updateObj ~~~~~~",updateObj)
 
     // Watchlist form display ---------------------------------------------------------------------------------
     let showWatchlist;
@@ -200,7 +216,7 @@ function WatchlistAddRemoveModal({ ticker }) {
                 {watchlistDisplay}
             </div>
             <div>
-                <button className="watchlist-save-changes bold" onClick={saveChanges} disabled={disableSaveChanges}>Save Changes</button>
+                <button className={!disableSaveChanges ? "watchlist-save-changes bold" : "watchlist-save-changes disable bold" } onClick={saveChanges} disabled={disableSaveChanges}>Save Changes</button>
             </div>
         </div>
     );
