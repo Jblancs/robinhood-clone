@@ -84,3 +84,33 @@
   font-family: var(--global-font);
   cursor: pointer;
 }
+
+/* search ------------------------------------- */
+
+.search-dropdown{
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  /* border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray; */
+  padding: 10px;
+  border-radius: 0px 0px 5px 5px;
+  width: 38vw;
+  top: 55px;
+  left: 90px;
+}
+
+.search-results{
+  cursor: pointer;
+  display: flex;
+}
+
+.search-ticker{
+  width: 60px;
+}
+
+.search-divider{
+  width: 20px;
+  border-left: 1px solid black;
+}

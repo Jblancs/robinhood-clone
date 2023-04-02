@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
@@ -7,15 +7,21 @@ import { stocksSearch } from './SearchObject';
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
+	const history = useHistory()
 	const [value, setValue] = useState('')
+	// const [stockTick, setStockTick] = useState('')
 
 	const onChangeHandler = (e) => {
 		setValue(e.target.value)
 	}
 
-	const onClickhHandler = (company) => {
-			setValue(company)
+	const onClickhHandler = (company, ticker) => {
+		// setValue(company)
+		// setStockTick(ticker)
+		history.push(`/stocks/${ticker}`)
+		setValue("")
 	}
+
 
 	const filterData = (data) => {
 		const filteredData = data.filter(item => {
@@ -24,7 +30,7 @@ function Navigation({ isLoaded }) {
 			return searchInfo && companyName.startsWith(searchInfo) && companyName !== searchInfo
 		})
 
-		const resultList = filteredData.slice(0,6)
+		const resultList = filteredData.slice(0, 6)
 		return resultList
 	}
 
@@ -42,13 +48,15 @@ function Navigation({ isLoaded }) {
 							<div className='nav-search'>
 								<i className="fas fa-search" />
 								<input className="nav-search-bar" type="text" onChange={onChangeHandler} value={value} placeholder='Search feature coming soon' />
-							</div>
-							<div className='search-dropdown'>
-								{filterData(stocksSearch).map(item => (
-									<div key={item.company} className='search-results' onClick={() => onClickhHandler(item.company)}>
-										{item.company}
-									</div>
-								))}
+								<div className={value ? 'search-dropdown': "hidden"}>
+									{filterData(stocksSearch).map(item => (
+										<div key={item.company} className='search-results' onClick={() => onClickhHandler(item.company, item.ticker)}>
+											<div className='search-ticker'>{item.ticker}</div>
+											<div className='search-divider'></div>
+											<div>{item.company}</div>
+										</div>
+									))}
+								</div>
 							</div>
 						</div>
 					</div>
