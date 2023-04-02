@@ -55,6 +55,7 @@ function HomePage() {
                     <div className="buy-power-div bold" onClick={() => alert("Deposit feature coming soon!")}>
                         <div className="buy-power-text">
                             Buying Power
+                            <div className="coming-soon">(Deposit feature coming soon!)</div>
                         </div>
                         <div className="buy-power-amt">
                             ${addCommas(Number(portfolio.buying_power).toFixed(2))}

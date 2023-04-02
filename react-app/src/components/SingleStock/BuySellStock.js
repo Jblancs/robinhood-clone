@@ -17,6 +17,9 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
 
     useEffect(() => {
         setAmount((shares * stockData.c).toFixed(2))
+        return () => {
+            setAmount(0)
+        }
     }, [shares, amount])
 
 

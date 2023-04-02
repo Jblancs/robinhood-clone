@@ -120,7 +120,6 @@ function WatchlistAddRemoveModal({ ticker }) {
 
         closeModal()
     }
-    console.log("updateObj ~~~~~~", updateObj)
 
     // Watchlist form display ---------------------------------------------------------------------------------
     let showWatchlist;
