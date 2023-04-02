@@ -14,10 +14,11 @@ export const getAllInvestments = (payload) => {
     }
 }
 
-export const getOneInvestment = (payload) => {
+export const getOneInvestment = (payload, ticker) => {
     return {
         type: GET_ONE_INVESTMENT,
-        payload
+        payload,
+        ticker
     }
 }
 
@@ -50,11 +51,8 @@ export const fetchStockInvestment = (ticker) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        if (data.error) {
-            return
-        }
-        dispatch(getOneInvestment(data));
-        return
+        dispatch(getOneInvestment(data, ticker));
+        return data
     }
 };
 
@@ -122,9 +120,15 @@ export default function investReducer(state = initialState, action) {
 
         case GET_ONE_INVESTMENT:
             let singleInvestment = {}
-            singleInvestment[action.payload.ticker] = action.payload
-            newState.investments = { ...singleInvestment }
-            return newState
+            console.log("inv reducer~~~",action)
+            if(action.payload.ticker){
+                singleInvestment[action.payload.ticker] = action.payload
+                newState.investments = { ...singleInvestment }
+                return newState
+            }else{
+                newState.investments = {...action.payload}
+                return newState
+            }
 
         case DELETE_INVESTMENT:
             newState = {...initialState}

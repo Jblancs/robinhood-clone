@@ -63,7 +63,7 @@ function SingleStock() {
         history.push("/")
     }
 
-    if (!stockData || !portfolio || !stock || stockData === "error" || !user || investment) return <div className="loading">Loading...</div>
+    if (!stockData || !portfolio || !stock || stockData === "error" || !user || !investment) return <div className="loading">Loading...</div>
 
     // if stock is not in db then add it ------------------------------------------------------------------------
     if (stock.error) {
@@ -89,7 +89,7 @@ function SingleStock() {
     // Investment info display if stock is owned ----------------------------------------------------------------
     let investmentDisplay;
     if (investment) {
-        if (!investment.errors) {
+        if (investment[stockTicker]) {
 
 
             let invValue = investment[stockTicker]?.value

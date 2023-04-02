@@ -150,7 +150,11 @@ export const getPriceChange = (data, stockPrice, type) => {
 // Get change in stock price
 // ------------------------------------------------------------------------------
 export const getMarketValue = (stockData, investment, ticker) => {
-    return Number(stockData.c * investment[ticker].shares).toFixed(2)
+    if(investment[ticker]){
+        return Number(stockData.c * investment[ticker].shares).toFixed(2)
+    }else{
+        return Number(0).toFixed(2)
+    }
 }
 
 // Get news articles
