@@ -7,7 +7,7 @@ function Investments({ investments, watchlists }) {
 
     return (
         <div className="inv-watch-div">
-            <div className="inv-watch-container">
+            <div className="inv-watch-container sticky">
                 <div className="inv-container">
                     <div className="list-header">
                         <div className="list-header-text bold">

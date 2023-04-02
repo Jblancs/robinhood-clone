@@ -8,7 +8,8 @@ function SingleStockGraph({ stockData, stockTicker, stockAboutInfo }) {
     const prevClose = prevCloseDate(stockData.t)
     const oneWeekAgo = daysAgo(7)
     const [chartData, setChartData] = useState([]) // array of stockData over time period
-    const [period, setPeriod] = useState("Past week")
+    const [period, setPeriod] = useState("Past day")
+    const [selected, setSelected] = useState("1D")
 
     const defaultFetchDetails = {
         setState: setChartData,
@@ -49,13 +50,16 @@ function SingleStockGraph({ stockData, stockTicker, stockAboutInfo }) {
     }
 
     // handles changing chart details
-    const changeFetchDetails = (mult, time, from) => {
+    const changeFetchDetails = (mult, time, from, length, past) => {
         fetchDetails.multiplier = mult
         fetchDetails.timeSpan = time
         fetchDetails.dateFrom = from
         setFetchDetails({
             ...fetchDetails
         })
+        setSelected(length)
+        setPeriod(past)
+
     }
 
     return (
@@ -83,22 +87,22 @@ function SingleStockGraph({ stockData, stockTicker, stockAboutInfo }) {
                 ></Line>
             </div>
             <div className="stock-chart-btn-container">
-                <button className="chart-btn-1d" onClick={() => changeFetchDetails(5, "minute", prevClose)}>
+                <button className={selected === "1D" ? "chart-btn selected-period" : "chart-btn"} onClick={() => changeFetchDetails(5, "minute", prevClose, "1D", "Past day")}>
                     1D
                 </button>
-                <button className="chart-btn-1d" onClick={() => changeFetchDetails(10, "minute", daysAgo(7))}>
+                <button className={selected === "1W" ? "chart-btn selected-period" : "chart-btn"} onClick={() => changeFetchDetails(10, "minute", daysAgo(7), "1W", "Past week")}>
                     1W
                 </button>
-                <button className="chart-btn-1d" onClick={() => changeFetchDetails(1, "hour", daysAgo(30))}>
+                <button className={selected === "1M" ? "chart-btn selected-period" : "chart-btn"} onClick={() => changeFetchDetails(1, "hour", daysAgo(30), "1M", "Past month")}>
                     1M
                 </button>
-                <button className="chart-btn-1d" onClick={() => changeFetchDetails(1, "day", daysAgo(90))}>
+                <button className={selected === "3M" ? "chart-btn selected-period" : "chart-btn"} onClick={() => changeFetchDetails(1, "day", daysAgo(90), "3M", "Past 3 month")}>
                     3M
                 </button>
-                <button className="chart-btn-1d" onClick={() => changeFetchDetails(1, "day", daysAgo(365))}>
+                <button className={selected === "1Y" ? "chart-btn selected-period" : "chart-btn"} onClick={() => changeFetchDetails(1, "day", daysAgo(365), "1Y", "Past year")}>
                     1Y
                 </button>
-                <button className="chart-btn-1d" onClick={() => changeFetchDetails(7, "day", daysAgo(1825))}>
+                <button className={selected === "5Y" ? "chart-btn selected-period" : "chart-btn"} onClick={() => changeFetchDetails(7, "day", daysAgo(1825), "5Y", "Past 5 years")}>
                     5Y
                 </button>
             </div>
