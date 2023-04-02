@@ -83,66 +83,70 @@ function SingleStock() {
     }
 
     // check and plus icon for add to watchlist modal btn -------------------------------------------------------
-    let checkIcon = (<i className="fas fa-check single-stock-add-watch-check"/>)
-    let plusIcon = (<i className="fas fa-plus single-stock-add-watch-plus"/>)
+    let checkIcon = (<i className="fas fa-check single-stock-add-watch-check" />)
+    let plusIcon = (<i className="fas fa-plus single-stock-add-watch-plus" />)
 
     // Investment info display if stock is owned ----------------------------------------------------------------
     let investmentDisplay;
     if (investment) {
-        let invValue = investment[stockTicker]?.value
-        let marketValue = getMarketValue(stockData, investment, stockTicker)
-        let dollarChange = getPriceChange(invValue, marketValue, "investment")
-        let percentChange = Number(dollarChange / invValue).toFixed(2)
+        if (!investment.errors) {
 
-        let returnDisplay;
-        if (invValue <= marketValue) {
-            returnDisplay = (
-                <div>
-                    <span className="dollar-change">+${dollarChange}</span>
-                    <span>(+{dollarChange}%)</span>
-                </div>
-            )
-        } else {
-            returnDisplay = (
-                <div>
-                    <span className="dollar-change">-${dollarChange}</span>
-                    <span>(-{dollarChange}%)</span>
-                </div>
-            )
-        }
 
-        investmentDisplay = (
-            <div className="stock-inv-display-div">
-                <div className="stock-mrkt-div">
-                    <div className="mrkt-val-text">
-                        Your market value
+            let invValue = investment[stockTicker]?.value
+            let marketValue = getMarketValue(stockData, investment, stockTicker)
+            let dollarChange = getPriceChange(invValue, marketValue, "investment")
+            let percentChange = Number(dollarChange / invValue).toFixed(2)
+
+            let returnDisplay;
+            if (invValue <= marketValue) {
+                returnDisplay = (
+                    <div>
+                        <span className="dollar-change">+${dollarChange}</span>
+                        <span>(+{dollarChange}%)</span>
                     </div>
-                    <div className="mrkt-inv-val bold">
-                        ${addCommas(marketValue)}
+                )
+            } else {
+                returnDisplay = (
+                    <div>
+                        <span className="dollar-change">-${dollarChange}</span>
+                        <span>(-{dollarChange}%)</span>
                     </div>
-                    <div className="mrkt-val-return-div">
-                        <div className="mrkt-inv-val-info">
-                            <div className="mrkt-val-return-text">
-                                Total Return
+                )
+            }
+
+            investmentDisplay = (
+                <div className="stock-inv-display-div">
+                    <div className="stock-mrkt-div">
+                        <div className="mrkt-val-text">
+                            Your market value
+                        </div>
+                        <div className="mrkt-inv-val bold">
+                            ${addCommas(marketValue)}
+                        </div>
+                        <div className="mrkt-val-return-div">
+                            <div className="mrkt-inv-val-info">
+                                <div className="mrkt-val-return-text">
+                                    Total Return
+                                </div>
+                                {returnDisplay}
                             </div>
-                            {returnDisplay}
+                        </div>
+                    </div>
+                    <div className="stock-mrkt-div">
+                        <div className="avg-cost-text">
+                            Your average cost
+                        </div>
+                        <div className="mrkt-inv-val bold">
+                            ${Number(investment[stockTicker].price_per_share).toFixed(2)}
+                        </div>
+                        <div className="mrkt-inv-val-info">
+                            <div>Shares</div>
+                            <div>{investment[stockTicker].shares}</div>
                         </div>
                     </div>
                 </div>
-                <div className="stock-mrkt-div">
-                    <div className="avg-cost-text">
-                        Your average cost
-                    </div>
-                    <div className="mrkt-inv-val bold">
-                        ${Number(investment[stockTicker].price_per_share).toFixed(2)}
-                    </div>
-                    <div className="mrkt-inv-val-info">
-                        <div>Shares</div>
-                        <div>{investment[stockTicker].shares}</div>
-                    </div>
-                </div>
-            </div>
-        )
+            )
+        }
     }
 
     // Component JSX --------------------------------------------------------------------------------------------
@@ -192,7 +196,7 @@ function SingleStock() {
                             buttonText="Add to Lists"
                             modalClass="add-list-modal-btn bold"
                             modalIcon={plusIcon}
-                            modalComponent={<WatchlistAddRemoveModal ticker={stockTicker}/>}
+                            modalComponent={<WatchlistAddRemoveModal ticker={stockTicker} />}
                         />
                     </div>
                 </div>
