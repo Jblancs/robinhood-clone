@@ -82,17 +82,17 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
         const newTransaction = await dispatch(createTransaction(stockTicker, transactionData))
 
         // for if you BUY and do NOT own the stock
-        if (!newTransaction.errors && !investment && type === "buy") {
+        if (!newTransaction.errors && investment.error && type === "buy") {
             await dispatch(createInvestment(stockTicker, transactionData))
             await dispatch(updatePortfolio(transactionData))
 
         // for if SELL all shares of the stock
-        } else if (!newTransaction.errors && investment[stockTicker].shares === shares && type === "sell") {
+        } else if (!newTransaction.errors && type === "sell" && investment[stockTicker].shares === shares) {
             await dispatch(sellAllInvestments(stockTicker))
             await dispatch(updatePortfolio(transactionData))
 
-        // for if you BUY and OWN the stock
-        } else if (!newTransaction.errors && investment) {
+        // for if you BUY/SELL and OWN the stock
+        } else if (!newTransaction.errors && investment[stockTicker]) {
             await dispatch(updateInvestment(stockTicker, transactionData))
             await dispatch(updatePortfolio(transactionData))
         }
