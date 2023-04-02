@@ -106,7 +106,7 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
 
     //Sell form button (hidden if you do not own stock) ------------------------------------------------------
     let sellFormButton;
-    if (investment) {
+    if (investment[stockTicker]) {
         sellFormButton = (
             <div onClick={onClickTypeHandler} className={type === "sell" ? "transaction-btn selected" : "transaction-btn"}>
                 Sell {stockTicker}
@@ -228,7 +228,7 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
                     </form>
                 </div>
                 <div className="buying-power-div">
-                    {type === "buy" ? `$${addCommas(Number(portfolio.buying_power).toFixed(2))} buying power available` : `${investment ? investment[stockTicker].shares : 0} Share(s) available`}
+                    {type === "buy" ? `$${addCommas(Number(portfolio.buying_power).toFixed(2))} buying power available` : `${investment[stockTicker] ? investment[stockTicker].shares : 0} Share(s) available`}
                 </div>
             </div>
         </div>
