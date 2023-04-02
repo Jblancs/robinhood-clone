@@ -8,8 +8,8 @@ function SingleStockGraph({ stockData, stockTicker, stockAboutInfo }) {
     const prevClose = prevCloseDate(stockData.t)
     const oneWeekAgo = daysAgo(7)
     const [chartData, setChartData] = useState([]) // array of stockData over time period
-    const [period, setPeriod] = useState("Past day")
-    const [selected, setSelected] = useState("1D")
+    const [period, setPeriod] = useState("Past Week")
+    const [selected, setSelected] = useState("1W")
 
     const defaultFetchDetails = {
         setState: setChartData,

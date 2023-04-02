@@ -223,7 +223,7 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
                                 {type === "buy" ? "Estimated Cost" : "Estimated Credit"}
                             </div>
                             <div className="bold">
-                                ${amount}
+                                ${addCommas(amount)}
                                 <input type="hidden" name="total_cost" value={Number(amount).toFixed(2)} />
                             </div>
                         </div>
