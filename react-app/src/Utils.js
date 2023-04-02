@@ -192,10 +192,4 @@ export const addCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-// let top50 = [
-//     "AAPL","MSFT","GOOGL","AMZN","BRK-A","NVDA","TSLA","META","JNJ","TSM",
-//     "V","UNH","XOM","WMT","JPM","PG","MA","LLY","CVX","HD","ABBV","MRK",
-//     "KO","NVO","AVGO","ASML","PEP","ORCL","BABA","BAC","PFE","COST","TMO",
-//     "AZN","CSCO","MCD","NVS","CRM","TM","NKE","ACN","DHR","TMUS","ABT","LIN",
-//     "ADBE","DIS","TXN","UPS","VZ",
-//     ]
+
