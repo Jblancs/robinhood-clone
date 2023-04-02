@@ -4,8 +4,9 @@
   background-color: white;
   width: 150px;
   right: 20px;
-  border: 1px solid gray;
+  border: 1px solid rgb(188, 188, 188);
   border-radius: 5px;
+  box-shadow: 1px 1px 5px gray;
 }
 
 .hidden {
@@ -127,7 +128,7 @@
 /* profile dropdown ----------------- */
 
 .bot-border {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid rgb(188, 188, 188);
 }
 
 .prof-drop-section-div {

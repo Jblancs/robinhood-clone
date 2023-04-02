@@ -305,11 +305,10 @@
     width: 80%;
     padding-top: 10px;
     padding: 10px 0px 0px 10px;
-    text-overflow: ellipsis;
+    overflow-x: hidden;
 }
 
 .watchlist-buttons-container {
-    /* border: var(--global-border); */
     width: 30%;
     display: flex;
     align-items: center;
