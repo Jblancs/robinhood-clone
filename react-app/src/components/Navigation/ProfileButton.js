@@ -44,27 +44,48 @@ function ProfileButton({ user }) {
       </div>
       <div className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <div>{user.username}</div>
-            <div>
-              <div className="not-allowed">
+          <div className="dropdown-menu-container">
+            <div className="prof-drop-section-div bot-border not-allowed">
+              <div className="prof-drop-text bold">{user.username}</div>
+            </div>
+            <div className="not-allowed prof-drop-section-div bot-border">
+              <div className="prof-drop-icon not-allowed">
+                <i class="fas fa-university" />
+              </div>
+              <div className="prof-drop-text bold">
                 Transfers
               </div>
             </div>
-            <div>
-              <div className="not-allowed">
+
+
+            <div className="not-allowed prof-drop-section-div bot-border">
+              <div className="prof-drop-icon">
+                <i class="fas fa-history" />
+              </div>
+              <div className="prof-drop-text bold">
                 History
               </div>
             </div>
-            <div>
-              <div className="not-allowed">
+
+
+            <div className="not-allowed prof-drop-section-div bot-border">
+              <div className="prof-drop-icon">
+                <i class="fas fa-sync" />
+              </div>
+              <div className="prof-drop-text bold">
                 Recurring
               </div>
             </div>
-            <div>
-              <button onClick={handleLogout}>Log Out</button>
+
+            <div className="prof-drop-section-div">
+              <div className="prof-drop-icon">
+                <i class="fas fa-sign-out-alt" />
+              </div>
+              <div onClick={handleLogout} className="prof-drop-logout">
+                <div className="prof-drop-logout bold" >Log Out</div>
+              </div>
             </div>
-          </>
+          </div>
         ) : (
           <div>
             {/* <OpenModalButton
