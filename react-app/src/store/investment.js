@@ -96,7 +96,7 @@ export const sellAllInvestments = (ticker) => async (dispatch) => {
         const data = await response.json()
         console.log("delet inv thunk",data)
 
-        dispatch(deleteInvestment(ticker))
+        dispatch(fetchStockInvestment(ticker))
         return data
     }
 }
@@ -120,7 +120,6 @@ export default function investReducer(state = initialState, action) {
 
         case GET_ONE_INVESTMENT:
             let singleInvestment = {}
-            console.log("inv reducer~~~",action)
             if(action.payload.ticker){
                 singleInvestment[action.payload.ticker] = action.payload
                 newState.investments = { ...singleInvestment }
@@ -131,6 +130,7 @@ export default function investReducer(state = initialState, action) {
             }
 
         case DELETE_INVESTMENT:
+            let obj =
             newState = {...initialState}
             return newState
 
