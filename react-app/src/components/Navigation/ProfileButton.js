@@ -50,7 +50,7 @@ function ProfileButton({ user }) {
             </div>
             <div className="not-allowed prof-drop-section-div ">
               <div className="prof-drop-icon not-allowed">
-                <i class="fas fa-university" />
+                <i className="fas fa-university" />
               </div>
               <div className="prof-drop-text bold">
                 Transfers
@@ -60,7 +60,7 @@ function ProfileButton({ user }) {
 
             <div className="not-allowed prof-drop-section-div ">
               <div className="prof-drop-icon">
-                <i class="fas fa-history" />
+                <i className="fas fa-history" />
               </div>
               <div className="prof-drop-text bold">
                 History
@@ -70,7 +70,7 @@ function ProfileButton({ user }) {
 
             <div className="not-allowed prof-drop-section-div bot-border">
               <div className="prof-drop-icon">
-                <i class="fas fa-sync" />
+                <i className="fas fa-sync" />
               </div>
               <div className="prof-drop-text bold">
                 Recurring
@@ -79,7 +79,7 @@ function ProfileButton({ user }) {
 
             <div className="prof-drop-section-div">
               <div className="prof-drop-icon">
-                <i class="fas fa-sign-out-alt" />
+                <i className="fas fa-sign-out-alt" />
               </div>
               <div onClick={handleLogout} className="prof-drop-logout">
                 <div className="prof-drop-logout bold" >Log Out</div>
