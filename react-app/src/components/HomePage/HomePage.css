@@ -324,7 +324,11 @@
 
 .fa-chevron-up {
     margin-right: 2px;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
 }
+
+
 
 .watchlist-card {
     width: 100%;
@@ -349,6 +353,11 @@
 .watchlist-card:hover .fa-chevron-up {
     color: var(--rhood-green);
 
+}
+.icon-rotate {
+    transform: rotate(180deg);
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
 }
 
 .watchlist-drop-options {

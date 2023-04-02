@@ -11,6 +11,7 @@ function SingleWatchlist({ list }) {
     const dropdownRef = useRef();
     let [showMenu, setShowMenu] = useState(false)
     let [showStocks, setShowStocks] = useState(false)
+    let [rotate, setRotate] = useState(false)
 
     useEffect(() => {
         if (!showMenu) return;
@@ -30,6 +31,11 @@ function SingleWatchlist({ list }) {
         if (showMenu) return;
         setShowMenu(true);
     };
+
+    const onClickWatch = () => {
+        setShowStocks(!showStocks)
+        setRotate(!rotate)
+    }
 
     const closeMenu = () => setShowMenu(false);
     // Modal Icons ------------------------------------------------------------------------------------------------------------
@@ -70,7 +76,7 @@ function SingleWatchlist({ list }) {
     // Component JSX ------------------------------------------------------------------------------------------------------------
     return (
         <>
-            <div className="watchlist-card flex-btwn" onClick={() => setShowStocks(!showStocks)}>
+            <div className="watchlist-card flex-btwn" onClick={onClickWatch}>
                 <div className="watchlist-name-div ">
                     <div className="watchlist-icon-div">
                         <img className="watchlist-icon" src="./images/lightbulb-icon.png" alt="lightbulb" />
@@ -106,7 +112,7 @@ function SingleWatchlist({ list }) {
                         </div>
                     </div>
                     <div className="watchlist-button-div">
-                        <i className="fas fa-chevron-up watchlist-button" />
+                        <i className={!rotate ? "fas fa-chevron-up watchlist-button" : "fas fa-chevron-up watchlist-button icon-rotate" } />
                     </div>
                 </div>
             </div>
