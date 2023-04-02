@@ -48,7 +48,7 @@ function ProfileButton({ user }) {
             <div className="prof-drop-section-div bot-border not-allowed">
               <div className="prof-drop-text bold">{user.username}</div>
             </div>
-            <div className="not-allowed prof-drop-section-div bot-border">
+            <div className="not-allowed prof-drop-section-div ">
               <div className="prof-drop-icon not-allowed">
                 <i class="fas fa-university" />
               </div>
@@ -58,7 +58,7 @@ function ProfileButton({ user }) {
             </div>
 
 
-            <div className="not-allowed prof-drop-section-div bot-border">
+            <div className="not-allowed prof-drop-section-div ">
               <div className="prof-drop-icon">
                 <i class="fas fa-history" />
               </div>

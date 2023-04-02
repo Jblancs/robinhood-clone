@@ -89,7 +89,7 @@ function SingleStock() {
     // Investment info display if stock is owned ----------------------------------------------------------------
     let investmentDisplay;
     if (investment) {
-        let invValue = investment[stockTicker].value
+        let invValue = investment[stockTicker]?.value
         let marketValue = getMarketValue(stockData, investment, stockTicker)
         let dollarChange = getPriceChange(invValue, marketValue, "investment")
         let percentChange = Number(dollarChange / invValue).toFixed(2)

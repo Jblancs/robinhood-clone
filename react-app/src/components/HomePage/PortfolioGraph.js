@@ -8,9 +8,15 @@ import './HomePage.css'
 
 function PortfolioGraph({ portHistory, portfolio }) {
     let [period, setPeriod] = useState(365)
+    let [selected, setSelected] = useState("1Y")
     let historyArray = Object.values(portHistory)
 
     let graph = buildGraph(historyArray, "portfolio", period)
+
+    let onClickHandler = (days,period) => {
+        setPeriod(days)
+        setSelected(period)
+    }
 
     return (
         <div className="portfolio-container">
@@ -34,19 +40,19 @@ function PortfolioGraph({ portHistory, portfolio }) {
                 ></Line>
             </div>
             <div className="stock-chart-btn-container">
-                <button className="chart-btn-1d" onClick={() => setPeriod(7)}>
+                <button className={selected === "1W" ? "chart-btn selected-period" : "chart-btn"} onClick={() => onClickHandler(7,"1W")}>
                     1W
                 </button>
-                <button className="chart-btn-1d" onClick={() => setPeriod(30)}>
+                <button className={selected === "1M" ? "chart-btn selected-period" : "chart-btn"} onClick={() => onClickHandler(30,"1M")}>
                     1M
                 </button>
-                <button className="chart-btn-1d" onClick={() => setPeriod(90)}>
+                <button className={selected === "3M" ? "chart-btn selected-period" : "chart-btn"} onClick={() => onClickHandler(90,"3M")}>
                     3M
                 </button>
-                <button className="chart-btn-1d" onClick={() => setPeriod(365)}>
+                <button className={selected === "1Y" ? "chart-btn selected-period" : "chart-btn"} onClick={() => onClickHandler(365,"1Y")}>
                     1Y
                 </button>
-                <button className="chart-btn-1d" onClick={() => setPeriod(1800)}>
+                <button className={selected === "ALL" ? "chart-btn selected-period" : "chart-btn"} onClick={() => onClickHandler(1800,"ALL")}>
                     ALL
                 </button>
             </div>

@@ -29,7 +29,7 @@
 
 /* Graph --------------------------------------------------- */
 .portfolio-graph-div {
-    padding-bottom: 20px;
+    padding-bottom: 0px;
 }
 
 /* Inv and Watchlist ---------------------------------------- */
@@ -44,6 +44,13 @@
     justify-content: center;
     padding-left: 20px;
     /* border: var(--global-border); */
+}
+
+.sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1%;
+    right: 1%;
 }
 
 .inv-watch-div {
@@ -406,4 +413,25 @@
     display: flex;
     align-items: center;
     height: 100%;
+}
+
+/* chart buttons --------------------------- */
+.stock-chart-btn-container{
+    /* border: 1px solid black; */
+    height: 30px;
+}
+
+.chart-btn{
+    height: 100%;
+    width: 40px;
+    border: none;
+    background-color: transparent;
+    margin: 0px 18px 10px 0px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.selected-period{
+    color: var(--rhood-green);
+    border-bottom: 3px solid var(--rhood-green);
 }
