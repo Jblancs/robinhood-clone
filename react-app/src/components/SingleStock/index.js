@@ -36,7 +36,7 @@ function SingleStock() {
     useEffect(() => {
         getStockData(stockTicker, setStockData)
         getStockInfo(stockTicker, setStockAboutInfo)
-    }, [])
+    }, [stockTicker])
 
     // get investment and portfolio ------------------------------------------------------------------------------
     useEffect(() => {
