@@ -52,7 +52,7 @@ function SingleStock() {
             dispatch(clearStockState())
             dispatch(clearWatchlistsState())
         }
-    }, [dispatch])
+    }, [dispatch, stockTicker])
 
     // redirect if stock doesn't exist --------------------------------------------------------------------------
     if (!user) {
