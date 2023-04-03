@@ -1,5 +1,7 @@
 .signup-page-container {
-    display: flex
+    display: flex;
+    /* justify-content: center; */
+    width: 100vw;
 }
 
 .signup-form-img {
@@ -11,12 +13,26 @@
     height: 100vh;
 }
 
+.signup-div{
+    background-color: #82c7d2;
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
 .signup-form-container {
     background-color: white;
     position: absolute;
     width: 45vw;
     height: 100vh;
     min-height: 900px;
+    max-width: 900px;
     right: 0px;
     z-index: 1;
+}
+
+.signup-div{
+    display: flex;
+    justify-content: flex-start;
 }
