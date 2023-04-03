@@ -29,7 +29,10 @@ function SignupFormPage() {
 
   return (
     <div className="signup-page-container">
-      <img className="signup-form-img" src="./images/signup-background.PNG" alt="login" />
+      <div className="signup-div">
+        <img className="signup-form-img" src="./images/signup-background.PNG" alt="login" />
+      </div>
+      <div className="signup-div">
       <div className="signup-form-container">
         <div className="login-form-div">
           <h1>Sign up for Robingood</h1>
@@ -99,11 +102,12 @@ function SignupFormPage() {
           </form>
           <div className="login-line-split"></div>
           <div className="signup-link-div">
-            <NavLink to="/login" style={{textDecoration:"none", color:"black"}}>
-            Already have an account? <span className="bold under">Login here</span>
+            <NavLink to="/login" style={{ textDecoration: "none", color: "black" }}>
+              Already have an account? <span className="bold under">Login here</span>
             </NavLink>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
