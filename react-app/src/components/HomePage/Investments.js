@@ -18,7 +18,7 @@ function Investments({ investments, watchlists }) {
                     <div className="inv-list">
                         {investmentsList.map(inv => (
                             <NavLink key={inv.ticker} to={`/stocks/${inv.ticker}`} style={{ textDecoration: 'none', color: "black" }}>
-                                <InvestmentCard inv={inv} />
+                                <InvestmentCard inv={inv} ticker={inv.ticker}/>
                             </NavLink>
                         ))}
                     </div>

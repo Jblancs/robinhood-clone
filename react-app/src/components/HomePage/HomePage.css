@@ -88,20 +88,37 @@
 
 .inv-card {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding-bottom: 15px;
+    border-radius: 5px;
 }
 
-/* .inv-card:hover {
+.inv-card:hover {
     background-color: var(--global-gray);
-} */
+}
 
 .inv-chart-pic {
     margin-top: 10px;
     width: 80px;
     height: 40px;
+    /* border: var(--global-border); */
 }
+
+.inv-tick-share{
+    width: 70px;
+    /* border: var(--global-border); */
+}
+
+.stock-share-watch{
+    font-size: 14px;
+}
+
+.inv-price-change{
+    padding-left: 20px;
+}
+
+
 
 /* WatchList Card ---------------------------------------- */
 

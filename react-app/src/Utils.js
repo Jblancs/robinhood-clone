@@ -57,7 +57,10 @@ export const daysAgo = (days) => {
 export const buildGraph = (chartData, type, days) => {
     const xAxis = []
     const yAxis = []
+    let changePercent;
     if (type === "stock") {
+        let currPrice = currentStockPrice(chartData)
+        changePercent = stockPercentChange(chartData, currPrice)
         for (let i = 0; i < chartData.length; i++) {
             let date = new Date(chartData[i]["t"])
             xAxis.push(date.toUTCString())
@@ -86,13 +89,20 @@ export const buildGraph = (chartData, type, days) => {
         }
     }
 
+    let lineColor;
+    if(type === "stock"){
+        lineColor = changePercent < 0 ? "orange" : "lime"
+    }else{
+        lineColor = "lime"
+    }
+
     const data = {
         labels: xAxis,
         datasets: [{
             type: "line",
             labels: "datasets labels",
             data: yAxis,
-            borderColor: 'lime', //
+            borderColor: lineColor,
             pointRadius: 0,
             pointHoverRadius: 6,
             fill: false,
@@ -131,6 +141,20 @@ export const buildGraph = (chartData, type, days) => {
         data,
         options
     }
+}
+
+// Get current stock price
+// ------------------------------------------------------------------------------
+export const currentStockPrice = (data) => {
+    let latestPriceObj = data[data.length-1]
+    return latestPriceObj?.c
+}
+// Get current stock price % change
+// ------------------------------------------------------------------------------
+export const stockPercentChange = (data, currentPrice) => {
+    let openPrice = data[0]?.o
+    let priceDiff = currentPrice - openPrice
+    return (priceDiff/openPrice)*100
 }
 
 // Get change in stock price
@@ -191,5 +215,3 @@ export const getStockInfo = async (ticker, setUseState) => {
 export const addCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
-
