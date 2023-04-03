@@ -45,7 +45,7 @@
     padding-left: 20px;
     height: 90vh;
     overflow-y: auto;
-    border: var(--global-border);
+    /* border: var(--global-border); */
 }
 
 .sticky{
