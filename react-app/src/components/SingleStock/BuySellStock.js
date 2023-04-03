@@ -215,7 +215,7 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
                                 <span className="info-icon bold">?</span>
                             </div>
                             <div className="bold">
-                                ${stockData.c}
+                                ${Number(stockData.c).toFixed(2)}
                             </div >
                         </div>
                         <div className="buy-sell-cost-div flex-btwn">

@@ -30,3 +30,11 @@
 .under{
     text-decoration: underline;
 }
+
+.negative{
+    color: var(--rhood-orange);
+}
+
+.positive{
+    color: var(--rhood-green);
+}

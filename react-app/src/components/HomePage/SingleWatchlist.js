@@ -5,6 +5,7 @@ import { createWatchlists } from "../../store/watchlist";
 import OpenModalButton from "../OpenModalButton";
 import WatchlistEditModal from "../WatchlistModal/WatchlistEditModal";
 import WatchlistDeleteModal from "../WatchlistModal/WatchlistDeleteModal";
+import InvestmentCard from "./InvestmentCard";
 
 
 function SingleWatchlist({ list }) {
@@ -50,7 +51,7 @@ function SingleWatchlist({ list }) {
         stockDisplay = (
             stockList.map(ticker => (
                 <NavLink key={`${ticker}${list.id}`} to={`/stocks/${ticker}`} style={{ textDecoration: 'none', color: "black" }}>
-                <div  className="inv-card">
+                {/* <div  className="inv-card">
                     <div className="inv-tick-share">
                         <div className="watch-stock-ticker bold">
                             {ticker}
@@ -67,7 +68,8 @@ function SingleWatchlist({ list }) {
                             +0.00%
                         </div>
                     </div>
-                </div>
+                </div> */}
+                <InvestmentCard inv={null} ticker={ticker} />
                 </NavLink>
             ))
         )

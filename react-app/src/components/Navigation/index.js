@@ -47,7 +47,7 @@ function Navigation({ isLoaded }) {
 						<div>
 							<div className='nav-search'>
 								<i className="fas fa-search" />
-								<input className="nav-search-bar" type="text" onChange={onChangeHandler} value={value} placeholder='Search feature coming soon' />
+								<input className="nav-search-bar" type="text" onChange={onChangeHandler} value={value} placeholder='Search' />
 								<div className={value ? 'search-dropdown': "hidden"}>
 									{filterData(stocksSearch).map(item => (
 										<div key={item.company} className='search-results' onClick={() => onClickhHandler(item.company, item.ticker)}>
