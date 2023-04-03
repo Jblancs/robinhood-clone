@@ -43,7 +43,9 @@
     display: flex;
     justify-content: center;
     padding-left: 20px;
-    /* border: var(--global-border); */
+    height: 90vh;
+    overflow-y: auto;
+    border: var(--global-border);
 }
 
 .sticky{
@@ -63,13 +65,11 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    overflow: auto;
     max-height: 900px;
 }
 
 .list-header {
     border-bottom: 1px solid gray;
-    /* border-top: 1px solid gray; */
     padding: 10px 20px 10px 20px;
     display: flex;
     justify-content: space-between;

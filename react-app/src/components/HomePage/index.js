@@ -81,7 +81,7 @@ function HomePage() {
                         </div>
                     </div>
                 </div>
-                <div className="stock-watchlist-component">
+                <div className="stock-watchlist-component sticky">
                     <Investments investments={investments} watchlists={watchlists} />
                 </div>
             </div>
