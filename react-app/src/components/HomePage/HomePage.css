@@ -90,12 +90,15 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding-bottom: 15px;
+    padding-bottom: 5px;
     border-radius: 5px;
+    transition-timing-function: ease-in-out;
+    transition-duration: 100ms;
 }
 
 .inv-card:hover {
     background-color: var(--global-gray);
+    box-shadow: 1px 1px 5px lightgray;
 }
 
 .inv-chart-pic {
@@ -369,12 +372,15 @@
     cursor: pointer;
     border-radius: 5px;
     margin-bottom: 10px;
+    transition-timing-function: ease-in-out;
+    transition-duration: 100ms;
     /* border: var(--global-border); */
 }
 
 
 .watchlist-card:hover {
     background-color: var(--global-gray);
+    box-shadow: 1px 1px 5px lightgray;
 }
 
 .add-list-icon:hover,

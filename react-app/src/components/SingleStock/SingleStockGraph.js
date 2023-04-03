@@ -37,13 +37,13 @@ function SingleStockGraph({ stockData, stockTicker, stockAboutInfo }) {
 
     if (priceChange < 0) {
         change = (
-            <span className="price-change">
+            <span className="price-change negative">
                 {`-$${Math.abs(priceChange).toFixed(2)} (-${Math.abs(priceChange / stockData.c * 100).toFixed(2)}%) `}
             </span>
         )
     } else {
         change = (
-            <span className="price-change">
+            <span className="price-change positive">
                 {`+$${Math.abs(priceChange).toFixed(2)} (+${Math.abs(priceChange / stockData.c * 100).toFixed(2)}%) `}
             </span>
         )
