@@ -190,14 +190,16 @@ function SingleStock() {
                     </div>
                 </div>
                 <div className="stock-buy-sell-component">
-                    <BuySellStock stockData={stockData} stockTicker={stockTicker} portfolio={portfolio} dispatch={dispatch} />
-                    <div className="add-to-watch-div">
-                        <OpenModalButton
-                            buttonText="Add to Lists"
-                            modalClass="add-list-modal-btn bold"
-                            modalIcon={plusIcon}
-                            modalComponent={<WatchlistAddRemoveModal ticker={stockTicker} />}
-                        />
+                    <div className="buy-sell-watch-div sticky">
+                        <BuySellStock stockData={stockData} stockTicker={stockTicker} portfolio={portfolio} dispatch={dispatch} />
+                        <div className="add-to-watch-div">
+                            <OpenModalButton
+                                buttonText="Add to Lists"
+                                modalClass="add-list-modal-btn bold"
+                                modalIcon={plusIcon}
+                                modalComponent={<WatchlistAddRemoveModal ticker={stockTicker} />}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
