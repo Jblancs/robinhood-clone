@@ -5,7 +5,8 @@
     --global-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --global-orange-filter: invert(46%) sepia(94%) saturate(1974%) hue-rotate(349deg) brightness(102%) contrast(101%);
     --global-font-size: 17px;
-    --global-gray: rgba(228, 228, 228, 0.611);
+    --global-gray: rgba(227, 233, 237);
+    --global-light-gray: rgba(245, 248, 250);
     --global-icon-bg-color: rgb(218, 236, 240);
 }
 
@@ -37,4 +38,11 @@
 
 .positive{
     color: var(--rhood-green);
+}
+
+.sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1%;
+    right: 1%;
 }

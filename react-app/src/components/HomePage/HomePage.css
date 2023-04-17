@@ -33,26 +33,14 @@
 }
 
 /* Inv and Watchlist ---------------------------------------- */
-.sticky {
-    position: sticky;
-    top: 0;
-}
 
 .stock-watchlist-component {
-    width: 30%;
+    width: 35%;
     display: flex;
     justify-content: center;
     padding-left: 20px;
     height: 90vh;
     overflow-y: auto;
-    /* border: var(--global-border); */
-}
-
-.sticky{
-    position: -webkit-sticky;
-    position: sticky;
-    top: 1%;
-    right: 1%;
 }
 
 .inv-watch-div {
@@ -60,56 +48,55 @@
 }
 
 .inv-watch-container {
-    border: 1px solid rgb(128, 128, 128);
-    box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.75);
+    border: 1px solid var(--global-gray);
+    box-shadow: 1px 1px 5px var(--global-gray);
     border-radius: 5px;
     display: flex;
     flex-direction: column;
 }
 
 .list-header {
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--global-gray);
     padding: 10px 20px 10px 20px;
     display: flex;
     justify-content: space-between;
 }
 
 .watchlist-header {
-    border-top: 1px solid gray;
+    border-top: 1px solid var(--global-gray);
     ;
 }
 
 /* Investment Card ---------------------------------------- */
 
-.inv-list {
+/* .inv-list {
     padding: 10px 20px 10px 20px;
-}
+} */
 
 .inv-card {
+    /* border: var(--global-border); */
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding-bottom: 5px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     transition-timing-function: ease-in-out;
     transition-duration: 100ms;
 }
 
 .inv-card:hover {
-    background-color: var(--global-gray);
-    box-shadow: 1px 1px 5px lightgray;
+    background-color: var(--global-light-gray);
+    box-shadow: 1px 1px 5px var(--global-gray);
 }
 
 .inv-chart-pic {
     margin-top: 10px;
     width: 80px;
     height: 40px;
-    /* border: var(--global-border); */
 }
 
 .inv-tick-share{
     width: 70px;
-    /* border: var(--global-border); */
 }
 
 .stock-share-watch{
@@ -121,21 +108,14 @@
 }
 
 
-
-/* WatchList Card ---------------------------------------- */
-
-.watch-list {
-    padding: 10px 20px 10px 20px;
-}
-
 /* Buying power ------------------------------------------ */
 .buy-power-div {
     display: flex;
     justify-content: space-between;
     padding: 30px 0px;
     font-size: 20px;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
+    border-top: 1px solid var(--global-gray);
+    border-bottom: 1px solid var(--global-gray);
     transition-timing-function: ease-in-out;
     transition-duration: 300ms;
     cursor: not-allowed;
@@ -147,7 +127,7 @@
 }
 
 .buy-power-div:hover {
-    background-color: var(--global-gray);
+    background-color: var(--global-light-gray);
 }
 
 /* News Card --------------------------------------------- */
@@ -157,7 +137,7 @@
 }
 
 .news-card {
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--global-gray);
     padding: 20px 10px;
     display: flex;
     justify-content: space-between;
@@ -167,7 +147,7 @@
 }
 
 .news-card:hover {
-    background-color: var(--global-gray);
+    background-color: var(--global-light-gray);
 }
 
 .news-info-div {
@@ -192,6 +172,13 @@
 .news-img {
     border-radius: 10px;
 }
+
+/* WatchList Card ---------------------------------------- */
+
+/* .watch-list {
+    border: var(--global-border);
+    padding: 10px 20px 10px 20px;
+} */
 
 /* Watchlist --------------------------------------------------------- */
 
@@ -222,7 +209,7 @@
     border-top: 1px solid gray;
     background-color: rgba(211, 211, 211, 0.566);
     padding: 0px 15px;
-    width: 85%;
+    width: 95%;
     height: 40px;
     font-size: 18px;
     border-radius: 5px;
@@ -230,14 +217,14 @@
 }
 
 .watchlist-input:hover {
-    background-color: white;
+    background-color: var(--global-light-gray);
 }
 
 .watchlist-input-error-div{
     position: absolute;
     z-index: 1;
     display: flex;
-    border: 1px solid lightgray;
+    border: 1px solid var(--global-gray);
     width: 270px;
     height: 60px;
     background-color: white;
@@ -264,6 +251,8 @@
 }
 
 .watchlist-form {
+    /* border: var(--global-border); */
+    padding: 20px 20px 5px 20px;
     display: flex;
     flex-direction: column;
 }
@@ -366,11 +355,10 @@
 
 
 .watchlist-card {
-    width: 100%;
+    width: 90%;
     height: 45px;
     cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    padding: 10px 20px 10px 20px;
     transition-timing-function: ease-in-out;
     transition-duration: 100ms;
     /* border: var(--global-border); */
@@ -378,8 +366,8 @@
 
 
 .watchlist-card:hover {
-    background-color: var(--global-gray);
-    box-shadow: 1px 1px 5px lightgray;
+    background-color: var(--global-light-gray);
+    box-shadow: 1px 1px 5px var(--global-light-gray);
 }
 
 .add-list-icon:hover,
