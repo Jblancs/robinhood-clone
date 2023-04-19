@@ -108,8 +108,8 @@ function SingleStock() {
             } else {
                 returnDisplay = (
                     <div>
-                        <span className="dollar-change">-${dollarChange}</span>
-                        <span>(-{dollarChange}%)</span>
+                        <span className="dollar-change">-${Math.abs(dollarChange)}</span>
+                        <span>(-{Math.abs(dollarChange)}%)</span>
                     </div>
                 )
             }

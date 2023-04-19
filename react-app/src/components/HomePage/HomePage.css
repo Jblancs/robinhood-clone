@@ -10,7 +10,7 @@
 }
 
 .portfolio-info-div {
-    width: 70%;
+    width: 900px;
     /* border: var(--global-border); */
 }
 
@@ -44,7 +44,7 @@
 }
 
 .inv-watch-div {
-    width: 88%;
+    width: 375px;
 }
 
 .inv-watch-container {
