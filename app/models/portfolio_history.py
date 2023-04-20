@@ -8,8 +8,7 @@ class PortfolioHistory(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    portfolio_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("portfolios.id")), nullable=False)
+    portfolio_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("portfolios.id")), nullable=False)
     value_at_time = db.Column(db.Float(), nullable=False)
     date = db.Column(db.DateTime(), nullable=False)
 

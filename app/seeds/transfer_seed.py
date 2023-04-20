@@ -9,6 +9,7 @@ def seed_transfer():
     for portfolio_id in range(1, 4):
         transfer = Transfer(
             portfolio_id=portfolio_id,
+            bank_account_id=portfolio_id,
             deposit=100,
             date=datetime(2023, 1, 21)
         )

@@ -15,10 +15,9 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     # relationships
-    portfolio = db.relationship(
-        "Portfolio", uselist=False, back_populates="user")
-    watchlists = db.relationship(
-        "Watchlist", back_populates="user", cascade="all, delete-orphan")
+    portfolio = db.relationship("Portfolio", uselist=False, back_populates="user")
+    watchlists = db.relationship("Watchlist", back_populates="user", cascade="all, delete-orphan")
+    bank_accounts = db.relationship("BankAccount", back_populates="user")
 
     @property
     def password(self):

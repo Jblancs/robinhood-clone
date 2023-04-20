@@ -8,4 +8,6 @@ from .transaction import Transaction
 from .transfers import Transfer
 from .watchlist_stocks import watchlists_stocks
 from .watchlist import Watchlist
+from .bank_account import BankAccount
+from .recurring_investment import RecurringInvestment
 from .db import environment, SCHEMA
