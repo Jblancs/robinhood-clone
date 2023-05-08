@@ -1,16 +1,19 @@
 .portfolio-page-container {
     display: flex;
     justify-content: center;
+    /* border: var(--global-border); */
 
 }
 
 .portfolio-page-div {
-    width: 1300px;
+    width: 1600px;
     display: flex;
+    justify-content: center;
+    /* border: var(--global-border); */
 }
 
 .portfolio-info-div {
-    width: 900px;
+    width: 1100px;
     /* border: var(--global-border); */
 }
 
@@ -35,7 +38,8 @@
 /* Inv and Watchlist ---------------------------------------- */
 
 .stock-watchlist-component {
-    width: 35%;
+    /* border: var(--global-border); */
+    width: 25%;
     display: flex;
     justify-content: center;
     padding-left: 20px;
