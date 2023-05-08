@@ -75,4 +75,7 @@ def delete_bank_account(id):
     '''
 
     bank_account = BankAccount.query.get(id)
-    
+    acct_num = bank_account.account_number
+    db.session.delete(bank_account)
+
+    return {"Response": f"Successfully deleted bank account ending in x{str(acct_num)[-4:]}"}
