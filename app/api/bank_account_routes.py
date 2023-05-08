@@ -25,7 +25,7 @@ def get_user_bank_accounts():
     else:
         return {"error": "Please add a payment method"}
 
-
+# ------------------------------------------------------------------------------
 @bank_account_routes.route("/", methods=["POST"])
 def create_bank_account():
     '''
@@ -50,3 +50,29 @@ def create_bank_account():
         return new_bank_account.to_dict()
 
     return {'errors': form_errors_obj_list(form.errors)},401
+
+# ------------------------------------------------------------------------------
+@bank_account_routes.route("/<int:id>", methods=["PUT"])
+def update_bank_account(id):
+    '''
+    update an existing bank account
+    '''
+
+    res = request.get_json()
+    bank_account = BankAccount.query.get(id)
+
+    bank_account.account_type = res["account_type"]
+    bank_account.account_number = res["account_number"]
+    db.session.commit()
+
+    return bank_account.to_dict()
+
+# ------------------------------------------------------------------------------
+@bank_account_routes.route("/<int:id>", methods=["DELETE"])
+def delete_bank_account(id):
+    '''
+    delete an existing user bank account
+    '''
+
+    bank_account = BankAccount.query.get(id)
+    
