@@ -24,3 +24,29 @@ def get_user_bank_accounts():
         return bank_account_list
     else:
         return {"error": "Please add a payment method"}
+
+
+@bank_account_routes.route("/", methods=["POST"])
+def create_bank_account():
+    '''
+    create a bank account for current user
+    '''
+
+    current_user_id = current_user.to_dict()["id"]
+    res = request.get_json()
+
+    form = BankAccountForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        new_bank_account = BankAccount(
+            user_id=current_user_id,
+            bank=res["bank"],
+            account_type=res["account_type"],
+            account_number=res["account_number"]
+        )
+        db.session.add(new_bank_account)
+        db.session.commit()
+        return new_bank_account.to_dict()
+
+    return {'errors': form_errors_obj_list(form.errors)},401
