@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import db, Transfer
+from ..forms import TransferWithdrawForm, TransferDepositForm
 from datetime import datetime
 from flask_login import current_user
 from ..utils import to_dict_list, form_errors_obj_list, print_data
@@ -30,4 +31,24 @@ def create_transfer():
     user = current_user.to_dict()
     res = request.get_json()
 
-    
+    if res["type"] == "deposit":
+        form = TransferDepositForm()
+        form["csrf_token"].data = request.cookies["csrf_token"]
+    else:
+        form = TransferWithdrawForm()
+        form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        new_transfer = Transfer(
+            portfolio_id=user["portfolio"]["id"],
+            bank_account_id=res["bank_account_id"],
+            user_id=user["id"],
+            amount=res["amount"],
+            type=res["type"],
+            date=datetime.now()
+        )
+        db.session.add(new_transfer)
+        db.session.commit()
+        return new_transfer.to_dict()
+
+    return {'errors': form_errors_obj_list(form.errors)}, 401
