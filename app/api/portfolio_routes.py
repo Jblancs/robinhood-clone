@@ -50,3 +50,23 @@ def update_portfolio():
         db.session.commit()
 
     return portfolio.to_dict()
+
+# ------------------------------------------------------------------------------
+@portfolio_routes.route('/transfer', methods=["PUT"])
+def transfer_buying_power():
+    '''
+    Update buying power when you make a deposit/withdrawal
+    '''
+
+    res = request.get_json()
+    user = current_user.to_dict()
+    portfolio = Portfolio.query.get(user["portfolio"]["id"])
+
+    if res["type"] == "deposit":
+        portfolio.buying_power = portfolio.buying_power + res["amount"]
+        db.session.commit()
+    else:
+        portfolio.buying_power = portfolio.buying_power - res["amount"]
+        db.session.commit()
+
+    return portfolio.to_dict()
