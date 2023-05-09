@@ -16,7 +16,7 @@ class Transfer(db.Model):
 
     # relationships
     portfolio = db.relationship("Portfolio", back_populates="transfers")
-    bank_account = db.relationship("BankAccount", back_populates="transfers")
+    bank_account = db.relationship("BankAccount", uselist=False, back_populates="transfers")
     user = db.relationship("User", back_populates="transfers")
 
     def to_dict(self):
@@ -27,4 +27,5 @@ class Transfer(db.Model):
             'user_id': self.user_id,
             'deposit': self.deposit,
             'date': self.date,
+            'bank_info': self.bank_account.to_dict()
         }
