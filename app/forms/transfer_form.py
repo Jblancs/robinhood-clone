@@ -1,7 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, IntegerField
-from wtforms.validators import DataRequired, Length
+from wtforms import StringField, SelectField, IntegerField, DecimalField
+from wtforms.validators import DataRequired, Length, ValidationError
 
-class TransferForm(FlaskForm):
+def validate_amount(form, field):
+    if field.data <= 0:
+        raise ValidationError("Amount cannot be less than $0.00")
+
+class TransferDepositForm(FlaskForm):
     bank_account_id = SelectField('Bank Account Id', validators=[DataRequired()])
-    deposit
+    amount = DecimalField('Amount', validators=[DataRequired(), validate_amount])
+
+class TransferWithdrawForm(FlaskForm):
+    bank_account_id = SelectField('Bank Account Id', validators=[DataRequired()])
+    amount = DecimalField('Amount', validators=[DataRequired(), validate_amount])

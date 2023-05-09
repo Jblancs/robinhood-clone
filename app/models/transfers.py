@@ -12,6 +12,7 @@ class Transfer(db.Model):
     bank_account_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("bank_accounts.id")), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     amount = db.Column(db.Float(), nullable=False)
+    type = db.Column(db.String, nullable=False)
     date = db.Column(db.DateTime(), nullable=False)
 
     # relationships
@@ -26,6 +27,7 @@ class Transfer(db.Model):
             'bank_account_id': self.bank_account_id,
             'user_id': self.user_id,
             'amount': self.amount,
+            'type': self.type,
             'date': self.date,
             'bank_info': self.bank_account.to_dict()
         }
