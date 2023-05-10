@@ -39,9 +39,8 @@ function ProfileButton({ user }) {
     dispatch(logout());
   };
 
-  const handleOnClick = (e) => (link) =>{
+  const handleOnClick = (e, link) => {
     e.preventDefault()
-    console.log(link)
     history.push(`/account/${link}`)
     setSelectedNav(link)
   }
@@ -58,11 +57,11 @@ function ProfileButton({ user }) {
       <div className={ulClassName} ref={ulRef}>
         {user ? (
           <div className="dropdown-menu-container">
-            <div className="prof-drop-section-div bot-border not-allowed">
+            <div className="prof-drop-section-div bot-border ">
               <div className="prof-drop-text bold">{user.username}</div>
             </div>
-            <div className="not-allowed prof-drop-section-div" onClick={handleOnClick("transfers")}>
-              <div className="prof-drop-icon not-allowed">
+            <div className="point prof-drop-section-div" onClick={(e) => handleOnClick(e, "transfers")}>
+              <div className="prof-drop-icon">
                 <i className="fas fa-university" />
               </div>
               <div className="prof-drop-text bold">
@@ -71,7 +70,7 @@ function ProfileButton({ user }) {
             </div>
 
 
-            <div className="not-allowed prof-drop-section-div ">
+            <div className="point prof-drop-section-div " onClick={(e) => handleOnClick(e, "history")}>
               <div className="prof-drop-icon">
                 <i className="fas fa-history" />
               </div>
@@ -81,7 +80,7 @@ function ProfileButton({ user }) {
             </div>
 
 
-            <div className="not-allowed prof-drop-section-div bot-border">
+            <div className="point prof-drop-section-div bot-border" onClick={(e) => handleOnClick(e, "recurring")}>
               <div className="prof-drop-icon">
                 <i className="fas fa-sync" />
               </div>
