@@ -8,6 +8,8 @@ function AccountNavigation() {
 
     const user = useSelector(state => state.session.user)
 
+    const [selected, setSelected] = useState()
+
     if (!user) {
         history.push("/login")
     }
@@ -19,9 +21,9 @@ function AccountNavigation() {
                     {user.username}
                 </div>
                 <div className='account-nav-link-div'>
-                    <NavLink className='account-nav-link navhover' to="/account/transfers">Transfers</NavLink>
-                    <NavLink className='account-nav-link navhover' to="/account/recurring">Recurring</NavLink>
-                    <NavLink className='account-nav-link navhover' to="/account/history">History</NavLink>
+                    <NavLink className={selected === "Transfers" ? 'account-nav-link navhover selected-link' : 'account-nav-link navhover'} to="/account/transfers" onClick={() => setSelected("Transfers")}>Transfers</NavLink>
+                    <NavLink className={selected === "Recurring" ? 'account-nav-link navhover selected-link' : 'account-nav-link navhover'} to="/account/recurring" onClick={() => setSelected("Recurring")}>Recurring</NavLink>
+                    <NavLink className={selected === "History" ? 'account-nav-link navhover selected-link' : 'account-nav-link navhover'} to="/account/history" onClick={() => setSelected("History")}>History</NavLink>
                 </div>
             </div>
         </div>

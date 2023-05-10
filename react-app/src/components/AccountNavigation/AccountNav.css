@@ -23,4 +23,9 @@
     text-decoration: none;
     color: black;
     margin-right: 15px;
+    padding-bottom: 19px;
+}
+
+.selected-link{
+    border-bottom: 2px solid var(--rhood-green);
 }

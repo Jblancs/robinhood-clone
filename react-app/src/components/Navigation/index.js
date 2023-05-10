@@ -65,7 +65,7 @@ function Navigation({ isLoaded }) {
 							<NavLink exact to="/" style={{ textDecoration: "none", color: "black" }}>Investing</NavLink>
 						</div>
 						<div className='nav-notif bold navhover'>
-							<div className='nav-investing bold navhover not-allowed'>Notifications</div>
+							<div className='nav-investing bold not-allowed'>Notifications</div>
 						</div>
 						{isLoaded && (
 							<div>
