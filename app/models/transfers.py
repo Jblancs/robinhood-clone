@@ -8,18 +8,26 @@ class Transfer(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    portfolio_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("portfolios.id")), nullable=False)
-    deposit = db.Column(db.Float(), nullable=False)
+    portfolio_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("portfolios.id")), nullable=False)
+    bank_account_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("bank_accounts.id")), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    amount = db.Column(db.Float(), nullable=False)
+    type = db.Column(db.String, nullable=False)
     date = db.Column(db.DateTime(), nullable=False)
 
     # relationships
     portfolio = db.relationship("Portfolio", back_populates="transfers")
+    bank_account = db.relationship("BankAccount", uselist=False, back_populates="transfers")
+    user = db.relationship("User", back_populates="transfers")
 
     def to_dict(self):
         return {
             'id': self.id,
             'portfolio_id': self.portfolio_id,
-            'deposit': self.deposit,
+            'bank_account_id': self.bank_account_id,
+            'user_id': self.user_id,
+            'amount': self.amount,
+            'type': self.type,
             'date': self.date,
+            'bank_info': self.bank_account.to_dict()
         }

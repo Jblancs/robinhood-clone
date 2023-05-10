@@ -128,7 +128,6 @@ function BuySellStock({ stockData, stockTicker, portfolio, dispatch }) {
 
     }
     if (Object.values(errors).length) {
-        console.log("errorsBtn if")
         confirmBtn = (
             <div>
                 <div>

@@ -8,25 +8,12 @@ class Watchlist(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("users.id")), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     name = db.Column(db.String(100), nullable=False)
 
     # relationships
     user = db.relationship("User", uselist=False, back_populates="watchlists")
-    stocks = db.relationship(
-        "Stock", secondary="watchlists_stocks", back_populates="watchlists")
-    # watchlist_stocks = db.relationship(
-    #     "WatchlistStocks", back_populates="watchlist")
-
-    # def normalizeStocks(self):
-    #     obj = dict()
-    #     print("\n\n\n\n\n", self.stocks)
-    #     for stock in self.stocks:
-    #         if stock:
-    #             stockData = stock.to_dict()
-    #             obj[stock.ticker] = stockData
-    #     return obj
+    stocks = db.relationship("Stock", secondary="watchlists_stocks", back_populates="watchlists")
 
     def to_dict(self):
         return {

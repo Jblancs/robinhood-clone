@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 743fda803e1c
+Revision ID: 081a9491d2ae
 Revises:
-Create Date: 2023-03-29 11:13:22.419304
+Create Date: 2023-05-09 17:43:54.646257
 
 """
 from alembic import op
@@ -12,8 +12,9 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
+
 # revision identifiers, used by Alembic.
-revision = '743fda803e1c'
+revision = '081a9491d2ae'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -45,6 +46,19 @@ def upgrade():
 
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
+    op.create_table('bank_accounts',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('bank', sa.String(length=100), nullable=False),
+    sa.Column('account_type', sa.String(length=100), nullable=False),
+    sa.Column('account_number', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE bank_accounts SET SCHEMA {SCHEMA};")
 
     op.create_table('portfolios',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -94,6 +108,22 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE portfolio_histories SET SCHEMA {SCHEMA};")
 
+    op.create_table('recurring_investments',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('ticker', sa.String(), nullable=False),
+    sa.Column('portfolio_id', sa.Integer(), nullable=False),
+    sa.Column('shares', sa.Float(), nullable=False),
+    sa.Column('start_date', sa.DateTime(), nullable=False),
+    sa.Column('frequency', sa.String(), nullable=False),
+    sa.Column('paused', sa.Boolean(), nullable=False),
+    sa.ForeignKeyConstraint(['portfolio_id'], ['portfolios.id'], ),
+    sa.ForeignKeyConstraint(['ticker'], ['stocks.ticker'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE recurring_investments SET SCHEMA {SCHEMA};")
+
     op.create_table('transactions',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('ticker', sa.String(), nullable=False),
@@ -113,9 +143,14 @@ def upgrade():
     op.create_table('transfers',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('portfolio_id', sa.Integer(), nullable=False),
-    sa.Column('deposit', sa.Float(), nullable=False),
+    sa.Column('bank_account_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('amount', sa.Float(), nullable=False),
+    sa.Column('type', sa.String(), nullable=False),
     sa.Column('date', sa.DateTime(), nullable=False),
+    sa.ForeignKeyConstraint(['bank_account_id'], ['bank_accounts.id'], ),
     sa.ForeignKeyConstraint(['portfolio_id'], ['portfolios.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
 
@@ -142,10 +177,12 @@ def downgrade():
     op.drop_table('watchlists_stocks')
     op.drop_table('transfers')
     op.drop_table('transactions')
+    op.drop_table('recurring_investments')
     op.drop_table('portfolio_histories')
     op.drop_table('investments')
     op.drop_table('watchlists')
     op.drop_table('portfolios')
+    op.drop_table('bank_accounts')
     op.drop_table('users')
     op.drop_table('stocks')
     # ### end Alembic commands ###

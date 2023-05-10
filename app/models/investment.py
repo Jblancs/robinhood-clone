@@ -8,18 +8,14 @@ class Investment(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    ticker = db.Column(db.String, db.ForeignKey(
-        add_prefix_for_prod("stocks.ticker")), nullable=False)
-    portfolio_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("portfolios.id")), nullable=False)
+    ticker = db.Column(db.String, db.ForeignKey(add_prefix_for_prod("stocks.ticker")), nullable=False)
+    portfolio_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("portfolios.id")), nullable=False)
     value = db.Column(db.Float(), nullable=False)
     shares = db.Column(db.Float(), nullable=False)
 
     # relationships
-    portfolio = db.relationship(
-        "Portfolio", back_populates="investments")
-    stock = db.relationship(
-        "Stock", back_populates="investments")
+    portfolio = db.relationship("Portfolio", back_populates="investments")
+    stock = db.relationship("Stock", back_populates="investments")
 
     @property
     def price_per_share(self):

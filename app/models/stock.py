@@ -14,14 +14,10 @@ class Stock(db.Model):
     listed = db.Column(db.String, nullable=False)
 
     # relationships
-    investments = db.relationship(
-        "Investment", back_populates="stock")
-    watchlists = db.relationship(
-        "Watchlist", secondary="watchlists_stocks", back_populates="stocks")
-    transactions = db.relationship(
-        "Transaction", back_populates="stock")
-    # watchlist_stocks = db.relationship(
-    #     "WatchlistStocks", back_populates="stock")
+    investments = db.relationship("Investment", back_populates="stock")
+    watchlists = db.relationship("Watchlist", secondary="watchlists_stocks", back_populates="stocks")
+    transactions = db.relationship("Transaction", back_populates="stock")
+    recurring_investments = db.relationship("RecurringInvestment", back_populates="stock")
 
     def to_dict(self):
         return {

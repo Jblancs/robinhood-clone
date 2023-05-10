@@ -8,18 +8,16 @@ class Portfolio(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        add_prefix_for_prod("users.id")), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     buying_power = db.Column(db.Float(), nullable=False)
 
     # relationships
     user = db.relationship("User", uselist=False, back_populates="portfolio")
-    investments = db.relationship(
-        "Investment", back_populates="portfolio", cascade="all, delete-orphan")
-    histories = db.relationship(
-        "PortfolioHistory", back_populates="portfolio", cascade="all, delete-orphan")
+    investments = db.relationship("Investment", back_populates="portfolio", cascade="all, delete-orphan")
+    histories = db.relationship("PortfolioHistory", back_populates="portfolio", cascade="all, delete-orphan")
     transactions = db.relationship("Transaction", back_populates="portfolio")
     transfers = db.relationship("Transfer", back_populates="portfolio")
+    recurring_investments = db.relationship("RecurringInvestment", back_populates="portfolio")
 
     def to_dict(self):
         return {
