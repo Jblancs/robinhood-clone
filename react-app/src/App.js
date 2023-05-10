@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SingleStock from "./components/SingleStock";
+import AccountNavigation from "./components/AccountNavigation";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path="/account">
+            <AccountNavigation />
           </Route>
         </Switch>
       )}
