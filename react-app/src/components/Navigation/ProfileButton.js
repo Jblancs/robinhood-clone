@@ -4,9 +4,11 @@ import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { useHistory } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory()
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -48,7 +50,7 @@ function ProfileButton({ user }) {
             <div className="prof-drop-section-div bot-border not-allowed">
               <div className="prof-drop-text bold">{user.username}</div>
             </div>
-            <div className="not-allowed prof-drop-section-div ">
+            <div className="not-allowed prof-drop-section-div" onClick={() => history.push("/account/transfer")}>
               <div className="prof-drop-icon not-allowed">
                 <i className="fas fa-university" />
               </div>
