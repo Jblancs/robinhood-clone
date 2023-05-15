@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useAccountNavSelect } from '../../context/AccountNav';
 
-function Transfers(){
+function History(){
     const {setSelectedNav} = useAccountNavSelect()
 
     useEffect(() => {
-        setSelectedNav('transfers')
+        setSelectedNav('history')
     },[])
 
     return (
         <div>
-            Transfers
+            History
         </div>
     )
 }
 
-export default Transfers
+export default History

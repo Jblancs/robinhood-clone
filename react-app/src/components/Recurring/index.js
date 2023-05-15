@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useAccountNavSelect } from '../../context/AccountNav';
 
-function Transfers(){
+function Recurring(){
     const {setSelectedNav} = useAccountNavSelect()
 
     useEffect(() => {
-        setSelectedNav('transfers')
+        setSelectedNav('recurring')
     },[])
 
     return (
         <div>
-            Transfers
+            Recurring
         </div>
     )
 }
 
-export default Transfers
+export default Recurring
