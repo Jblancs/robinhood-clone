@@ -18,7 +18,7 @@ function AccountNavigation() {
         <div className='account-nav-container'>
             <div className='account-nav-div'>
                 <div className='account-username'>
-                    {user.username}
+                    {user?.username}
                 </div>
                 <div className='account-nav-link-div'>
                     <NavLink className={selectedNav === "transfers" ? 'account-nav-link navhover selected-link' : 'account-nav-link navhover'} to="/account/transfers" onClick={() => setSelectedNav("transfers")}>Transfers</NavLink>

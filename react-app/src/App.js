@@ -33,9 +33,17 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/account">
+          <div>
             <AccountNavigation />
-          </Route>
+            <Switch>
+              <Route path="/account/transfers">
+              </Route>
+              <Route path="/account/recurring">
+              </Route>
+              <Route path="/account/history">
+              </Route>
+            </Switch>
+          </div>
         </Switch>
       )}
     </>
