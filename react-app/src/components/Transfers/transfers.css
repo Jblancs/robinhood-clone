@@ -121,3 +121,40 @@
     padding: 25px 0px;
     border-bottom: 1px solid var(--global-gray);
 }
+
+.transfer-card-container{
+    width: 800px;
+    /* border: var(--global-border); */
+}
+
+.add-hover:hover{
+    background-color: var(--global-light-gray);
+}
+
+.transfer-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10px;
+    margin: 0px 0px;
+    width: 780px;
+    border-bottom: 1px solid var(--global-gray);
+    border-top: 1px solid var(--global-gray);
+    cursor: pointer;
+}
+
+
+.transfer-detail-div{
+    display: flex;
+    padding: 10px 10px;
+}
+
+.transfer-detail-left,
+.transfer-detail-mid{
+    padding-right: 150px;
+}
+
+.show-detail{
+    margin-bottom: 5px;
+    box-shadow: 3px 3px 10px var(--global-gray);
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAccountNavSelect } from '../../context/AccountNav';
 import "./transfers.css"
+import TransferHistory from './TransferHistory';
 
 function Transfers() {
     const { setSelectedNav } = useAccountNavSelect()
@@ -36,10 +37,10 @@ function Transfers() {
                             <i className="fas fa-university linked-account-icon" />
                             <div className='account-info-div'>
                                 <div className='account-info-bank bold'>
-                                    Wells Fargo (placeholder)
+                                    (Wells Fargo)
                                 </div>
                                 <div className='account-info-div'>
-                                    Checking &#8226;&#8226;&#8226;&#8226;9999 (placeholder)
+                                    (Checking &#8226;&#8226;&#8226;&#8226;9999)
                                 </div>
                             </div>
                         </div>
@@ -62,6 +63,7 @@ function Transfers() {
                     <div className='complete-transfer-header'>
                         Completed Transfers
                     </div>
+                    <TransferHistory />
                 </div>
             </div>
         </div>
