@@ -27,6 +27,37 @@ function Transfers() {
                         </button>
                     </div>
                 </div>
+                <div className='linked-account-div'>
+                    <div className='linked-account-header-text'>
+                        Linked Accounts
+                    </div>
+                    <div className='linked-account-card'>
+                        <div className='linked-account-info-div'>
+                            <i className="fas fa-university linked-account-icon" />
+                            <div className='account-info-div'>
+                                <div className='account-info-bank bold'>
+                                    Wells Fargo (placeholder)
+                                </div>
+                                <div className='account-info-div'>
+                                    Checking &#8226;&#8226;&#8226;&#8226;9999 (placeholder)
+                                </div>
+                            </div>
+                        </div>
+                        <div className='account-info-linked-div'>
+                            <div className='account-info-verified bold'>
+                                Verified
+                            </div>
+                            <button className='account-unlink-button bold'>
+                                Unlink
+                            </button>
+                        </div>
+                    </div>
+                    <div className='add-account-div'>
+                        <div className='add-account-button bold'>
+                            Add New Account
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
