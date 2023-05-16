@@ -1,0 +1,52 @@
+.transfer-page-container{
+    display: flex;
+    justify-content: center;
+    padding: 30px 0px 0px 0px;
+}
+
+.transfer-page-div{
+    width: 1400px;
+}
+
+.transfer-header-text{
+    font-size: 30px;
+}
+
+.transfer-button-div{
+    padding: 10px 0px 30px 0px;
+}
+
+.transfer-button-money{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid var(--global-gray);
+    cursor: pointer;
+    border-radius: 5px;
+    height: 120px;
+    width: 150px;
+}
+
+.transfer-icon-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    background-color: black;
+    height: 50px;
+    width: 50px;
+    border-radius: 30px;
+}
+
+.fa-exchange-alt{
+    color: white;
+    font-weight: bold;
+}
+
+.transfer-button-text{
+    margin: 8px;
+
+}
