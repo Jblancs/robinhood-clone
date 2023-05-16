@@ -28,7 +28,7 @@ function Transfers() {
                     </div>
                 </div>
                 <div className='linked-account-div'>
-                    <div className='linked-account-header-text'>
+                    <div className='linked-account-header'>
                         Linked Accounts
                     </div>
                     <div className='linked-account-card'>
@@ -56,6 +56,11 @@ function Transfers() {
                         <div className='add-account-button bold'>
                             Add New Account
                         </div>
+                    </div>
+                </div>
+                <div className='complete-transfer-div'>
+                    <div className='complete-transfer-header'>
+                        Completed Transfers
                     </div>
                 </div>
             </div>

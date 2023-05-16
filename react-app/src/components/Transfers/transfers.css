@@ -55,9 +55,9 @@
 
 /* Linked Accounts section ------------------------------------------------------ */
 
-.linked-account-header-text{
+.linked-account-header{
     font-size: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .linked-account-card{
@@ -111,4 +111,13 @@
 
 .add-account-button:hover{
     filter: contrast(80%);
+}
+
+/* Completed Transfers section ------------------------------------------------------ */
+
+.complete-transfer-header{
+    font-size: 30px;
+    width: 800px;
+    padding: 25px 0px;
+    border-bottom: 1px solid var(--global-gray);
 }
