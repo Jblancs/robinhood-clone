@@ -124,6 +124,9 @@
 
 .transfer-card-container{
     width: 800px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    max-height: 105px;
     /* border: var(--global-border); */
 }
 
@@ -155,6 +158,7 @@
 }
 
 .show-detail{
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     box-shadow: 3px 3px 10px var(--global-gray);
+    max-height: 250px;
 }
