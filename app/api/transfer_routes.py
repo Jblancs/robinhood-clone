@@ -17,9 +17,13 @@ def get_user_transfers():
     current_user_id = current_user.to_dict()["id"]
 
     transfer_data = Transfer.query.filter(Transfer.user_id == current_user_id)
-    transfer_list = to_dict_list(transfer_data)
 
-    return transfer_list
+
+    if transfer_data:
+        transfer_list = to_dict_list(transfer_data)
+        return transfer_list
+    else:
+        return {"error": "No transfers made for this user"}
 
 # ------------------------------------------------------------------------------
 @transfer_routes.route("/", methods=["POST"])

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-function TransferHistory() {
+function TransferHistory({transfers}) {
     const [showDetail, setShowDetail] = useState(false)
+
+    if(transfers.error) return
 
     // event handlers ----------------------------------------------------------------
     const onClickHandler = (e) => {

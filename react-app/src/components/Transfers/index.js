@@ -6,6 +6,7 @@ import TransferHistory from './TransferHistory';
 import { clearBankAccountState, fetchBankAccounts } from '../../store/bankAccount';
 import { useHistory } from 'react-router-dom';
 import BankAccount from './BankAccount';
+import { clearTransferState, fetchTransfers } from '../../store/transfer';
 
 function Transfers() {
     const dispatch = useDispatch()
@@ -13,6 +14,7 @@ function Transfers() {
     const { setSelectedNav } = useAccountNavSelect()
 
     const bank = useSelector(state => state.bank.bank)
+    const transfer = useSelector(state => state.transfers.transfers)
     const user = useSelector(state => state.session.user)
 
     useEffect(() => {
@@ -21,8 +23,10 @@ function Transfers() {
 
     useEffect(() => {
         dispatch(fetchBankAccounts())
+        dispatch(fetchTransfers())
         return () => {
             dispatch(clearBankAccountState())
+            dispatch(clearTransferState())
         }
     }, [dispatch])
 
@@ -30,7 +34,7 @@ function Transfers() {
         history.push("/login")
     }
 
-    if (!bank || !user) return <div>Loading...</div>
+    if (!bank || !user || !transfer) return <div>Loading...</div>
 
 
     return (
@@ -66,7 +70,7 @@ function Transfers() {
                     <div className='complete-transfer-header'>
                         Completed Transfers
                     </div>
-                    <TransferHistory />
+                    <TransferHistory transfers={transfer}/>
                 </div>
             </div>
         </div>
