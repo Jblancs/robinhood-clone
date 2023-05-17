@@ -1,14 +1,37 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux"
 import { useAccountNavSelect } from '../../context/AccountNav';
 import "./transfers.css"
 import TransferHistory from './TransferHistory';
+import { clearBankAccountState, fetchBankAccounts } from '../../store/bankAccount';
+import { useHistory } from 'react-router-dom';
+import BankAccount from './BankAccount';
 
 function Transfers() {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const { setSelectedNav } = useAccountNavSelect()
+
+    const bank = useSelector(state => state.bank.bank)
+    const user = useSelector(state => state.session.user)
 
     useEffect(() => {
         setSelectedNav('transfers')
     }, [])
+
+    useEffect(() => {
+        dispatch(fetchBankAccounts())
+        return () => {
+            dispatch(clearBankAccountState())
+        }
+    }, [dispatch])
+
+    if(!user){
+        history.push("/login")
+    }
+
+    if (!bank || !user) return <div>Loading...</div>
+
 
     return (
         <div className='transfer-page-container'>
@@ -32,27 +55,7 @@ function Transfers() {
                     <div className='linked-account-header'>
                         Linked Accounts
                     </div>
-                    <div className='linked-account-card'>
-                        <div className='linked-account-info-div'>
-                            <i className="fas fa-university linked-account-icon" />
-                            <div className='account-info-div'>
-                                <div className='account-info-bank bold'>
-                                    (Wells Fargo)
-                                </div>
-                                <div className='account-info-div'>
-                                    (Checking &#8226;&#8226;&#8226;&#8226;9999)
-                                </div>
-                            </div>
-                        </div>
-                        <div className='account-info-linked-div'>
-                            <div className='account-info-verified bold'>
-                                Verified
-                            </div>
-                            <button className='account-unlink-button bold'>
-                                Unlink
-                            </button>
-                        </div>
-                    </div>
+                    <BankAccount bank={bank}/>
                     <div className='add-account-div'>
                         <div className='add-account-button bold'>
                             Add New Account
