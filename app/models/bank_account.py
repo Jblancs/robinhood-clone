@@ -22,5 +22,5 @@ class BankAccount(db.Model):
             'user_id': self.user_id,
             'bank': self.bank,
             'account_type': self.account_type,
-            'account_number': self.account_number
+            'account_number': str(self.account_number)[-4:]
         }
