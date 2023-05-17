@@ -7,6 +7,10 @@ import HomePage from "./components/HomePage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SingleStock from "./components/SingleStock";
+import AccountNavigation from "./components/AccountNavigation";
+import Transfers from "./components/Transfers";
+import Recurring from "./components/Recurring";
+import History from "./components/History";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +36,20 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <div>
+            <AccountNavigation />
+            <Switch>
+              <Route path="/account/transfers">
+                <Transfers />
+              </Route>
+              <Route path="/account/recurring">
+                <Recurring />
+              </Route>
+              <Route path="/account/history">
+                <History />
+              </Route>
+            </Switch>
+          </div>
         </Switch>
       )}
     </>

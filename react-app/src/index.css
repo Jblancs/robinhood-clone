@@ -4,6 +4,7 @@
     --global-border: 1px solid black;
     --global-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --global-orange-filter: invert(46%) sepia(94%) saturate(1974%) hue-rotate(349deg) brightness(102%) contrast(101%);
+    --global-green-filter: invert(45%) sepia(50%) saturate(1933%) hue-rotate(89deg) brightness(104%) contrast(107%);
     --global-font-size: 17px;
     --global-gray: rgba(227, 233, 237);
     --global-light-gray: rgba(245, 248, 250);
@@ -45,4 +46,12 @@
     position: sticky;
     top: 1%;
     /* right: 1%; */
+}
+
+.point{
+    cursor: pointer;
+}
+
+.pad10{
+    padding: 10px 0px 10px 0px;
 }

@@ -4,9 +4,13 @@ import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { useHistory } from "react-router-dom";
+import { useAccountNavSelect } from '../../context/AccountNav';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory()
+  const {setSelectedNav} = useAccountNavSelect()
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -29,11 +33,19 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  // Event Handlers -----------------------------------------------------------------------------------
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
   };
 
+  const handleOnClick = (e, link) => {
+    e.preventDefault()
+    history.push(`/account/${link}`)
+    setSelectedNav(link)
+  }
+
+  // className -----------------------------------------------------------------------------------------
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
@@ -45,11 +57,11 @@ function ProfileButton({ user }) {
       <div className={ulClassName} ref={ulRef}>
         {user ? (
           <div className="dropdown-menu-container">
-            <div className="prof-drop-section-div bot-border not-allowed">
+            <div className="prof-drop-section-div bot-border ">
               <div className="prof-drop-text bold">{user.username}</div>
             </div>
-            <div className="not-allowed prof-drop-section-div ">
-              <div className="prof-drop-icon not-allowed">
+            <div className="point prof-drop-section-div" onClick={(e) => handleOnClick(e, "transfers")}>
+              <div className="prof-drop-icon">
                 <i className="fas fa-university" />
               </div>
               <div className="prof-drop-text bold">
@@ -58,7 +70,7 @@ function ProfileButton({ user }) {
             </div>
 
 
-            <div className="not-allowed prof-drop-section-div ">
+            <div className="point prof-drop-section-div " onClick={(e) => handleOnClick(e, "history")}>
               <div className="prof-drop-icon">
                 <i className="fas fa-history" />
               </div>
@@ -68,7 +80,7 @@ function ProfileButton({ user }) {
             </div>
 
 
-            <div className="not-allowed prof-drop-section-div bot-border">
+            <div className="point prof-drop-section-div bot-border" onClick={(e) => handleOnClick(e, "recurring")}>
               <div className="prof-drop-icon">
                 <i className="fas fa-sync" />
               </div>

@@ -21,7 +21,8 @@
 /* Multi-class css -------------------------------------- */
 
 .navhover:hover {
-  filter: var(--global-orange-filter)
+  filter: var(--global-green-filter)
+  /* color: var(--rhood-green); */
 }
 
 /* Nav css ----------------------------------------------- */

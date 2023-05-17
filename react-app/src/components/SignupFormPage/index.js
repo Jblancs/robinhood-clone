@@ -32,9 +32,8 @@ function SignupFormPage() {
       <div className="signup-div">
         <img className="signup-form-img" src="./images/signup-background.PNG" alt="login" />
       </div>
-      <div className="signup-div">
       <div className="signup-form-container">
-        <div className="login-form-div">
+        <div className="signup-form-div">
           <h1>Sign up for Robingood</h1>
           <form onSubmit={handleSubmit}>
             <ul className="log-sign-errors">
@@ -107,7 +106,6 @@ function SignupFormPage() {
             </NavLink>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );
