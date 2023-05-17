@@ -35,7 +35,7 @@ def create_transfer():
     user = current_user.to_dict()
     res = request.get_json()
 
-    if res["type"] == "deposit":
+    if res["type"] == "Deposit":
         form = TransferDepositForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
     else:
