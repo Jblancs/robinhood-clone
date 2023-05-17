@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getDisplayDateYear } from '../../Utils';
+import bankReducer from '../../store/bankAccount';
 
 function TransferHistory({ transfers }) {
     const [showDetail, setShowDetail] = useState(false)
@@ -13,6 +14,8 @@ function TransferHistory({ transfers }) {
         e.preventDefault()
         setShowDetail(!showDetail)
     }
+
+    //
 
     // component JSX -----------------------------------------------------------------
     return (
@@ -36,7 +39,7 @@ function TransferHistory({ transfers }) {
                         <div className='transfer-detail-left'>
                             <div className='transfer-detail-amount pad10'>
                                 <div className='bold'>Amount</div>
-                                <div>{Number(transfer.amount).toFixed(2)}</div>
+                                <div>${Number(transfer.amount).toFixed(2)}</div>
                             </div>
                             <div className='transfer-detail-init pad10'>
                                 <div className='bold'>Initiated</div>
@@ -46,7 +49,7 @@ function TransferHistory({ transfers }) {
                         <div className='transfer-detail-mid'>
                             <div className='transfer-detail-from pad10'>
                                 <div className='bold'>From</div>
-                                <div>(Checking &#8226;&#8226;&#8226;&#8226;9999)</div>
+                                {transfer.type === "Deposit" ? <div>{transfer.bank_info.account_type} &#8226;&#8226;&#8226;&#8226;{transfer.bank_info.account_number}</div> : <div>Brokerage Account</div>}
                             </div>
                             <div className='transfer-detail-updated pad10'>
                                 <div className='bold'>Last Updated</div>
@@ -56,7 +59,7 @@ function TransferHistory({ transfers }) {
                         <div className='transfer-detail-right'>
                             <div className='transfer-detail-to pad10'>
                                 <div className='bold'>To</div>
-                                <div>(Brokerage account)</div>
+                                <div>{transfer.type === "Deposit" ? "Brokerage Account" : `${transfer.bank_info.account_type} Account`}</div>
                             </div>
                             <div className='transfer-detail-status pad10'>
                                 <div className='bold'>Status</div>
@@ -66,7 +69,7 @@ function TransferHistory({ transfers }) {
                     </div>
                 </div>
             ))}
-            
+
         </>
     )
 }

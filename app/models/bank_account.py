@@ -11,6 +11,7 @@ class BankAccount(db.Model):
     bank = db.Column(db.String(100), nullable=False)
     account_type = db.Column(db.String(100), nullable=False)
     account_number = db.Column(db.Integer, nullable=False)
+    linked = db.Column(db.Boolean, nullable=False)
 
     # relationships
     user = db.relationship("User", back_populates="bank_accounts")
@@ -22,5 +23,6 @@ class BankAccount(db.Model):
             'user_id': self.user_id,
             'bank': self.bank,
             'account_type': self.account_type,
-            'account_number': str(self.account_number)[-4:]
+            'account_number': str(self.account_number)[-4:],
+            'linked': self.linked
         }

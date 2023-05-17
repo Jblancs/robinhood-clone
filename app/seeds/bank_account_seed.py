@@ -11,6 +11,7 @@ def seed_bank_account():
             bank="Wells Fargo",
             account_type="Checking",
             account_number=1234567890+int(user_id),
+            linked=True
         )
         bank_account_list.append(bank_account)
 
