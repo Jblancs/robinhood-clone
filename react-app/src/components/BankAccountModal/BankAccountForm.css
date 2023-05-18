@@ -1,11 +1,11 @@
 .bank-modal-container{
-    width: 500px;
+    width: 450px;
     display: flex;
     justify-content: center;
 }
 
 .bank-modal-div{
-    width: 440px;
+    width: 400px;
     padding: 10px 0px;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .bank-form-field{
-    width: 440px;
+    width: 400px;
     height: 40px;
     border: 1px solid var(--global-gray);
     border-radius: 5px;
@@ -37,7 +37,7 @@
 
 .acct-num-input{
     height: 30px;
-    width: 428px;
+    width: 388px;
 }
 
 .link-account-button-div{
