@@ -70,9 +70,6 @@ function Transfers() {
                                 modalComponent={<BankAccountForm />}
                             />
                         </div>
-                        {/* <div className='add-account-button bold'>
-                            Add New Account
-                        </div> */}
                     </div>
                 </div>
                 <div className='complete-transfer-div'>
