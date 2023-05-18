@@ -7,6 +7,8 @@ import { clearBankAccountState, fetchBankAccounts } from '../../store/bankAccoun
 import { useHistory } from 'react-router-dom';
 import BankAccount from './BankAccount';
 import { clearTransferState, fetchTransfers } from '../../store/transfer';
+import OpenModalButton from "../OpenModalButton";
+import BankAccountForm from '../BankAccountModal/BankAccountForm';
 
 function Transfers() {
     const dispatch = useDispatch()
@@ -61,9 +63,16 @@ function Transfers() {
                     </div>
                     <BankAccount bank={bank}/>
                     <div className='add-account-div'>
-                        <div className='add-account-button bold'>
-                            Add New Account
+                        <div className='add-account-modal-div'>
+                            <OpenModalButton
+                                buttonText="Add New Account"
+                                modalClass="add-account-button bold"
+                                modalComponent={<BankAccountForm />}
+                            />
                         </div>
+                        {/* <div className='add-account-button bold'>
+                            Add New Account
+                        </div> */}
                     </div>
                 </div>
                 <div className='complete-transfer-div'>

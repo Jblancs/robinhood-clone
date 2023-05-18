@@ -103,6 +103,8 @@
 .add-account-button{
     padding: 10px 0px;
     margin: 10px 0px;
+    border: none;
+    background-color: transparent;
     font-size: 15px;
     width: 150px;
     color: var(--rhood-green);
