@@ -25,7 +25,7 @@ function TransferHistory({ transfers }) {
                     <div className={!showDetail ? 'transfer-card' : 'transfer-card'} onClick={onClickHandler}>
                         <div className='transfer-info-div'>
                             <div className='transfer-info-bank bold'>
-                                {transfer.type} to brokerage account from (Wells Fargo)
+                                {transfer.type} to brokerage account from {transfer.bank_info.bank}
                             </div>
                             <div className='transfer-info-date'>
                                 {getDisplayDateYear(transfer.date)}
