@@ -31,13 +31,12 @@ function BankAccount({ bank }) {
         )
     }
 
-
     return (
         <>
             {bankList.map(bank => (
-                <>
+                <div key={bank.id}>
                     {bank.linked ? linkedAccount(bank) : <></>}
-                </>
+                </div>
             ))}
         </>
     )

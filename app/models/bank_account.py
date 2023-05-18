@@ -10,7 +10,7 @@ class BankAccount(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     bank = db.Column(db.String(100), nullable=False)
     account_type = db.Column(db.String(100), nullable=False)
-    account_number = db.Column(db.Integer, nullable=False)
+    account_number = db.Column(db.String(12), nullable=False)
     linked = db.Column(db.Boolean, nullable=False)
 
     # relationships
