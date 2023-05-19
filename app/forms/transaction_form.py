@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, DecimalField, FloatField
+from wtforms import DecimalField, FloatField
 from wtforms.validators import DataRequired, ValidationError
 from ..utils import current_user_portfolio, print_data
 
