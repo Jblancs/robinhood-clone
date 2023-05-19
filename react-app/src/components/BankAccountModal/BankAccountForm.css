@@ -29,10 +29,20 @@
     border: 1px solid var(--global-gray);
     border-radius: 5px;
     padding: 5px;
+    font-size: 20px;
 }
 
 .bank-form-field:hover{
     background-color: var(--global-light-gray);
+}
+
+.acct-bank-select,
+.acct-type-select{
+    appearance: none;
+    background-image: url("../SingleStock/triangle-icon3.png");
+    background-repeat: no-repeat;
+    background-position: right .7rem top 50%;
+    background-size: 15px auto;
 }
 
 .acct-num-input{
