@@ -3,13 +3,32 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./BankAccountForm.css"
 
-function BankAccountForm() {
+function BankAccountForm({bank}) {
     const { closeModal } = useModal();
     const dispatch = useDispatch()
 
     const [accountType, setAccountType] = useState("")
-    const [bank, setBank] = useState("")
+    const [bankName, setBankName] = useState("")
     const [accountNum, setAccountNum] = useState("")
+    const [errors, setErrors] = useState([])
+
+    // helper functions --------------------------------------------------------------------------------
+    const existingAccountCheck = (data) => {
+        if(!bank.error){
+            for(let value of bank){
+                if(
+                    data.bank === value.bank &&
+                    data.account_type === value.account_type &&
+                    data.account_number === value.account_number
+                ){
+                    if(value.linked) return "exists"
+                    else return "link"
+                }
+            }
+        }else{
+            return false
+        }
+    }
 
     // event handlers ----------------------------------------------------------------------------------
     const selectTypeHandler = (e) => {
@@ -17,7 +36,7 @@ function BankAccountForm() {
     }
 
     const selectBankHandler = (e) => {
-        setBank(e.target.value)
+        setBankName(e.target.value)
     }
 
     const accountNumHandler = (e) => {
@@ -27,6 +46,54 @@ function BankAccountForm() {
     // onSubmit handler ---------------------------------------------------------------------------------
     const onSubmitHandler = (e) => {
         e.preventDefault()
+
+        let bankAccountData = {
+            bank: bankName,
+            account_type: accountType,
+            account_number: accountNum
+        }
+
+        // frontend error handling
+        let errorObj = []
+
+        if (accountNum.length < 10 || accountNum.length > 12) {
+            errorObj.push("Length should be 10-12 digits")
+        }
+
+        if (!Number.isInteger(Number(accountNum))) {
+            errorObj.push("Must contain numbers only")
+        }
+
+        if (existingAccountCheck(bankAccountData) === "exists"){
+            errorObj.push("Account already exists")
+        }
+
+        if (errorObj.length) {
+            setErrors(errorObj)
+            return
+        }
+
+        // dispatch based on new vs unlinked account
+
+
+    }
+
+    // If errors on submit ------------------------------------------------------------------------------
+    let errorDisplay;
+    if (errors.length) {
+        errorDisplay = (
+            <div className="acct-error-container">
+                <div className="acct-error-display">
+                    <div className="acct-error-title-div bold">
+                        <span className="acct-info-icon acct-error-icon bold">!</span>
+                        Invalid Account Number
+                    </div>
+                    {errors.map(message => (
+                        <div key={message} className="acct-error-message-div">&#8226; {message}</div>
+                    ))}
+                </div>
+            </div>
+        )
     }
 
     // component JSX ------------------------------------------------------------------------------------
@@ -43,11 +110,11 @@ function BankAccountForm() {
                     Enter your account information
                 </div>
                 <div className="bank-form-div">
-                    <form>
+                    <form onSubmit={onSubmitHandler}>
                         <div className="bank-form-label">
                             Account Type
                         </div>
-                        <select className="bank-form-field acct-type-select" onChange={selectTypeHandler}>
+                        <select className="bank-form-field acct-type-select" required onChange={selectTypeHandler}>
                             <option value="" disabled selected hidden>
                                 Select Account Type
                             </option>
@@ -61,7 +128,7 @@ function BankAccountForm() {
                         <div className="bank-form-label">
                             Bank Name
                         </div>
-                        <select className="bank-form-field acct-bank-select" onChange={selectBankHandler}>
+                        <select className="bank-form-field acct-bank-select" required onChange={selectBankHandler}>
                             <option value="" disabled selected hidden>
                                 Select Bank
                             </option>
@@ -92,12 +159,11 @@ function BankAccountForm() {
                             type="text"
                             value={accountNum}
                             onChange={accountNumHandler}
-                            minLength="10"
-                            maxLength="12"
                             required
                         />
+                        {errorDisplay}
                         <div className="link-account-button-div">
-                            <button className="review-button bold" type="submit">
+                            <button className="review-button bold">
                                 <i className="fas fa-lock" />
                                 Link Account
                             </button>

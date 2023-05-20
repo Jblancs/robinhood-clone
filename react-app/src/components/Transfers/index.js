@@ -67,7 +67,7 @@ function Transfers() {
                             <OpenModalButton
                                 buttonText="Add New Account"
                                 modalClass="add-account-button bold"
-                                modalComponent={<BankAccountForm />}
+                                modalComponent={<BankAccountForm bank={bank}/>}
                             />
                         </div>
                     </div>
