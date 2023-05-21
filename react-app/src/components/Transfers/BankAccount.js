@@ -15,39 +15,30 @@ function BankAccount({ bank }) {
         await dispatch(updateBankAccount(id))
     }
 
-    // function to display only linked accounts ----------------------------------------------------------
-    let linkedAccount = (bank) => {
-        return (
-            <div key={bank.id} className='linked-account-card'>
-                <div className='linked-account-info-div'>
-                    <i className="fas fa-university linked-account-icon" />
-                    <div className='account-info-div'>
-                        <div className='account-info-bank bold'>
-                            {bank.bank}
-                        </div>
-                        <div className='account-info-div'>
-                            {bank.account_type} &#8226;&#8226;&#8226;&#8226;{bank.account_number}
-                        </div>
-                    </div>
-                </div>
-                <div className='account-info-linked-div'>
-                    <div className='account-info-verified bold'>
-                        Verified
-                    </div>
-                    <button className='account-unlink-button bold' onClick={(e) => unlinkHandler(e, bank.id)}>
-                        Unlink
-                    </button>
-                </div>
-            </div>
-        )
-    }
-
     // component JSX ------------------------------------------------------------------------------------
     return (
         <>
             {bankList.map(bank => (
-                <div key={bank.id}>
-                    {bank.linked ? linkedAccount(bank) : <></>}
+                <div key={bank.id} className='linked-account-card'>
+                    <div className='linked-account-info-div'>
+                        <i className="fas fa-university linked-account-icon" />
+                        <div className='account-info-div'>
+                            <div className='account-info-bank bold'>
+                                {bank.bank}
+                            </div>
+                            <div className='account-info-div'>
+                                {bank.account_type} &#8226;&#8226;&#8226;&#8226;{bank.account_number}
+                            </div>
+                        </div>
+                    </div>
+                    <div className='account-info-linked-div'>
+                        <div className='account-info-verified bold'>
+                            Verified
+                        </div>
+                        <button className='account-unlink-button bold' onClick={(e) => unlinkHandler(e, bank.id)}>
+                            Unlink
+                        </button>
+                    </div>
                 </div>
             ))}
         </>
