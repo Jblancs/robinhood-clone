@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import React, { useState } from "react";
 import { buildGraph, addCommas } from "../../Utils";
 import Chart from 'chart.js/auto';
 import { Line } from 'react-chartjs-2'

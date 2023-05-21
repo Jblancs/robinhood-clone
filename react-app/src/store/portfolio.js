@@ -55,6 +55,7 @@ export default function portfolioReducer(state = initialState, action) {
 
         case CLEAR_PORT_STATE:
             newState = { ...initialState }
+            return newState
 
         default:
             return state;

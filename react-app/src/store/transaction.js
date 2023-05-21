@@ -71,6 +71,7 @@ export default function transactionReducer(state = initialState, action) {
 
         case CLEAR_TRANS_STATE:
             return { ...initialState }
+            
         default:
             return state;
     }

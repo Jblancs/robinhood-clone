@@ -74,7 +74,7 @@ function HomePage() {
                                         </div>
                                     </div>
                                     <div className="news-img-div">
-                                        <img className="news-img" src={article.image_url} />
+                                        <img className="news-img" src={article.image_url} alt="news-img"/>
                                     </div>
                                 </div>
                             ))}

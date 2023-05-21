@@ -130,13 +130,12 @@ export default function investReducer(state = initialState, action) {
             }
 
         case DELETE_INVESTMENT:
-            let obj =
             newState = {...initialState}
             return newState
 
         case CLEAR_INV_STATE:
             return { ...initialState }
-
+            
         default:
             return state;
     }

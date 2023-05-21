@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { getDisplayDateYear } from '../../Utils';
-import bankReducer from '../../store/bankAccount';
+
 
 function TransferHistory({ transfers }) {
     const [showDetail, setShowDetail] = useState(false)
@@ -14,9 +14,7 @@ function TransferHistory({ transfers }) {
         e.preventDefault()
         setShowDetail(!showDetail)
     }
-
-    //
-
+    
     // component JSX -----------------------------------------------------------------
     return (
         <>

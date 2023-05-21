@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { addStockToList, createWatchlists, fetchWatchlists, removeStockFromList } from "../../store/watchlist";
 
-
-
 function WatchlistAddRemoveModal({ ticker }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
@@ -70,7 +68,7 @@ function WatchlistAddRemoveModal({ ticker }) {
             name: listName
         }
 
-        let newList = await dispatch(createWatchlists(listInfo))
+        await dispatch(createWatchlists(listInfo))
         setListName("")
         setShowForm(false)
     }
@@ -115,8 +113,8 @@ function WatchlistAddRemoveModal({ ticker }) {
             }
         }
 
-        let added = await dispatch(addStockToList(addArray))
-        let deleted = await dispatch(removeStockFromList(deleteArray))
+        await dispatch(addStockToList(addArray))
+        await dispatch(removeStockFromList(deleteArray))
 
         closeModal()
     }

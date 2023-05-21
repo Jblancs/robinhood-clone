@@ -57,6 +57,7 @@ export default function stockReducer(state = initialState, action) {
 
         case CLEAR_STOCK_STATE:
             newState = { ...initialState }
+            return newState
 
         default:
             return state;

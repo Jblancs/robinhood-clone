@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAccountNavSelect } from '../../context/AccountNav';
 
 function History(){

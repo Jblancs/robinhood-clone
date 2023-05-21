@@ -65,7 +65,7 @@ export const updateBankAccount = (id) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(fetchBankAccounts());
-        return
+        return data
     }
 }
 
@@ -89,6 +89,7 @@ export default function bankReducer(state = initialState, action) {
 
         case CLEAR_ACCT_STATE:
             newState = { ...initialState }
+            return newState
 
         default:
             return state;

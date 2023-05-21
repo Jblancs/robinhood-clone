@@ -50,6 +50,7 @@ export default function transferReducer(state = initialState, action) {
 
         case CLEAR_TRANSFER_STATE:
             newState = { ...initialState }
+            return newState
 
         default:
             return state;

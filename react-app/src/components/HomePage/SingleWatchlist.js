@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux"
 import { NavLink } from "react-router-dom";
-import { createWatchlists } from "../../store/watchlist";
 import OpenModalButton from "../OpenModalButton";
 import WatchlistEditModal from "../WatchlistModal/WatchlistEditModal";
 import WatchlistDeleteModal from "../WatchlistModal/WatchlistDeleteModal";

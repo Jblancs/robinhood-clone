@@ -69,6 +69,7 @@ export const updateWatchlistsName = (watchlistInfo, id) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(fetchWatchlists());
+        return data
     }
 }
 
@@ -81,6 +82,7 @@ export const deleteWatchlists = (id) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(fetchWatchlists());
+        return data
     }
 }
 
@@ -128,6 +130,7 @@ export default function watchlistsReducer(state = initialState, action) {
 
         case CLEAR_WATCH_STATE:
             newState = { ...initialState }
+            return newState
 
         default:
             return state;
