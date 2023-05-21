@@ -17,7 +17,7 @@ def get_user_bank_accounts():
 
     current_user_id = current_user.to_dict()["id"]
 
-    bank_account_data = BankAccount.query.filter(BankAccount.user_id == current_user_id)
+    bank_account_data = BankAccount.query.filter(BankAccount.user_id == current_user_id, BankAccount.linked == True)
 
     if bank_account_data:
         bank_account_list = to_dict_list(bank_account_data)

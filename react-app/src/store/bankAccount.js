@@ -42,15 +42,13 @@ export const createBankAccount = (bankData) => async (dispatch) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bankData)
     })
-    console.log("createBankAccount thunk response ------------", response)
 
     if (response.ok) {
         const data = await response.json();
-        console.log("createBankAccount Thunk ------------", data)
-        if(data.errors || data.link){
+        if (data.errors || data.link) {
             return data
 
-        }else{
+        } else {
             dispatch(fetchBankAccounts());
             return data
         }
@@ -72,20 +70,20 @@ export const updateBankAccount = (id) => async (dispatch) => {
 }
 
 // Reducer function -------------------------------------------------------------
-const initialState = {};
+const initialState = { bank: null };
 
 export default function bankReducer(state = initialState, action) {
     let newState = { ...state }
     switch (action.type) {
         case GET_ACCOUNTS:
             let bankAccountList = {}
-            if(action.payload.error){
-                newState.bank = {...action.payload}
-            }else{
+            if (action.payload.error) {
+                newState.bank = { ...action.payload }
+            } else {
                 action.payload.forEach((bank) => {
                     bankAccountList[bank.id] = bank
                 })
-                newState.bank = {...bankAccountList}
+                newState.bank = { ...bankAccountList }
             }
             return newState
 

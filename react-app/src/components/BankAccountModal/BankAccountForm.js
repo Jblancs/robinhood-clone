@@ -54,7 +54,6 @@ function BankAccountForm({bank}) {
 
         // Dispatch POST request which will check if account exists. If it doesn't, create a new account.
         let response = await dispatch(createBankAccount(bankAccountData))
-        console.log("+++++++++++++++++",response)
 
         // Otherwise show error if linked account already exists
         if(response.errors){
