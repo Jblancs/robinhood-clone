@@ -5,7 +5,7 @@ import { getDisplayDateYear } from '../../Utils';
 function TransferHistory({ transfers }) {
     const [showDetail, setShowDetail] = useState(false)
 
-    if (transfers.error) return
+    if (transfers.error) return <></>
 
     let transfersList = Object.values(transfers)
 
@@ -14,7 +14,7 @@ function TransferHistory({ transfers }) {
         e.preventDefault()
         setShowDetail(!showDetail)
     }
-    
+
     // component JSX -----------------------------------------------------------------
     return (
         <>

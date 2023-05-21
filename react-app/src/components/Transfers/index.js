@@ -9,6 +9,7 @@ import BankAccount from './BankAccount';
 import { clearTransferState, fetchTransfers } from '../../store/transfer';
 import OpenModalButton from "../OpenModalButton";
 import BankAccountForm from '../BankAccountModal/BankAccountForm';
+import TransferForm from './TransferForm';
 
 function Transfers() {
     const dispatch = useDispatch()
@@ -32,13 +33,25 @@ function Transfers() {
         }
     }, [dispatch])
 
-    if(!user){
+    if (!user) {
         history.push("/login")
     }
 
     if (!bank || !user || !transfer) return <div>Loading...</div>
 
+    // Passed as prop to transfer modal button ---------------------------------------------------
+    let transferButton = (
+        <>
+            <div className='transfer-icon-div'>
+                <i className='fas fa-exchange-alt' />
+            </div>
+            <div className='transfer-button-text bold'>
+                Transfer money
+            </div>
+        </>
+    )
 
+    // Component JSX ----------------------------------------------------------------------------
     return (
         <div className='transfer-page-container'>
             <div className='transfer-page-div'>
@@ -47,27 +60,24 @@ function Transfers() {
                         Start a transfer
                     </div>
                     <div className='transfer-button-div'>
-                        <button className='transfer-button-money'>
-                            <div className='transfer-icon-div'>
-                                <i className='fas fa-exchange-alt' />
-                            </div>
-                            <div className='transfer-button-text bold'>
-                                Transfer money
-                            </div>
-                        </button>
+                        <OpenModalButton
+                            buttonText={transferButton}
+                            modalClass="transfer-button-money"
+                            modalComponent={<TransferForm bank={bank}/>}
+                        />
                     </div>
                 </div>
                 <div className='linked-account-div'>
                     <div className='linked-account-header'>
                         Linked Accounts
                     </div>
-                    <BankAccount bank={bank}/>
+                    <BankAccount bank={bank} />
                     <div className='add-account-div'>
                         <div className='add-account-modal-div'>
                             <OpenModalButton
                                 buttonText="Add New Account"
                                 modalClass="add-account-button bold"
-                                modalComponent={<BankAccountForm bank={bank}/>}
+                                modalComponent={<BankAccountForm bank={bank} />}
                             />
                         </div>
                     </div>
@@ -76,7 +86,7 @@ function Transfers() {
                     <div className='complete-transfer-header'>
                         Completed Transfers
                     </div>
-                    <TransferHistory transfers={transfer}/>
+                    <TransferHistory transfers={transfer} />
                 </div>
             </div>
         </div>

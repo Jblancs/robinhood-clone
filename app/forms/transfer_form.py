@@ -8,8 +8,10 @@ def validate_amount(form, field):
 
 class TransferDepositForm(FlaskForm):
     bank_account_id = SelectField('Bank Account Id', validators=[DataRequired()])
+    portfolio_id = SelectField('Portfolio Id', validators=[DataRequired()])
     amount = DecimalField('Amount', validators=[DataRequired(), validate_amount])
 
 class TransferWithdrawForm(FlaskForm):
     bank_account_id = SelectField('Bank Account Id', validators=[DataRequired()])
+    portfolio_id = SelectField('Portfolio Id', validators=[DataRequired()])
     amount = DecimalField('Amount', validators=[DataRequired(), validate_amount])

@@ -4,7 +4,7 @@ import { useModal } from "../../context/Modal";
 import "./BankAccountForm.css"
 import { createBankAccount, updateBankAccount } from "../../store/bankAccount";
 
-function BankAccountForm({bank}) {
+function BankAccountForm() {
     const { closeModal } = useModal();
     const dispatch = useDispatch()
 
