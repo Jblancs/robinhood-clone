@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./BankAccountForm.css"
+import { createBankAccount, updateBankAccount } from "../../store/bankAccount";
 
 function BankAccountForm({bank}) {
     const { closeModal } = useModal();
@@ -15,14 +16,15 @@ function BankAccountForm({bank}) {
     // helper functions --------------------------------------------------------------------------------
     const existingAccountCheck = (data) => {
         if(!bank.error){
-            for(let value of bank){
+            let bankList = Object.values(bank)
+            for(let value of bankList){
                 if(
                     data.bank === value.bank &&
                     data.account_type === value.account_type &&
                     data.account_number === value.account_number
                 ){
                     if(value.linked) return "exists"
-                    else return "link"
+                    else return "unlinked"
                 }
             }
         }else{
@@ -44,7 +46,7 @@ function BankAccountForm({bank}) {
     }
 
     // onSubmit handler ---------------------------------------------------------------------------------
-    const onSubmitHandler = (e) => {
+    const onSubmitHandler = async (e) => {
         e.preventDefault()
 
         let bankAccountData = {
@@ -64,17 +66,33 @@ function BankAccountForm({bank}) {
             errorObj.push("Must contain numbers only")
         }
 
-        if (existingAccountCheck(bankAccountData) === "exists"){
-            errorObj.push("Account already exists")
-        }
-
         if (errorObj.length) {
             setErrors(errorObj)
             return
         }
 
-        // dispatch based on new vs unlinked account
+        // Dispatch POST request which will check if account exists If it exists, create a new account.
 
+        let dispatchBankRes = await dispatch(createBankAccount(bankAccountData))
+
+        // Otherwise error out if linked account already exists
+        if(dispatchBankRes.errors){
+            for(let i=0; i < dispatchBankRes.length; i++){
+                errorObj.push(dispatchBankRes.errors[i])
+                setErrors(errorObj)
+                return
+            }
+
+        // Or re-link a previously unlinked account
+        }else if(dispatchBankRes.link){
+            await dispatch(updateBankAccount(dispatchBankRes.link))
+        }
+
+        setErrors([])
+        setBankName("")
+        setAccountNum("")
+        setAccountType("")
+        closeModal()
 
     }
 

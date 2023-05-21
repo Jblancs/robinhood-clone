@@ -1,12 +1,20 @@
 
 // Actions ----------------------------------------------------------------------
 export const GET_ACCOUNTS = "portfolio/GET_ACCOUNTS";
+export const ADD_ACCOUNTS = "portfolio/ADD_ACCOUNTS";
 export const CLEAR_ACCT_STATE = "portfolio/CLEAR_ACCT_STATE";
 
 // Action creators --------------------------------------------------------------
 export const getBankAccounts = (payload) => {
     return {
         type: GET_ACCOUNTS,
+        payload
+    }
+}
+
+export const addBankAccount = (payload) => {
+    return {
+        type: ADD_ACCOUNTS,
         payload
     }
 }
@@ -28,6 +36,38 @@ export const fetchBankAccounts = () => async (dispatch) => {
     }
 };
 
+export const createBankAccount = (bankData) => async (dispatch) => {
+    const response = await fetch("/api/bank_account/", {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bankData)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        if(data.errors || data.link){
+            return data
+
+        }else{
+            dispatch(fetchBankAccounts());
+            return
+        }
+    }
+}
+
+export const updateBankAccount = (id) => async (dispatch) => {
+    const response = await fetch(`/api/bank_account/${id}`, {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(id)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(getBankAccounts(data));
+        return
+    }
+}
 
 // Reducer function -------------------------------------------------------------
 const initialState = {};
