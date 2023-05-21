@@ -54,7 +54,7 @@ function BankAccountForm({bank}) {
 
         // Dispatch POST request which will check if account exists. If it doesn't, create a new account.
         let response = await dispatch(createBankAccount(bankAccountData))
-        console.log("+++++++++++++++++",errors)
+        console.log("+++++++++++++++++",response)
 
         // Otherwise show error if linked account already exists
         if(response.errors){
@@ -64,7 +64,7 @@ function BankAccountForm({bank}) {
                 return
             }
 
-        // Or re-link a previously unlinked account
+        // Or re-link a previously unlinked account (value of link key is account id)
         }else if(response.link){
             await dispatch(updateBankAccount(response.link))
             setErrors([])

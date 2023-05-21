@@ -50,14 +50,16 @@ def create_bank_account():
         if account_data_list[0].linked:
             return {"errors":["Account already exists"]}
         else:
-            return {"link":account_data[0]["id"]}
+            account_id = account_data_list[0].id
+            print_data("account id", account_id)
+            return {"link":account_data_list[0].id}
 
     # If account does not exist, create a new one
     else:
 
         form = BankAccountForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
-        
+
         if form.validate_on_submit():
             new_bank_account = BankAccount(
                 user_id=current_user_id,

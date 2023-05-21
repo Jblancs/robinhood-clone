@@ -66,7 +66,7 @@ export const updateBankAccount = (id) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(getBankAccounts(data));
+        dispatch(fetchBankAccounts());
         return
     }
 }

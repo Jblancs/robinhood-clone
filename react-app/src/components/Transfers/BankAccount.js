@@ -1,10 +1,21 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { updateBankAccount } from '../../store/bankAccount';
 
 function BankAccount({ bank }) {
+    const dispatch = useDispatch()
+
     if (bank.error) return
 
     let bankList = Object.values(bank)
 
+    // event handlers ------------------------------------------------------------------------------------
+    const unlinkHandler = async (e, id) => {
+        e.preventDefault()
+        await dispatch(updateBankAccount(id))
+    }
+
+    // function to display only linked accounts ----------------------------------------------------------
     let linkedAccount = (bank) => {
         return (
             <div key={bank.id} className='linked-account-card'>
@@ -23,7 +34,7 @@ function BankAccount({ bank }) {
                     <div className='account-info-verified bold'>
                         Verified
                     </div>
-                    <button className='account-unlink-button bold'>
+                    <button className='account-unlink-button bold' onClick={(e) => unlinkHandler(e, bank.id)}>
                         Unlink
                     </button>
                 </div>
@@ -31,6 +42,7 @@ function BankAccount({ bank }) {
         )
     }
 
+    // component JSX ------------------------------------------------------------------------------------
     return (
         <>
             {bankList.map(bank => (
