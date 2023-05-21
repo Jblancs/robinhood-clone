@@ -13,25 +13,6 @@ function BankAccountForm({bank}) {
     const [accountNum, setAccountNum] = useState("")
     const [errors, setErrors] = useState([])
 
-    // helper functions --------------------------------------------------------------------------------
-    const existingAccountCheck = (data) => {
-        if(!bank.error){
-            let bankList = Object.values(bank)
-            for(let value of bankList){
-                if(
-                    data.bank === value.bank &&
-                    data.account_type === value.account_type &&
-                    data.account_number === value.account_number
-                ){
-                    if(value.linked) return "exists"
-                    else return "unlinked"
-                }
-            }
-        }else{
-            return false
-        }
-    }
-
     // event handlers ----------------------------------------------------------------------------------
     const selectTypeHandler = (e) => {
         setAccountType(e.target.value)
@@ -71,28 +52,34 @@ function BankAccountForm({bank}) {
             return
         }
 
-        // Dispatch POST request which will check if account exists If it exists, create a new account.
+        // Dispatch POST request which will check if account exists. If it doesn't, create a new account.
+        let response = await dispatch(createBankAccount(bankAccountData))
+        console.log("+++++++++++++++++",errors)
 
-        let dispatchBankRes = await dispatch(createBankAccount(bankAccountData))
-
-        // Otherwise error out if linked account already exists
-        if(dispatchBankRes.errors){
-            for(let i=0; i < dispatchBankRes.length; i++){
-                errorObj.push(dispatchBankRes.errors[i])
+        // Otherwise show error if linked account already exists
+        if(response.errors){
+            for(let i=0; i < response.errors.length; i++){
+                errorObj.push(response.errors[i])
                 setErrors(errorObj)
                 return
             }
 
         // Or re-link a previously unlinked account
-        }else if(dispatchBankRes.link){
-            await dispatch(updateBankAccount(dispatchBankRes.link))
-        }
+        }else if(response.link){
+            await dispatch(updateBankAccount(response.link))
+            setErrors([])
+            setBankName("")
+            setAccountNum("")
+            setAccountType("")
+            closeModal()
 
-        setErrors([])
-        setBankName("")
-        setAccountNum("")
-        setAccountType("")
-        closeModal()
+        }else{
+            setErrors([])
+            setBankName("")
+            setAccountNum("")
+            setAccountType("")
+            closeModal()
+        }
 
     }
 
@@ -133,7 +120,7 @@ function BankAccountForm({bank}) {
                             Account Type
                         </div>
                         <select className="bank-form-field acct-type-select" required onChange={selectTypeHandler}>
-                            <option value="" disabled selected hidden>
+                            <option value="" hidden>
                                 Select Account Type
                             </option>
                             <option value="Checking">
@@ -147,7 +134,7 @@ function BankAccountForm({bank}) {
                             Bank Name
                         </div>
                         <select className="bank-form-field acct-bank-select" required onChange={selectBankHandler}>
-                            <option value="" disabled selected hidden>
+                            <option value="" hidden>
                                 Select Bank
                             </option>
                             <option value="Wells Fargo">

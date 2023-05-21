@@ -26,9 +26,6 @@ def get_user_bank_accounts():
         return {"error": "Please add a payment method"}
 
 # ------------------------------------------------------------------------------
-
-
-# ------------------------------------------------------------------------------
 @bank_account_routes.route("/", methods=["POST"])
 def create_bank_account():
     '''
@@ -40,27 +37,34 @@ def create_bank_account():
 
     # Check if account exists before creating new account
     account_data = BankAccount.query.filter(
+        BankAccount.user_id == current_user_id,
         BankAccount.bank == res["bank"],
         BankAccount.account_type == res["account_type"],
         BankAccount.account_number == res["account_number"]
     )
 
-    if account_data[0]:
-        if account_data[0].linked:
+    account_data_list = list(account_data)
+
+
+    if account_data_list:
+        if account_data_list[0].linked:
             return {"errors":["Account already exists"]}
         else:
             return {"link":account_data[0]["id"]}
-    else:
+
     # If account does not exist, create a new one
+    else:
+
         form = BankAccountForm()
         form["csrf_token"].data = request.cookies["csrf_token"]
-
+        
         if form.validate_on_submit():
             new_bank_account = BankAccount(
                 user_id=current_user_id,
                 bank=res["bank"],
                 account_type=res["account_type"],
-                account_number=res["account_number"]
+                account_number=res["account_number"],
+                linked=True
             )
             db.session.add(new_bank_account)
             db.session.commit()

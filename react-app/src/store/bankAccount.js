@@ -42,15 +42,17 @@ export const createBankAccount = (bankData) => async (dispatch) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bankData)
     })
+    console.log("createBankAccount thunk response ------------", response)
 
     if (response.ok) {
         const data = await response.json();
+        console.log("createBankAccount Thunk ------------", data)
         if(data.errors || data.link){
             return data
 
         }else{
             dispatch(fetchBankAccounts());
-            return
+            return data
         }
     }
 }
