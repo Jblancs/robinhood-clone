@@ -1,19 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { updateBankAccount } from '../../store/bankAccount';
+import ConfirmUnlinkModal from './ConfirmUnlinkModal';
+import OpenModalButton from '../OpenModalButton';
+
 
 function BankAccount({ bank }) {
-    const dispatch = useDispatch()
-
     if (bank.error) return
 
     let bankList = Object.values(bank)
-
-    // event handlers ------------------------------------------------------------------------------------
-    const unlinkHandler = async (e, id) => {
-        e.preventDefault()
-        await dispatch(updateBankAccount(id))
-    }
 
     // component JSX ------------------------------------------------------------------------------------
     return (
@@ -35,9 +28,14 @@ function BankAccount({ bank }) {
                         <div className='account-info-verified bold'>
                             Verified
                         </div>
-                        <button className='account-unlink-button bold' onClick={(e) => unlinkHandler(e, bank.id)}>
+                        {/* <button className='account-unlink-button bold' onClick={(e) => unlinkHandler(e, bank.id)}>
                             Unlink
-                        </button>
+                        </button> */}
+                        <OpenModalButton
+                            buttonText="Unlink"
+                            modalClass="account-unlink-button bold"
+                            modalComponent={<ConfirmUnlinkModal bank={bank} />}
+                        />
                     </div>
                 </div>
             ))}

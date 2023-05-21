@@ -167,7 +167,7 @@ function BankAccountForm({bank}) {
                         />
                         {errorDisplay}
                         <div className="link-account-button-div">
-                            <button className="review-button bold">
+                            <button className="link-account-button bold">
                                 <i className="fas fa-lock" />
                                 Link Account
                             </button>
