@@ -202,3 +202,11 @@
     box-shadow: 3px 3px 10px var(--global-gray);
     max-height: 250px;
 }
+
+.green-text{
+    color: var(--rhood-green);
+}
+
+.red-text{
+    color: var(--rhood-orange);
+}
