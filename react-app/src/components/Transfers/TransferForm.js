@@ -4,14 +4,18 @@ import { useModal } from "../../context/Modal";
 import "./TransferForm.css"
 import { addCommas } from '../../Utils';
 import { useDispatch } from 'react-redux';
+import { createTransfer } from '../../store/transfer';
+import { transferPortfolio } from '../../store/portfolio';
 
-function TransferForm({ bank, user }) {
+function TransferForm({ bank, portfolio }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch()
 
-    const [amount, setAmount] = useState()
-    const [from, setFrom] = useState("")
-    const [to, setTo] = useState("")
+    let bankAccountList = !bank.error ? Object.values(bank) : []
+
+    const [amount, setAmount] = useState("")
+    const [from, setFrom] = useState(bankAccountList.length ? bankAccountList[0].id : "")
+    const [to, setTo] = useState(portfolio.id)
     const [type, setType] = useState("Deposit")
     const [confirm, setConfirm] = useState(false)
     const [errors, setErrors] = useState([])
@@ -21,18 +25,17 @@ function TransferForm({ bank, user }) {
     if (bank.error) {
         return (
             <BankAccountForm />
-        )
-    }
+            )
+        }
 
-    let bankAccountList = Object.values(bank)
 
     // Event Handlers ------------------------------------------------------------------------------------
     const typeFromOnChange = (e) => {
         setFrom(e.target.value)
         if (e.target.selectedIndex === 0) {
-            setType("Withdrawal")
-        } else {
             setType("Deposit")
+        } else {
+            setType("Withdrawal")
         }
     }
 
@@ -41,7 +44,7 @@ function TransferForm({ bank, user }) {
     }
 
     const inputOnChange = (e) => {
-        setAmount(e.target.value)
+        setAmount(Number(e.target.value))
     }
 
     const onClickCancelHandler = () => {
@@ -66,7 +69,7 @@ function TransferForm({ bank, user }) {
             errorObj.push("Invalid transfer amount $0.00 provided.")
         }
 
-        if (type === "Withdrawal" && amount > user.portfolio.buying_power) {
+        if (type === "Withdrawal" && amount > portfolio.buying_power) {
             errorObj.push("Withdrawal amount exceeds brokerage balance")
         }
 
@@ -79,22 +82,26 @@ function TransferForm({ bank, user }) {
     }
 
     // Submit Handler ------------------------------------------------------------------------------------
-    const onSubmitHandler = (e) => {
+    const onSubmitHandler = async (e) => {
         e.preventDefault()
 
         const transferData = {
             bank_account_id: (type === "Deposit" ? from : to),
-            amount: amount,
+            amount: Number(amount).toFixed(2),
             type: type
         }
+
+        await dispatch(createTransfer(transferData))
+        await dispatch(transferPortfolio(transferData))
+        closeModal()
     }
 
-    // Transfer Review Button ----------------------------------------------------------------------------
+    // Transfer Review Buttons ----------------------------------------------------------------------------
     let confirmBtn;
     if (!confirm && !errors.length) {
         confirmBtn = (
             <div className='review-button-div'>
-                <button className='review-button bold' onClick={reviewHandler}>
+                <button className='transfer-review-button bold' onClick={reviewHandler}>
                     Review Transfer
                 </button>
             </div>
@@ -116,20 +123,20 @@ function TransferForm({ bank, user }) {
                     </div>
                 </div>
                 <div className="review-button-div">
-                    {<button className="review-button bold" type="button" onClick={onClickCancelHandler}>Cancel</button>}
+                    {<button className="transfer-review-button bold" type="button" onClick={onClickCancelHandler}>Cancel</button>}
                 </div>
             </div>
         )
     }
 
-    if (confirm) { // confirm if there are no errors
+    if (confirm) { // confirm transfer amount if there are no errors
         confirmBtn = (
             <div>
                 <div className="review-button-div">
-                    {<button className="review-button">{`Transfer $${addCommas(amount)}`}</button>}
+                    {<button className="transfer-review-button bold">{`Transfer $${addCommas(Number(amount).toFixed(2))}`}</button>}
                 </div>
                 <div className="review-button-div">
-                    <button className="review-button edit-button" onClick={onClickEditHandler}>Cancel</button>
+                    <button className="transfer-review-button transfer-edit-button bold" onClick={onClickEditHandler}>Cancel</button>
                 </div>
             </div>
         )
@@ -140,7 +147,7 @@ function TransferForm({ bank, user }) {
     if (type === "Deposit") {
         toOptions = (
             <option value="brokerage">
-                Brokerage ${Number(user.portfolio.buying_power).toFixed(2)}
+                Brokerage ${addCommas(Number(portfolio.buying_power).toFixed(2))}
             </option>
         )
     } else {
@@ -155,14 +162,15 @@ function TransferForm({ bank, user }) {
         )
     }
 
+    console.log(from)
     // Component JSX --------------------------------------------------------------------------------------
     return (
         <div className='transfer-modal-container'>
             <div className='transfer-modal-div'>
-                <i className="fas fa-times" onClick={() => closeModal()} />
-                <h2>
-                    Transfer Money
-                </h2>
+                <i className="fas fa-times transfer-close-icon" onClick={() => closeModal()} />
+                <div className='transfer-modal-header'>
+                    Transfer money
+                </div>
                 <form onSubmit={onSubmitHandler}>
                     <div className='transfer-field-div'>
                         <div className='transfer-field-text'>
@@ -183,14 +191,14 @@ function TransferForm({ bank, user }) {
                         <div className='transfer-field-text'>
                             From
                         </div>
-                        <select onChange={typeFromOnChange} defaultValue={bankAccountList[0].id} disabled={disableField}>
+                        <select className='transfer-field-select' onChange={typeFromOnChange} defaultValue={bankAccountList[0].id} disabled={disableField}>
                             {bankAccountList.map((bank) => (
                                 <option key={bank.id} value={bank.id}>
                                     {bank.bank} &#8226; {bank.account_type} {bank.account_number}
                                 </option>
                             ))}
-                            <option value={user.portfolio.id}>
-                                Brokerage ${Number(user.portfolio.buying_power).toFixed(2)}
+                            <option value={portfolio.id}>
+                                Brokerage ${addCommas(Number(portfolio.buying_power).toFixed(2))}
                             </option>
                         </select>
                     </div>
@@ -198,7 +206,7 @@ function TransferForm({ bank, user }) {
                         <div className='transfer-field-text'>
                             To
                         </div>
-                        <select onChange={toOnChange} defaultValue={type === "Deposit" ? user.portfolio.id : bankAccountList[0].id} disabled={disableField}>
+                        <select className='transfer-field-select' onChange={toOnChange} defaultValue={type === "Deposit" ? portfolio.id : bankAccountList[0].id} disabled={disableField}>
                             {toOptions}
                         </select>
                     </div>

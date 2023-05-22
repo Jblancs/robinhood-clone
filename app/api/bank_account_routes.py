@@ -54,8 +54,7 @@ def create_bank_account():
             return {"errors":["Account already exists"]}
         else:
             account_id = account_data_list[0].id
-            print_data("account id", account_id)
-            return {"link":account_data_list[0].id}
+            return {"link":account_id}
 
     # If account does not exist, create a new one
     else:

@@ -10,6 +10,7 @@ import { clearTransferState, fetchTransfers } from '../../store/transfer';
 import OpenModalButton from "../OpenModalButton";
 import BankAccountForm from '../BankAccountModal/BankAccountForm';
 import TransferForm from './TransferForm';
+import { clearPortfolioState, fetchPortfolio } from '../../store/portfolio';
 
 function Transfers() {
     const dispatch = useDispatch()
@@ -19,6 +20,7 @@ function Transfers() {
     const bank = useSelector(state => state.bank.bank)
     const transfer = useSelector(state => state.transfers.transfers)
     const user = useSelector(state => state.session.user)
+    const portfolio = useSelector(state => state.portfolio.portfolio)
 
     useEffect(() => {
         setSelectedNav('transfers')
@@ -27,9 +29,11 @@ function Transfers() {
     useEffect(() => {
         dispatch(fetchBankAccounts())
         dispatch(fetchTransfers())
+        dispatch(fetchPortfolio())
         return () => {
             dispatch(clearBankAccountState())
             dispatch(clearTransferState())
+            dispatch(clearPortfolioState)
         }
     }, [dispatch])
 
@@ -37,7 +41,7 @@ function Transfers() {
         history.push("/login")
     }
 
-    if (!bank || !user || !transfer) return <div>Loading...</div>
+    if (!bank || !user || !transfer || !portfolio) return <div>Loading...</div>
 
     // Passed as prop to transfer modal button ---------------------------------------------------
     let transferButton = (
@@ -63,7 +67,7 @@ function Transfers() {
                         <OpenModalButton
                             buttonText={transferButton}
                             modalClass="transfer-button-money"
-                            modalComponent={<TransferForm bank={bank} user={user}/>}
+                            modalComponent={<TransferForm bank={bank} portfolio={portfolio}/>}
                         />
                     </div>
                 </div>

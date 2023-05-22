@@ -1,0 +1,72 @@
+.transfer-modal-container{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.transfer-modal-div{
+    margin-top: 10%;
+    width: 600px;
+}
+
+.transfer-close-icon{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+
+.transfer-modal-header{
+    margin-bottom: 50px;
+    font-size: 30px;
+}
+
+.transfer-field-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.transfer-field{
+    height: 40px;
+    width: 300px;
+    text-align: right;
+    border: 1px solid var(--global-gray);
+    border-radius: 5px;
+}
+
+.transfer-field-select{
+    height: 44px;
+    width: 307px;
+    text-align: left;
+    border: 1px solid var(--global-gray);
+    border-radius: 5px;
+}
+
+.deposit-limit{
+    color: gray;
+    width: 100%;
+    text-align: center;
+    padding: 30px 0px 10px 0px;
+}
+
+.transfer-review-button{
+    background-color: var(--rhood-green);
+    border: 1px solid var(--global-gray);
+    width: 70%;
+    height: 50px;
+    border-radius: 30px;
+    margin-top: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.transfer-review-button:hover{
+    filter: contrast(80%);
+}
+
+.transfer-edit-button{
+    margin-top: 10px;
+    background-color: rgba(128, 128, 128, 0.741);
+}

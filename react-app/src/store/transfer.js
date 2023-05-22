@@ -1,6 +1,7 @@
 
 // Actions ----------------------------------------------------------------------
 export const GET_TRANSFERS = "portfolio/GET_TRANSFERS";
+export const ADD_TRANSFERS = "portfolio/ADD_TRANSFERS";
 export const CLEAR_TRANSFER_STATE = "portfolio/CLEAR_TRANSFER_STATE";
 
 // Action creators --------------------------------------------------------------
@@ -24,9 +25,23 @@ export const fetchTransfers = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getTransfers(data));
-        return
+        return data
     }
 };
+
+export const createTransfer = (transferData) => async (dispatch) => {
+    const response = await fetch("/api/transfer/", {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(transferData)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(fetchTransfers())
+        return data
+    }
+}
 
 
 // Reducer function -------------------------------------------------------------
