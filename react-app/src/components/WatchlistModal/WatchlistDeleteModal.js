@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteWatchlists } from "../../store/watchlist";
@@ -13,7 +13,7 @@ function WatchlistDeleteModal({ id, name, stocks }) {
     // Event Handlers -----------------------------------------------------------------------------------------
     const handleDelete = async (e) => {
         e.preventDefault();
-        let newList = await dispatch(deleteWatchlists(id))
+        await dispatch(deleteWatchlists(id))
         closeModal()
     };
 

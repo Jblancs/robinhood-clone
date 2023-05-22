@@ -30,7 +30,7 @@ function WatchlistEditModal({ id, name }) {
             name: listName
         }
 
-        let newList = await dispatch(updateWatchlistsName(listInfo, id))
+        await dispatch(updateWatchlistsName(listInfo, id))
         closeModal()
     };
 

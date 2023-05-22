@@ -103,6 +103,8 @@
 .add-account-button{
     padding: 10px 0px;
     margin: 10px 0px;
+    border: none;
+    background-color: transparent;
     font-size: 15px;
     width: 150px;
     color: var(--rhood-green);
@@ -113,8 +115,46 @@
     filter: contrast(80%);
 }
 
-/* Completed Transfers section ------------------------------------------------------ */
+/* Unlink Modal CSS ---------------------------------------------------------------- */
+.unlink-modal-container{
+    display: flex;
+    justify-content: center;
+}
 
+.unlink-modal-div{
+    padding: 20px 30px 20px 30px;
+    width: 400px;
+}
+
+.link-account-button {
+    background-color: var(--rhood-green);
+    width: 100%;
+    border: 2px solid gray;
+    box-shadow: 1px 1px 3px gray;
+    border-color: gray;
+    border-radius: 25px;
+    color: white;
+    height: 50px;
+    margin-bottom: 25px;
+    cursor: pointer;
+}
+
+.unlink-modal-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.unlink-button{
+    background-color: var(--rhood-orange);
+    margin-top: 20px;
+}
+
+.cancel-unlink{
+    background-color: var(--global-gray);
+    color: black;
+}
+
+/* Completed Transfers section ------------------------------------------------------ */
 .complete-transfer-header{
     font-size: 30px;
     width: 800px;
@@ -161,4 +201,12 @@
     margin-bottom: 20px;
     box-shadow: 3px 3px 10px var(--global-gray);
     max-height: 250px;
+}
+
+.green-text{
+    color: var(--rhood-green);
+}
+
+.red-text{
+    color: var(--rhood-orange);
 }

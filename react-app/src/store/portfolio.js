@@ -42,6 +42,18 @@ export const updatePortfolio = (transactionData) => async (dispatch) => {
     }
 }
 
+export const transferPortfolio = (transferData) => async (dispatch) => {
+    const response = await fetch(`/api/portfolio/transfer`, {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(transferData)
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(getPortfolio(data));
+    }
+}
+
 
 // Reducer function -------------------------------------------------------------
 const initialState = {};
@@ -55,6 +67,7 @@ export default function portfolioReducer(state = initialState, action) {
 
         case CLEAR_PORT_STATE:
             newState = { ...initialState }
+            return newState
 
         default:
             return state;

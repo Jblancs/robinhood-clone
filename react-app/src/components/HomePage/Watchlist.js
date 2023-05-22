@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"
-import { NavLink } from "react-router-dom";
 import { createWatchlists } from "../../store/watchlist";
 import SingleWatchlist from "./SingleWatchlist";
 
@@ -44,7 +43,7 @@ function Watchlists({ watchlists }) {
             name: listName
         }
 
-        let newList = await dispatch(createWatchlists(listInfo))
+        await dispatch(createWatchlists(listInfo))
         setShowForm(false)
         setListName("")
     }

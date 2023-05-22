@@ -1,19 +1,11 @@
 import React from "react";
+import { getDisplayDate, firstLetterUpper } from "../../Utils";
 
 function TransactionHistory({ transactions, stockTicker }) {
     if (!transactions) return <div></div>
 
     let transactionsList = Object.values(transactions)
     let sortedTransactions = transactionsList.sort((a, b) => b.id - a.id)
-
-    const getDisplayDate = (date) => {
-        let dateSplit = date.split(" ")
-        return `${dateSplit[2]} ${dateSplit[1]}`
-    }
-
-    const firstLetterUpper = (string) => {
-        return `${string[0].toUpperCase()}${string.slice(1)}`
-    }
 
     return (
         <div className="trans-hist-container">

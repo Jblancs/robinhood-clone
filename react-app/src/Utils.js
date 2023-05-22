@@ -215,3 +215,23 @@ export const getStockInfo = async (ticker, setUseState) => {
 export const addCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+// format date to MMM DD
+// ------------------------------------------------------------------------------
+export const getDisplayDate = (date) => {
+    let dateSplit = date.split(" ")
+    return `${dateSplit[2]} ${dateSplit[1]}`
+}
+
+// format date to MMM DD, YYYY
+// ------------------------------------------------------------------------------
+export const getDisplayDateYear = (date) => {
+    let dateSplit = date.split(" ")
+    return `${dateSplit[2]} ${dateSplit[1]}, ${dateSplit[3]}`
+}
+
+// Capitalize first letter of string
+// ------------------------------------------------------------------------------
+export const firstLetterUpper = (string) => {
+    return `${string[0].toUpperCase()}${string.slice(1)}`
+}

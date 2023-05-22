@@ -36,20 +36,22 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <div>
-            <AccountNavigation />
-            <Switch>
-              <Route path="/account/transfers">
-                <Transfers />
-              </Route>
-              <Route path="/account/recurring">
-                <Recurring />
-              </Route>
-              <Route path="/account/history">
-                <History />
-              </Route>
-            </Switch>
-          </div>
+          <Route path="/account">
+            <div>
+              <AccountNavigation />
+              <Switch>
+                <Route path="/account/transfers">
+                  <Transfers />
+                </Route>
+                <Route path="/account/recurring">
+                  <Recurring />
+                </Route>
+                <Route path="/account/history">
+                  <History />
+                </Route>
+              </Switch>
+            </div>
+          </Route>
         </Switch>
       )}
     </>

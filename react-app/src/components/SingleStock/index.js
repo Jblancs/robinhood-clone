@@ -76,14 +76,13 @@ function SingleStock() {
         }
 
         const addStockInfo = async (stockPayload) => {
-            let returnData = await dispatch(addStock(stockPayload))
+            await dispatch(addStock(stockPayload))
         }
 
         addStockInfo(stockInfo)
     }
 
-    // check and plus icon for add to watchlist modal btn -------------------------------------------------------
-    let checkIcon = (<i className="fas fa-check single-stock-add-watch-check" />)
+    // plus icon for add to watchlist modal btn -------------------------------------------------------
     let plusIcon = (<i className="fas fa-plus single-stock-add-watch-plus" />)
 
     // Investment info display if stock is owned ----------------------------------------------------------------
@@ -95,21 +94,21 @@ function SingleStock() {
             let invValue = investment[stockTicker]?.value
             let marketValue = getMarketValue(stockData, investment, stockTicker)
             let dollarChange = getPriceChange(invValue, marketValue, "investment")
-            let percentChange = Number(dollarChange / invValue).toFixed(2)
+            let percentChange = Number((dollarChange / invValue)*100).toFixed(2)
 
             let returnDisplay;
             if (invValue <= marketValue) {
                 returnDisplay = (
                     <div>
                         <span className="dollar-change">+${dollarChange}</span>
-                        <span>(+{dollarChange}%)</span>
+                        <span>(+{percentChange}%)</span>
                     </div>
                 )
             } else {
                 returnDisplay = (
                     <div>
                         <span className="dollar-change">-${Math.abs(dollarChange)}</span>
-                        <span>(-{Math.abs(dollarChange)}%)</span>
+                        <span>(-{Math.abs(percentChange)}%)</span>
                     </div>
                 )
             }

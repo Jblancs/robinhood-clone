@@ -1,15 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux"
 import { useAccountNavSelect } from '../../context/AccountNav';
 import "./transfers.css"
 import TransferHistory from './TransferHistory';
+import { clearBankAccountState, fetchBankAccounts } from '../../store/bankAccount';
+import { useHistory } from 'react-router-dom';
+import BankAccount from './BankAccount';
+import { clearTransferState, fetchTransfers } from '../../store/transfer';
+import OpenModalButton from "../OpenModalButton";
+import BankAccountForm from '../BankAccountModal/BankAccountForm';
+import TransferForm from './TransferForm';
+import { clearPortfolioState, fetchPortfolio } from '../../store/portfolio';
 
 function Transfers() {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const { setSelectedNav } = useAccountNavSelect()
+
+    const bank = useSelector(state => state.bank.bank)
+    const transfer = useSelector(state => state.transfers.transfers)
+    const user = useSelector(state => state.session.user)
+    const portfolio = useSelector(state => state.portfolio.portfolio)
 
     useEffect(() => {
         setSelectedNav('transfers')
     }, [])
 
+    useEffect(() => {
+        dispatch(fetchBankAccounts())
+        dispatch(fetchTransfers())
+        dispatch(fetchPortfolio())
+        return () => {
+            dispatch(clearBankAccountState())
+            dispatch(clearTransferState())
+            dispatch(clearPortfolioState)
+        }
+    }, [dispatch])
+
+    if (!user) {
+        history.push("/login")
+    }
+
+    if (!bank || !user || !transfer || !portfolio) return <div>Loading...</div>
+
+    // Passed as prop to transfer modal button ---------------------------------------------------
+    let transferButton = (
+        <>
+            <div className='transfer-icon-div'>
+                <i className='fas fa-exchange-alt' />
+            </div>
+            <div className='transfer-button-text bold'>
+                Transfer money
+            </div>
+        </>
+    )
+
+    // Component JSX ----------------------------------------------------------------------------
     return (
         <div className='transfer-page-container'>
             <div className='transfer-page-div'>
@@ -18,44 +64,25 @@ function Transfers() {
                         Start a transfer
                     </div>
                     <div className='transfer-button-div'>
-                        <button className='transfer-button-money'>
-                            <div className='transfer-icon-div'>
-                                <i className='fas fa-exchange-alt' />
-                            </div>
-                            <div className='transfer-button-text bold'>
-                                Transfer money
-                            </div>
-                        </button>
+                        <OpenModalButton
+                            buttonText={transferButton}
+                            modalClass="transfer-button-money"
+                            modalComponent={<TransferForm bank={bank} portfolio={portfolio}/>}
+                        />
                     </div>
                 </div>
                 <div className='linked-account-div'>
                     <div className='linked-account-header'>
                         Linked Accounts
                     </div>
-                    <div className='linked-account-card'>
-                        <div className='linked-account-info-div'>
-                            <i className="fas fa-university linked-account-icon" />
-                            <div className='account-info-div'>
-                                <div className='account-info-bank bold'>
-                                    (Wells Fargo)
-                                </div>
-                                <div className='account-info-div'>
-                                    (Checking &#8226;&#8226;&#8226;&#8226;9999)
-                                </div>
-                            </div>
-                        </div>
-                        <div className='account-info-linked-div'>
-                            <div className='account-info-verified bold'>
-                                Verified
-                            </div>
-                            <button className='account-unlink-button bold'>
-                                Unlink
-                            </button>
-                        </div>
-                    </div>
+                    <BankAccount bank={bank} />
                     <div className='add-account-div'>
-                        <div className='add-account-button bold'>
-                            Add New Account
+                        <div className='add-account-modal-div'>
+                            <OpenModalButton
+                                buttonText="Add New Account"
+                                modalClass="add-account-button bold"
+                                modalComponent={<BankAccountForm bank={bank} />}
+                            />
                         </div>
                     </div>
                 </div>
@@ -63,7 +90,7 @@ function Transfers() {
                     <div className='complete-transfer-header'>
                         Completed Transfers
                     </div>
-                    <TransferHistory />
+                    <TransferHistory transfers={transfer} />
                 </div>
             </div>
         </div>

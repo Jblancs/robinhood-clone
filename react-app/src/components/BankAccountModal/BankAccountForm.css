@@ -1,0 +1,84 @@
+.bank-modal-container{
+    width: 450px;
+    display: flex;
+    justify-content: center;
+}
+
+.bank-modal-div{
+    width: 400px;
+    padding: 10px 0px;
+}
+
+.bank-modal-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.bank-modal-title{
+    font-size: 25px;
+    padding-bottom: 10px;
+}
+
+.bank-form-label{
+    padding: 10px 0px;
+}
+
+.bank-form-field{
+    width: 400px;
+    height: 40px;
+    border: 1px solid var(--global-gray);
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 20px;
+}
+
+.bank-form-field:hover{
+    background-color: var(--global-light-gray);
+}
+
+.acct-bank-select,
+.acct-type-select{
+    appearance: none;
+    background-image: url("../SingleStock/triangle-icon3.png");
+    background-repeat: no-repeat;
+    background-position: right .7rem top 50%;
+    background-size: 15px auto;
+}
+
+.acct-num-input{
+    height: 30px;
+    width: 388px;
+}
+
+.link-account-button-div{
+    width: 220px;
+    margin-top: 20px;
+}
+
+.fa-lock{
+    padding-right: 10px;
+}
+
+/* error message css ------------------------------------------ */
+.acct-error-title-div{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    padding: 20px 0px 10px 0px;
+}
+
+.acct-error-message-div{
+    padding: 5px 12px;
+}
+
+.acct-info-icon {
+    border: 2px solid black;
+    font-size: 10px;
+    padding: 0px 5px;
+    margin-left: 8px;
+    border-radius: 100%;
+}
+
+.acct-error-icon{
+    margin: 0px 8px 0px 0px;
+}

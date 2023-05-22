@@ -12,7 +12,7 @@ def seed_transfer():
             bank_account_id=portfolio_id,
             user_id=portfolio_id,
             amount=100,
-            type='deposit',
+            type='Deposit',
             date=datetime(2023, 1, 21)
         )
         transfer_list.append(transfer)

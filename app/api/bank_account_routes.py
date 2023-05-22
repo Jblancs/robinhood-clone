@@ -17,9 +17,12 @@ def get_user_bank_accounts():
 
     current_user_id = current_user.to_dict()["id"]
 
-    bank_account_data = BankAccount.query.filter(BankAccount.user_id == current_user_id)
+    bank_account_data = BankAccount.query.filter(BankAccount.user_id == current_user_id, BankAccount.linked == True)
+    bank_account_data_list = list(bank_account_data)
 
-    if bank_account_data:
+    print_data("bank account:", list(bank_account_data))
+
+    if bank_account_data_list:
         bank_account_list = to_dict_list(bank_account_data)
         return bank_account_list
     else:
@@ -29,40 +32,61 @@ def get_user_bank_accounts():
 @bank_account_routes.route("/", methods=["POST"])
 def create_bank_account():
     '''
-    create a bank account for current user
+    Check if account exists and if not, create a new bank account for current user
     '''
 
     current_user_id = current_user.to_dict()["id"]
     res = request.get_json()
 
-    form = BankAccountForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
+    # Check if account exists before creating new account
+    account_data = BankAccount.query.filter(
+        BankAccount.user_id == current_user_id,
+        BankAccount.bank == res["bank"],
+        BankAccount.account_type == res["account_type"],
+        BankAccount.account_number == res["account_number"]
+    )
 
-    if form.validate_on_submit():
-        new_bank_account = BankAccount(
-            user_id=current_user_id,
-            bank=res["bank"],
-            account_type=res["account_type"],
-            account_number=res["account_number"]
-        )
-        db.session.add(new_bank_account)
-        db.session.commit()
-        return new_bank_account.to_dict()
+    account_data_list = list(account_data)
 
-    return {'errors': form_errors_obj_list(form.errors)},401
+
+    if account_data_list:
+        if account_data_list[0].linked:
+            return {"errors":["Account already exists"]}
+        else:
+            account_id = account_data_list[0].id
+            return {"link":account_id}
+
+    # If account does not exist, create a new one
+    else:
+
+        form = BankAccountForm()
+        form["csrf_token"].data = request.cookies["csrf_token"]
+
+        if form.validate_on_submit():
+            new_bank_account = BankAccount(
+                user_id=current_user_id,
+                bank=res["bank"],
+                account_type=res["account_type"],
+                account_number=res["account_number"],
+                linked=True
+            )
+            db.session.add(new_bank_account)
+            db.session.commit()
+            return new_bank_account.to_dict()
+
+        return {'errors': form_errors_obj_list(form.errors)},401
 
 # ------------------------------------------------------------------------------
 @bank_account_routes.route("/<int:id>", methods=["PUT"])
 def update_bank_account(id):
     '''
-    update an existing bank account
+    update an existing bank account by linking or unlinking
     '''
 
-    res = request.get_json()
     bank_account = BankAccount.query.get(id)
+    current_link_value = bank_account.linked
 
-    bank_account.account_type = res["account_type"]
-    bank_account.account_number = res["account_number"]
+    bank_account.linked = not current_link_value
     db.session.commit()
 
     return bank_account.to_dict()

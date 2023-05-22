@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import Portfolio, PortfolioHistory, db
 from flask_login import current_user
-from ..utils import to_dict_list, form_errors_obj_list, current_user_portfolio
+from ..utils import print_data
 
 portfolio_routes = Blueprint('portfolio', __name__)
 
@@ -62,11 +62,13 @@ def transfer_buying_power():
     user = current_user.to_dict()
     portfolio = Portfolio.query.get(user["portfolio"]["id"])
 
-    if res["type"] == "deposit":
-        portfolio.buying_power = portfolio.buying_power + res["amount"]
+    print_data("transfer form", res)
+
+    if res["type"] == "Deposit":
+        portfolio.buying_power = portfolio.buying_power + float(res["amount"])
         db.session.commit()
     else:
-        portfolio.buying_power = portfolio.buying_power - res["amount"]
+        portfolio.buying_power = portfolio.buying_power - float(res["amount"])
         db.session.commit()
 
     return portfolio.to_dict()
