@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import BankAccountForm from '../BankAccountModal/BankAccountForm';
+import { useModal } from "../../context/Modal";
 import "./TransferForm.css"
 import { addCommas } from '../../Utils';
+import { useDispatch } from 'react-redux';
 
 function TransferForm({ bank, user }) {
+    const { closeModal } = useModal();
+    const dispatch = useDispatch()
+
     const [amount, setAmount] = useState()
     const [from, setFrom] = useState("")
     const [to, setTo] = useState("")
@@ -57,11 +62,11 @@ function TransferForm({ bank, user }) {
             errorObj.push("Transfers may not exceed $50,000.00.")
         }
 
-        if (amount <= 0 || !amount){
+        if (amount <= 0 || !amount) {
             errorObj.push("Invalid transfer amount $0.00 provided.")
         }
 
-        if (type === "Withdrawal" && amount > user.portfolio.buying_power){
+        if (type === "Withdrawal" && amount > user.portfolio.buying_power) {
             errorObj.push("Withdrawal amount exceeds brokerage balance")
         }
 
@@ -96,7 +101,7 @@ function TransferForm({ bank, user }) {
         )
     }
 
-    if (errors.length){ // show errors if any
+    if (errors.length) { // show errors if any
         confirmBtn = (
             <div>
                 <div>
@@ -120,10 +125,6 @@ function TransferForm({ bank, user }) {
     if (confirm) { // confirm if there are no errors
         confirmBtn = (
             <div>
-                <div>
-                    Order Summary
-                    <span className="info-icon bold">?</span>
-                </div>
                 <div className="review-button-div">
                     {<button className="review-button">{`Transfer $${addCommas(amount)}`}</button>}
                 </div>
@@ -158,6 +159,7 @@ function TransferForm({ bank, user }) {
     return (
         <div className='transfer-modal-container'>
             <div className='transfer-modal-div'>
+                <i className="fas fa-times" onClick={() => closeModal()} />
                 <h2>
                     Transfer Money
                 </h2>
@@ -196,7 +198,7 @@ function TransferForm({ bank, user }) {
                         <div className='transfer-field-text'>
                             To
                         </div>
-                        <select onChange={toOnChange} defaultValue={type === "Deposit" ? user.portfolio.id : bankAccountList[0].id} onChange={toOnChange} disabled={disableField}>
+                        <select onChange={toOnChange} defaultValue={type === "Deposit" ? user.portfolio.id : bankAccountList[0].id} disabled={disableField}>
                             {toOptions}
                         </select>
                     </div>
