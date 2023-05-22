@@ -63,7 +63,7 @@ function Transfers() {
                         <OpenModalButton
                             buttonText={transferButton}
                             modalClass="transfer-button-money"
-                            modalComponent={<TransferForm bank={bank}/>}
+                            modalComponent={<TransferForm bank={bank} user={user}/>}
                         />
                     </div>
                 </div>
