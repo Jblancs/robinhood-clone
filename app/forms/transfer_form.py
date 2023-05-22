@@ -6,12 +6,6 @@ def validate_amount(form, field):
     if field.data <= 0:
         raise ValidationError("Amount cannot be less than $0.00")
 
-class TransferDepositForm(FlaskForm):
+class TransferForm(FlaskForm):
     bank_account_id = SelectField('Bank Account Id', validators=[DataRequired()])
-    portfolio_id = SelectField('Portfolio Id', validators=[DataRequired()])
-    amount = DecimalField('Amount', validators=[DataRequired(), validate_amount])
-
-class TransferWithdrawForm(FlaskForm):
-    bank_account_id = SelectField('Bank Account Id', validators=[DataRequired()])
-    portfolio_id = SelectField('Portfolio Id', validators=[DataRequired()])
     amount = DecimalField('Amount', validators=[DataRequired(), validate_amount])

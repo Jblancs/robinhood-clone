@@ -115,7 +115,7 @@
     filter: contrast(80%);
 }
 
-/* Unlink Modal CSS ---------------------------------------------- */
+/* Unlink Modal CSS ---------------------------------------------------------------- */
 .unlink-modal-container{
     display: flex;
     justify-content: center;
@@ -154,10 +154,7 @@
     color: black;
 }
 
-
-
 /* Completed Transfers section ------------------------------------------------------ */
-
 .complete-transfer-header{
     font-size: 30px;
     width: 800px;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import BankAccountForm from '../BankAccountModal/BankAccountForm';
-import "./transfers.css"
+import "./TransferForm.css"
 
 function TransferForm({ bank, user }) {
     const [amount, setAmount] = useState(0)
@@ -35,11 +35,10 @@ function TransferForm({ bank, user }) {
         setAmount(e.target.value)
     }
 
-    // Submit Handlers -----------------------------------------------------------------------------------
+    // Submit Handler ------------------------------------------------------------------------------------
     const onSubmitHandler = (e) => {
         e.preventDefault()
     }
-
 
     // Change to options based on transfer type ----------------------------------------------------------
     let toOptions;
@@ -61,6 +60,7 @@ function TransferForm({ bank, user }) {
         )
     }
 
+    // Component JSX --------------------------------------------------------------------------------------
     return (
         <div className='transfer-modal-container'>
             <div className='transfer-modal-div'>
@@ -85,25 +85,25 @@ function TransferForm({ bank, user }) {
                             From
                         </div>
                         <select onChange={typeFromOnChange} defaultValue={bankAccountList[0].id}>
-                            <option value="brokerage">
-                                Brokerage ${Number(user.portfolio.buying_power).toFixed(2)}
-                            </option>
                             {bankAccountList.map((bank) => (
                                 <option key={bank.id} value={bank.id}>
                                     {bank.bank} &#8226; {bank.account_type} {bank.account_number}
                                 </option>
                             ))}
+                            <option value={user.portfolio.id}>
+                                Brokerage ${Number(user.portfolio.buying_power).toFixed(2)}
+                            </option>
                         </select>
                     </div>
                     <div className='transfer-field-div'>
                         <div className='transfer-field-text'>
                             To
                         </div>
-                        <select defaultValue={type === "Deposit" ? "brokerage" : bankAccountList[0].id} onChange={toOnChange}>
+                        <select defaultValue={type === "Deposit" ? user.portfolio.id : bankAccountList[0].id} onChange={toOnChange}>
                                 {toOptions}
                         </select>
                     </div>
-                    {type === "Deposit" ? "Deposit limit: $50,000" : ""}
+                    {type === "Deposit" ? <div>Deposit limit: $50,000</div> : ""}
                     <button>
                         Review Transfer
                     </button>
