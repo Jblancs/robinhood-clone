@@ -31,7 +31,6 @@ export const fetchBankAccounts = () => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data)
         dispatch(getBankAccounts(data));
         return data
     }
