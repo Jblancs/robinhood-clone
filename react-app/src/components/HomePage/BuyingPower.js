@@ -50,28 +50,28 @@ function BuyingPower({ portfolio, bank }) {
     return (
         <div className={!showDetail ? "buy-power-container" : "buy-power-container show-buy-detail"} onClick={onClickHandler}>
             <div className="buy-power-div bold">
-                <div className={addPad20ClassName("buy-power-text")}>
+                <div className="buy-power-text add-pad">
                     Buying Power
                 </div>
-                <div className={addPad20ClassName("buy-power-amt")}>
+                <div className="buy-power-amt add-pad">
                     ${addCommas(Number(portfolio.buying_power).toFixed(2))}
                 </div>
             </div>
             <div className="buy-detail-container">
                 <div className="buy-detail-div">
                     <div className="buy-detail-info-div brokerage-cash-div">
-                        <div className="buy-detail-info-text pad-20">
+                        <div className="buy-detail-info-text add-pad">
                             Brokerage Cash
                         </div>
-                        <div className="buy-detail-info-amount pad-20">
+                        <div className="buy-detail-info-amount add-pad">
                             ${addCommas(Number(portfolio.buying_power).toFixed(2))}
                         </div>
                     </div>
                     <div className="buy-detail-info-div">
-                        <div className="buy-detail-info-text pad-20">
+                        <div className="buy-detail-info-text add-pad">
                             Buying Power
                         </div>
-                        <div className="buy-detail-info-amount pad-20">
+                        <div className="buy-detail-info-amount add-pad">
                             ${addCommas(Number(portfolio.buying_power).toFixed(2))}
                         </div>
                     </div>

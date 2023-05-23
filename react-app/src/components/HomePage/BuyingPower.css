@@ -10,8 +10,8 @@
     box-shadow: 3px 3px 10px var(--global-gray);
 }
 
-.pad-20{
-    padding: 0px 20px;
+.add-pad{
+    padding: 0px 11px;
 }
 
 .buy-power-div {
