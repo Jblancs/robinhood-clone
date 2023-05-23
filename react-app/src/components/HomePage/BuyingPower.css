@@ -1,0 +1,79 @@
+/* Buying power ------------------------------------------ */
+.buy-power-container{
+    max-height: 90px;
+    transition: max-height 0.3s ease-out;
+    overflow: hidden;
+}
+
+.show-buy-detail{
+    max-height: 400px;
+    box-shadow: 3px 3px 10px var(--global-gray);
+}
+
+.pad-20{
+    padding: 0px 20px;
+}
+
+.buy-power-div {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0px;
+    font-size: 20px;
+    border-top: 1px solid var(--global-gray);
+    border-bottom: 1px solid var(--global-gray);
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
+    cursor: pointer;
+}
+
+.buy-power-div:hover {
+    background-color: var(--global-light-gray);
+}
+
+/* Buy Detail -------------------------------------------- */
+
+.buy-detail-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.buy-detail-div{
+    width: 48%;
+}
+
+.buy-detail-info-div{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0px;
+    font-size: 20px;
+}
+
+.brokerage-cash-div{
+    border-bottom: 1px solid var(--global-gray);
+}
+
+.buy-power-description{
+    width: 48%;
+    font-size: 20px;
+    padding: 30px 0px;
+}
+
+.buy-detail-button-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.buy-detail-button{
+    margin: 20px;
+    height: 50px;
+    width: 90%;
+    border-radius: 30px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.buy-detail-button:hover{
+    background-color: rgba(0, 0, 0, 0.856);
+}

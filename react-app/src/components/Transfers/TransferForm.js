@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import BankAccountForm from '../BankAccountModal/BankAccountForm';
 import { useModal } from "../../context/Modal";
 import "./TransferForm.css"
