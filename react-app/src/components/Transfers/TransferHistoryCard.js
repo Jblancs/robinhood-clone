@@ -15,7 +15,7 @@ function TransferHistoryCard({ transfer }) {
     return (
         <>
             <div key={transfer.id} className={!showDetail ? 'transfer-card-container add-hover' : 'transfer-card-container show-detail'}>
-                <div className={!showDetail ? 'transfer-card' : 'transfer-card'} onClick={onClickHandler}>
+                <div className='transfer-card' onClick={onClickHandler}>
                     <div className='transfer-info-div'>
                         <div className='transfer-info-bank bold'>
                             {transfer.type} to brokerage account from {transfer.bank_info.bank}

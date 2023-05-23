@@ -41,3 +41,22 @@
 .recur-modal-button:hover{
     filter: contrast(80%);
 }
+
+/* recurring investment card ---------------------------------- */
+.recur-card-container{
+    width: 800px;
+    border-bottom: 1px solid var(--global-gray);
+    border-top: 1px solid var(--global-gray);
+}
+
+.recur-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10px;
+    border-bottom: 1px solid var(--global-gray);
+}
+
+.recur-detail-div{
+    padding: 30px 10px;
+}
