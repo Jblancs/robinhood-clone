@@ -20,8 +20,6 @@ def get_user_bank_accounts():
     bank_account_data = BankAccount.query.filter(BankAccount.user_id == current_user_id, BankAccount.linked == True)
     bank_account_data_list = list(bank_account_data)
 
-    print_data("bank account:", list(bank_account_data))
-
     if bank_account_data_list:
         bank_account_list = to_dict_list(bank_account_data)
         return bank_account_list
