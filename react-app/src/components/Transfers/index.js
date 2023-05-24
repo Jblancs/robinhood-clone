@@ -41,7 +41,7 @@ function Transfers() {
         history.push("/login")
     }
 
-    if (!bank || !user || !transfer || !portfolio) return <div>Loading...</div>
+    if (!bank || !user || !transfer || !portfolio) return <div className='loading-div'><img src='/images/loading.gif' alt='loading'/></div>
 
     // Passed as prop to transfer modal button ---------------------------------------------------
     let transferButton = (

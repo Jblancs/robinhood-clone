@@ -48,7 +48,7 @@ function HomePage() {
         history.push("/login")
     }
 
-    if (!portfolio || !portHistory || !investments || !user || !news || !bank) return <div>Loading...</div>
+    if (!portfolio || !portHistory || !investments || !user || !news || !bank) return <div className='loading-div'><img src='/images/loading.gif' alt='loading'/></div>
 
     // Component JSX ----------------------------------------------------------------------------------------
     return (
