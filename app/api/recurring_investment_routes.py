@@ -76,3 +76,16 @@ def update_recurring_investment(id):
 
         db.session.commit()
         return recurring_inv.to_dict()
+
+# ------------------------------------------------------------------------------
+@recurring_investment_routes.route("/<int:id>", methods=["DELETE"])
+def delete_recurring_investment(id):
+    '''
+    delete an existing recurring investment
+    '''
+
+    recurring_inv = RecurringInvestment.query.get(id)
+    ticker = recurring_inv.ticker
+    db.session.delete(recurring_inv)
+
+    return {"Response": f"Successfully ended recurring investment for stock {ticker}"}
