@@ -1,16 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAccountNavSelect } from '../../context/AccountNav';
 import OpenModalButton from '../OpenModalButton';
 import RecurringModal from '../RecurringModal';
 import "./recurring.css"
 
 function Recurring() {
+    const [showDetail, setShowDetail] = useState(false)
     const { setSelectedNav } = useAccountNavSelect()
 
     useEffect(() => {
         setSelectedNav('recurring')
     }, [])
 
+    // Event Handlers ----------------------------------------------------------------------------------------
+    const showDetailHandler = () => {
+        setShowDetail(!showDetail)
+    }
+
+    // Component JSX -----------------------------------------------------------------------------------------
     return (
         <div className='recur-page-container'>
             <div className='recur-page-div'>
@@ -32,7 +39,7 @@ function Recurring() {
                         />
                     </div>
                     <div className='recur-card-container'>
-                        <div className='recur-card'>
+                        <div className={!showDetail ? 'recur-card add-hover' : 'recur-card'}>
                             <div className='recur-info-div'>
                                 <div className='recur-info-stock bold'>
                                     (AAPL Monthly Buy)

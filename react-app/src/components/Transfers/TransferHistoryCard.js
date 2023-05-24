@@ -14,8 +14,8 @@ function TransferHistoryCard({ transfer }) {
     // component JSX -----------------------------------------------------------------
     return (
         <>
-            <div key={transfer.id} className={!showDetail ? 'transfer-card-container add-hover' : 'transfer-card-container show-detail'}>
-                <div className='transfer-card' onClick={onClickHandler}>
+            <div key={transfer.id} className={!showDetail ? 'transfer-card-container' : 'transfer-card-container show-detail'}>
+                <div className={!showDetail ? 'transfer-card add-hover' : 'transfer-card'} onClick={onClickHandler}>
                     <div className='transfer-info-div'>
                         <div className='transfer-info-bank bold'>
                             {transfer.type} to brokerage account from {transfer.bank_info.bank}

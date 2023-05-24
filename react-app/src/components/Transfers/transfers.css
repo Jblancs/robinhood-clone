@@ -167,7 +167,6 @@
     overflow: hidden;
     transition: max-height 0.3s ease-out;
     max-height: 105px;
-    /* border: var(--global-border); */
 }
 
 .show-detail{
@@ -186,6 +185,8 @@
     border-bottom: 1px solid var(--global-gray);
     border-top: 1px solid var(--global-gray);
     cursor: pointer;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
 }
 
 
