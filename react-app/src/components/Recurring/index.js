@@ -38,8 +38,8 @@ function Recurring() {
                             modalComponent={<RecurringModal />}
                         />
                     </div>
-                    <div className={!showDetail ? 'recur-card-container' : 'recur-card-container show-recur-detail'} onClick={showDetailHandler}>
-                        <div className={!showDetail ? 'recur-card add-hover' : 'recur-card'}>
+                    <div className={!showDetail ? 'recur-card-container' : 'recur-card-container show-recur-detail'}>
+                        <div className={!showDetail ? 'recur-card add-hover' : 'recur-card'} onClick={showDetailHandler}>
                             <div className='recur-info-div'>
                                 <div className='recur-info-stock bold'>
                                     (AAPL Monthly Buy)
@@ -49,7 +49,7 @@ function Recurring() {
                                 </div>
                             </div>
                             <div className='recur-info-amount bold'>
-                                $(300.00)
+                                1 share(s)
                             </div>
                         </div>
                         <div className='recur-detail-div'>
@@ -67,7 +67,7 @@ function Recurring() {
                                         <i className='fas fa-sync-alt' />
                                     </div>
                                     <div className='recur-detail-text'>
-                                        You'll invest <b>3,600.00</b> by <b>Apr 17,2024</b> if you keep this recurring investment.
+                                        You'll invest in <b>12 shares</b> by <b>Apr 17,2024</b> if you keep this recurring investment.
                                     </div>
                                 </div>
                                 <div className='recur-detail-text-div'>
@@ -95,7 +95,7 @@ function Recurring() {
                                                 First order
                                             </div>
                                             <div className='recur-up-visual-info'>
-                                                Apr 17 &#8226; $300.00
+                                                Apr 17 &#8226; 1 share(s)
                                             </div>
                                         </div>
                                         <div className='recur-up-visual-right'>
@@ -106,7 +106,7 @@ function Recurring() {
                                                 Next order
                                             </div>
                                             <div className='recur-up-visual-info'>
-                                                May 17 &#8226; $300.00
+                                                May 17 &#8226; 1 share(s)
                                             </div>
                                         </div>
                                     </div>
