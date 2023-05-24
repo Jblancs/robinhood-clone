@@ -16,6 +16,7 @@ from .api.watchlist_routes import watchlists_routes
 from .api.watchlists_stocks_routes import watchlists_stocks_routes
 from .api.bank_account_routes import bank_account_routes
 from .api.transfer_routes import transfer_routes
+from .api.recurring_investment_routes import recurring_investment_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -46,6 +47,7 @@ app.register_blueprint(watchlists_routes, url_prefix='/api/watchlists')
 app.register_blueprint(watchlists_stocks_routes, url_prefix='/api/watchlists_stocks')
 app.register_blueprint(bank_account_routes, url_prefix='/api/bank_account')
 app.register_blueprint(transfer_routes, url_prefix='/api/transfer')
+app.register_blueprint(recurring_investment_routes, url_prefix='/api/recurring_investment')
 
 db.init_app(app)
 Migrate(app, db)

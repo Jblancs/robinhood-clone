@@ -73,17 +73,12 @@
 
 /* Investment Card ---------------------------------------- */
 
-/* .inv-list {
-    padding: 10px 20px 10px 20px;
-} */
-
 .inv-card {
     /* border: var(--global-border); */
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding-bottom: 5px;
-    /* border-radius: 5px; */
     transition-timing-function: ease-in-out;
     transition-duration: 100ms;
 }
@@ -109,29 +104,6 @@
 
 .inv-price-change{
     padding-left: 20px;
-}
-
-
-/* Buying power ------------------------------------------ */
-.buy-power-div {
-    display: flex;
-    justify-content: space-between;
-    padding: 30px 0px;
-    font-size: 20px;
-    border-top: 1px solid var(--global-gray);
-    border-bottom: 1px solid var(--global-gray);
-    transition-timing-function: ease-in-out;
-    transition-duration: 300ms;
-    cursor: not-allowed;
-}
-
-.coming-soon{
-    font-size: 15px;
-    color: gray;
-}
-
-.buy-power-div:hover {
-    background-color: var(--global-light-gray);
 }
 
 /* News Card --------------------------------------------- */

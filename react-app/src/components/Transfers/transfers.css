@@ -167,11 +167,12 @@
     overflow: hidden;
     transition: max-height 0.3s ease-out;
     max-height: 105px;
-    /* border: var(--global-border); */
 }
 
-.add-hover:hover{
-    background-color: var(--global-light-gray);
+.show-detail{
+    margin-bottom: 20px;
+    box-shadow: 3px 3px 10px var(--global-gray);
+    max-height: 250px;
 }
 
 .transfer-card{
@@ -184,6 +185,8 @@
     border-bottom: 1px solid var(--global-gray);
     border-top: 1px solid var(--global-gray);
     cursor: pointer;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
 }
 
 
@@ -195,12 +198,6 @@
 .transfer-detail-left,
 .transfer-detail-mid{
     padding-right: 150px;
-}
-
-.show-detail{
-    margin-bottom: 20px;
-    box-shadow: 3px 3px 10px var(--global-gray);
-    max-height: 250px;
 }
 
 .green-text{

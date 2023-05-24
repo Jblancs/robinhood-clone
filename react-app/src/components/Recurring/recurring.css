@@ -1,0 +1,171 @@
+.recur-page-container{
+    display: flex;
+    justify-content: center;
+    padding: 30px 0px 0px 0px;
+}
+
+.recur-page-div{
+    width: 1400px;
+}
+
+.recur-header-text{
+    font-size: 30px;
+}
+
+.no-recur-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    margin: 100px 0px 30px 0px;
+}
+
+.no-recur-img{
+    padding: 10px;
+}
+
+.no-recur-text{
+    padding-bottom: 40px;
+}
+
+.recur-modal-button{
+    width: 300px;
+    height: 50px;
+    border-radius: 30px;
+    color: white;
+    border: 1px solid var(--global-gray);
+    background-color: var(--rhood-green);
+    cursor: pointer;
+}
+
+.recur-modal-button:hover{
+    filter: contrast(80%);
+}
+
+/* recurring investment card ---------------------------------- */
+.recur-card-container{
+    width: 800px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    max-height: 100px;
+    border-bottom: 1px solid var(--global-gray);
+    border-top: 1px solid var(--global-gray);
+}
+
+.show-recur-detail{
+    margin-bottom: 20px;
+    box-shadow: 3px 3px 10px var(--global-gray);
+    max-height: 900px;
+}
+
+.recur-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 20px;
+    border-bottom: 1px solid var(--global-gray);
+    cursor: pointer;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
+}
+
+.recur-detail-div{
+    padding: 30px 20px;
+}
+
+.recur-detail-text-div{
+    display: flex;
+    align-items: center;
+    padding: 15px 0px;
+}
+
+.recur-detail-icon-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 50px;
+    background-color: black;
+    font-size: 25px;
+    color: white;
+    height: 55px;
+    width: 55px;
+    margin-right: 20px;
+}
+
+.recur-up-header{
+    margin-top: 30px;
+    font-size: 25px;
+}
+
+.recur-up-visual-div{
+    display: flex;
+    margin-top: 20px;
+}
+
+.recur-left-dot{
+    color: var(--rhood-green);
+    font-size: 20px;
+}
+
+.recur-up-line-div{
+    display: flex;
+    align-items: center;
+}
+
+.recur-line-img{
+    padding-left: 1px;
+    height: 7px;
+    width: 300px;
+}
+
+.recur-up-visual-text{
+    padding-top: 10px;
+}
+
+.recur-right-dot{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: rgba(128, 128, 128, 0.749);
+    padding: 4px 3px;
+}
+
+.recur-up-bottom-text{
+    margin-top: 20px;
+    padding: 20px 20px 30px 20px;
+    border-bottom: 1px solid var(--global-gray);
+}
+
+.recur-button-div{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 20px;
+}
+
+.recur-edit-modal-button{
+    width: 180px;
+    height: 40px;
+    font-size: 15px;
+    background-color: transparent;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.recur-edit-modal-button:hover{
+    background-color: var(--global-gray);
+}
+
+.recur-other-modal-button{
+    width: 180px;
+    height: 40px;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.recur-other-modal-button:hover{
+    color: var(--rhood-green);
+}

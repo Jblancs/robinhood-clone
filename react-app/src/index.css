@@ -55,3 +55,7 @@
 .pad10{
     padding: 10px 0px 10px 0px;
 }
+
+.add-hover:hover{
+    background-color: var(--global-light-gray);
+}

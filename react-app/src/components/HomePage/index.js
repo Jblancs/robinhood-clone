@@ -9,6 +9,8 @@ import Investments from "./Investments";
 import { getNewsArticles, addCommas } from "../../Utils";
 import { useHistory } from "react-router-dom";
 import { clearWatchlistsState, fetchWatchlists } from "../../store/watchlist";
+import { clearBankAccountState, fetchBankAccounts } from "../../store/bankAccount";
+import BuyingPower from "./BuyingPower";
 
 
 function HomePage() {
@@ -21,6 +23,7 @@ function HomePage() {
     const investments = useSelector(state => state.investments.investments)
     const user = useSelector(state => state.session.user)
     const watchlists = useSelector(state => state.watchlists.watchlists)
+    const bank = useSelector(state => state.bank.bank)
 
     useEffect(() => {
         getNewsArticles("SPY", setNews)
@@ -31,11 +34,13 @@ function HomePage() {
         dispatch(fetchAllInvestments())
         dispatch(fetchHistory())
         dispatch(fetchWatchlists())
+        dispatch(fetchBankAccounts())
         return () => {
             dispatch(clearInvestmentState())
             dispatch(clearPortfolioState())
             dispatch(clearHistoryState())
             dispatch(clearWatchlistsState())
+            dispatch(clearBankAccountState())
         }
     }, [dispatch])
 
@@ -43,8 +48,9 @@ function HomePage() {
         history.push("/login")
     }
 
-    if (!portfolio || !portHistory || !investments || !user || !news) return <div>Loading...</div>
+    if (!portfolio || !portHistory || !investments || !user || !news || !bank) return <div>Loading...</div>
 
+    // Component JSX ----------------------------------------------------------------------------------------
     return (
         <div className="portfolio-page-container">
             <div className="portfolio-page-div">
@@ -52,15 +58,7 @@ function HomePage() {
                     <div className="portfolio-graph-div">
                         <PortfolioGraph portHistory={portHistory} portfolio={portfolio} />
                     </div>
-                    <div className="buy-power-div bold" onClick={() => alert("Deposit feature coming soon!")}>
-                        <div className="buy-power-text">
-                            Buying Power
-                            <div className="coming-soon">(Deposit feature coming soon!)</div>
-                        </div>
-                        <div className="buy-power-amt">
-                            ${addCommas(Number(portfolio.buying_power).toFixed(2))}
-                        </div>
-                    </div>
+                    <BuyingPower portfolio={portfolio} bank={bank}/>
                     <div className="portfolio-news-div">
                         <div className="news-card-container">
                             {news.map(article => (
