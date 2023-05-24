@@ -45,15 +45,24 @@
 /* recurring investment card ---------------------------------- */
 .recur-card-container{
     width: 800px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    max-height: 100px;
     border-bottom: 1px solid var(--global-gray);
     border-top: 1px solid var(--global-gray);
+}
+
+.show-recur-detail{
+    margin-bottom: 20px;
+    box-shadow: 3px 3px 10px var(--global-gray);
+    max-height: 600px;
 }
 
 .recur-card{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 10px;
+    padding: 30px 20px;
     border-bottom: 1px solid var(--global-gray);
     cursor: pointer;
     transition-timing-function: ease-in-out;
@@ -61,5 +70,25 @@
 }
 
 .recur-detail-div{
-    padding: 30px 10px;
+    padding: 30px 20px;
+}
+
+.recur-detail-text-div{
+    display: flex;
+    align-items: center;
+    padding: 15px 0px;
+}
+
+.recur-detail-icon-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 50px;
+    background-color: black;
+    font-size: 25px;
+    color: white;
+    height: 55px;
+    width: 55px;
+    margin-right: 10px;
 }

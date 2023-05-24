@@ -38,7 +38,7 @@ function Recurring() {
                             modalComponent={<RecurringModal />}
                         />
                     </div>
-                    <div className='recur-card-container'>
+                    <div className={!showDetail ? 'recur-card-container' : 'recur-card-container show-recur-detail'} onClick={showDetailHandler}>
                         <div className={!showDetail ? 'recur-card add-hover' : 'recur-card'}>
                             <div className='recur-info-div'>
                                 <div className='recur-info-stock bold'>
