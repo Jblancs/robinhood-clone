@@ -53,8 +53,19 @@ def create_recurring_investment():
     return {'errors': form_errors_obj_list(form.errors)},401
 
 # ------------------------------------------------------------------------------
-# @recurring_investment_routes.route("/<int:id>", methods=["PUT"])
-# def update_recurring_investment(id):
-#      '''
+@recurring_investment_routes.route("/<int:id>", methods=["PUT"])
+def update_recurring_investment(id):
+    '''
+    update recurring investment info or pause recurring investment
+    '''
 
-#      '''
+    res = request.get_json()
+    recurring_inv = RecurringInvestment.query.get(id)
+
+    if recurring_inv:
+        recurring_inv.shares=res["shares"]
+        recurring_inv.start_date=res["start_date"]
+        recurring_inv.frequency=res["frequency"]
+
+        db.session.commit()
+        return recurring_inv.to_dict()
