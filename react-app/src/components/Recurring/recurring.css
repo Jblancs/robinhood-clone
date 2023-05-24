@@ -55,7 +55,7 @@
 .show-recur-detail{
     margin-bottom: 20px;
     box-shadow: 3px 3px 10px var(--global-gray);
-    max-height: 600px;
+    max-height: 900px;
 }
 
 .recur-card{
@@ -90,5 +90,81 @@
     color: white;
     height: 55px;
     width: 55px;
-    margin-right: 10px;
+    margin-right: 20px;
+}
+
+.recur-up-header{
+    margin-top: 30px;
+    font-size: 25px;
+}
+
+.recur-up-visual-div{
+    display: flex;
+    margin-top: 20px;
+}
+
+.recur-left-dot{
+    color: var(--rhood-green);
+    font-size: 20px;
+}
+
+.recur-up-line-div{
+    display: flex;
+    align-items: center;
+}
+
+.recur-line-img{
+    height: 10px;
+    width: 300px;
+}
+
+.recur-up-visual-text{
+    padding-top: 10px;
+}
+
+.recur-right-dot{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: rgba(128, 128, 128, 0.749);
+    padding: 4px 3px;
+}
+
+.recur-up-bottom-text{
+    margin-top: 20px;
+    padding: 20px 20px 30px 20px;
+    border-bottom: 1px solid var(--global-gray);
+}
+
+.recur-button-div{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 20px;
+}
+
+.recur-edit-modal-button{
+    width: 180px;
+    height: 40px;
+    font-size: 15px;
+    background-color: transparent;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.recur-edit-modal-button:hover{
+    background-color: var(--global-gray);
+}
+
+.recur-other-modal-button{
+    width: 180px;
+    height: 40px;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.recur-other-modal-button:hover{
+    color: var(--rhood-green);
 }

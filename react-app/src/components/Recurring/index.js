@@ -87,9 +87,9 @@ function Recurring() {
                                     </div>
                                     <div className='recur-up-visual-div'>
                                         <div className='recur-up-visual-left'>
-                                            <div>
-                                                <i className='fas fa-dot-circle' />
-                                                <img src='/images/recurring-line-icon.png' alt='line' />
+                                            <div className='recur-up-line-div'>
+                                                <i className='fas fa-dot-circle recur-left-dot' />
+                                                <img className='recur-line-img' src='/images/recurring-line-icon.png' alt='line' />
                                             </div>
                                             <div className='recur-up-visual-text bold'>
                                                 First order
@@ -99,7 +99,7 @@ function Recurring() {
                                             </div>
                                         </div>
                                         <div className='recur-up-visual-right'>
-                                            <div>
+                                            <div className='recur-right-dot'>
                                                 <i className='fas fa-circle' />
                                             </div>
                                             <div className='recur-up-visual-text bold'>
@@ -110,29 +110,29 @@ function Recurring() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='recur-up-text'>
-                                        All investments involve risk and loss of principal is possible. Investors should consider their investment objectives and risks carefully before investing.
-                                    </div>
                                 </div>
-                                <div className='recur-button-div'>
-                                    <OpenModalButton
-                                        buttonText='Edit investment'
-                                        modalClass='recur-edit-modal-button bold'
-                                        modalComponent={<RecurringModal />}
-                                    />
-                                    <div>
-                                        <OpenModalButton
-                                            buttonText='Pause investment'
-                                            modalClass='recur-edit-modal-button bold'
-                                            modalComponent={<RecurringModal />}
-                                        />
-                                        <OpenModalButton
-                                            buttonText='End investment'
-                                            modalClass='recur-edit-modal-button bold'
-                                            modalComponent={<RecurringModal />}
-                                        />
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
+                        <div className='recur-up-bottom-text'>
+                            All investments involve risk and loss of principal is possible. Investors should consider their investment objectives and risks carefully before investing.
+                        </div>
+                        <div className='recur-button-div'>
+                            <OpenModalButton
+                                buttonText='Edit investment'
+                                modalClass='recur-edit-modal-button bold'
+                                modalComponent={<RecurringModal />}
+                            />
+                            <div>
+                                <OpenModalButton
+                                    buttonText='Pause investment'
+                                    modalClass='recur-other-modal-button bold'
+                                    modalComponent={<RecurringModal />}
+                                />
+                                <OpenModalButton
+                                    buttonText='End investment'
+                                    modalClass='recur-other-modal-button bold'
+                                    modalComponent={<RecurringModal />}
+                                />
                             </div>
                         </div>
                     </div>
