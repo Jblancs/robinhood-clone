@@ -114,7 +114,8 @@
 }
 
 .recur-line-img{
-    height: 10px;
+    padding-left: 1px;
+    height: 7px;
     width: 300px;
 }
 
