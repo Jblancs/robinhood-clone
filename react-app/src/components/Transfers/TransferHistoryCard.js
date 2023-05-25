@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getDisplayDateYear } from '../../Utils';
+import { getDisplayDateYear, addCommas } from '../../Utils';
 import './transfers.css'
 
 function TransferHistoryCard({ transfer }) {
@@ -25,14 +25,14 @@ function TransferHistoryCard({ transfer }) {
                         </div>
                     </div>
                     <div className={transfer.type === 'Deposit' ? 'transfer-info-amount bold green-text' : 'transfer-info-amount bold red-text'}>
-                        {transfer.type === 'Deposit' ? `+$` : `-$`}{Number(transfer.amount).toFixed(2)}
+                        {transfer.type === 'Deposit' ? `+$` : `-$`}{addCommas(Number(transfer.amount).toFixed(2))}
                     </div>
                 </div>
                 <div className='transfer-detail-div'>
                     <div className='transfer-detail-left'>
                         <div className='transfer-detail-amount pad10'>
                             <div className='bold'>Amount</div>
-                            <div>${Number(transfer.amount).toFixed(2)}</div>
+                            <div>${addCommas(Number(transfer.amount).toFixed(2))}</div>
                         </div>
                         <div className='transfer-detail-init pad10'>
                             <div className='bold'>Initiated</div>
