@@ -42,7 +42,6 @@ function Navigation({ isLoaded }) {
 							</NavLink>
 						</div>
 						<div className='nav-search-container'>
-							<div className='nav-search-div'>
 								<div className='nav-search'>
 									<div className='nav-search-bar-div'>
 										<i className="fas fa-search" />
@@ -58,7 +57,6 @@ function Navigation({ isLoaded }) {
 										))}
 									</div>
 								</div>
-							</div>
 						</div>
 						<div className='nav-button-container'>
 							<div className={sessionUser ? 'nav-investing bold navhover' : 'nav-investing bold navhover not-allowed'}>
