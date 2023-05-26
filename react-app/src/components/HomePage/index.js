@@ -6,11 +6,12 @@ import { clearInvestmentState, fetchAllInvestments } from "../../store/investmen
 import { fetchHistory, clearHistoryState } from "../../store/portfolioHistory";
 import './HomePage.css'
 import Investments from "./Investments";
-import { getNewsArticles, addCommas } from "../../Utils";
+import { getNewsArticles } from "../../Utils";
 import { useHistory } from "react-router-dom";
 import { clearWatchlistsState, fetchWatchlists } from "../../store/watchlist";
 import { clearBankAccountState, fetchBankAccounts } from "../../store/bankAccount";
 import BuyingPower from "./BuyingPower";
+import NewsCard from "./NewsCard";
 
 
 function HomePage() {
@@ -59,25 +60,7 @@ function HomePage() {
                         <PortfolioGraph portHistory={portHistory} portfolio={portfolio} />
                     </div>
                     <BuyingPower portfolio={portfolio} bank={bank}/>
-                    <div className="portfolio-news-div">
-                        <div className="news-card-container">
-                            {news.map(article => (
-                                <div key={article.title} className="news-card" onClick={() => window.open(article.article_url)}>
-                                    <div className="news-info-div">
-                                        <div className="news-author bold">
-                                            {article.publisher.name}
-                                        </div>
-                                        <div className="news-title">
-                                            {article.title}
-                                        </div>
-                                    </div>
-                                    <div className="news-img-div">
-                                        <img className="news-img" src={article.image_url} alt="news-img"/>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <NewsCard news={news} />
                 </div>
                 <div className="stock-watchlist-component sticky">
                     <Investments investments={investments} watchlists={watchlists} />

@@ -31,6 +31,10 @@
   display: flex;
 }
 
+.nav-logo{
+  width: 10vw;
+}
+
 .nav-logo-image {
   filter: brightness(0);
   width: 30px;
@@ -45,7 +49,7 @@
   justify-content: space-around;
   border-radius: 5px;
   margin: 5px 0 0 10px;
-  width: 40vw;
+  width: 600PX;
   height: 40px;
 }
 
@@ -97,12 +101,9 @@
   position: absolute;
   z-index: 1;
   background-color: rgb(248, 248, 248);
-  /* border-bottom: 1px solid gray;
-  border-right: 1px solid gray;
-  border-left: 1px solid gray; */
   padding: 10px;
   border-radius: 0px 0px 5px 5px;
-  width: 38vw;
+  width: 575px;
   min-width: 300px;
   top: 60px;
   left: 90px;
