@@ -3,19 +3,9 @@ import { stocksSearch } from './SearchObject';
 import { useHistory } from 'react-router-dom';
 import "./SearchComponent.css"
 
-function SearchComponent({type}) {
+function SearchComponent({type, setShowStockSearch, setStockPick}) {
     const history = useHistory()
     const [value, setValue] = useState('')
-
-    const onChangeHandler = (e) => {
-        setValue(e.target.value)
-    }
-
-    const onClickhHandler = (company, ticker) => {
-        history.push(`/stocks/${ticker}`)
-        setValue("")
-    }
-
 
     const filterData = (data) => {
         const filteredData = data.filter(item => {
@@ -29,7 +19,20 @@ function SearchComponent({type}) {
     }
 
     // Event Handlers -------------------------------------------------------------------------------------
-    let formDisplay;
+    const onChangeHandler = (e) => {
+        setValue(e.target.value)
+    }
+
+    const onClickhHandler = (company, ticker) => {
+        if(type === "nav"){
+            history.push(`/stocks/${ticker}`)
+            setValue("")
+        }else{
+            setShowStockSearch(false)
+            setStockPick(ticker)
+            setValue("")
+        }
+    }
 
     // Component JSX --------------------------------------------------------------------------------------
     return (

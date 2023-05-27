@@ -41,24 +41,7 @@ function Navigation({ isLoaded }) {
 								<img className="nav-logo-image" src='/images/robinhood-emblem.png' alt="logo" style={{ color: "black" }} />
 							</NavLink>
 						</div>
-						<SearchComponent />
-						{/* <div className='nav-search-container'>
-								<div className='nav-search'>
-									<div className='nav-search-bar-div'>
-										<i className="fas fa-search" />
-										<input className="nav-search-bar" type="text" onChange={onChangeHandler} value={value} placeholder='Search' />
-									</div>
-									<div className={value ? 'search-dropdown' : "hidden"}>
-										{filterData(stocksSearch).map(item => (
-											<div key={item.company} className='search-results' onClick={() => onClickhHandler(item.company, item.ticker)}>
-												<div className='search-ticker'>{item.ticker}</div>
-												<div className='search-divider'></div>
-												<div>{item.company}</div>
-											</div>
-										))}
-									</div>
-								</div>
-						</div> */}
+						<SearchComponent type="nav" />
 						<div className='nav-button-container'>
 							<div className={sessionUser ? 'nav-investing bold navhover' : 'nav-investing bold navhover not-allowed'}>
 								<NavLink exact to="/" style={{ textDecoration: "none", color: "black" }}>Investing</NavLink>
