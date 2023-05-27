@@ -1,0 +1,17 @@
+.recur-modal-container{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.recur-modal-div{
+    margin-top: 10%;
+    width: 600px;
+}
+
+.recur-close-icon{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}

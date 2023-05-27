@@ -7,29 +7,7 @@ import SearchComponent from '../SearchComponent/SearchComponent';
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
-	const history = useHistory()
-	const [value, setValue] = useState('')
 
-	const onChangeHandler = (e) => {
-		setValue(e.target.value)
-	}
-
-	const onClickhHandler = (company, ticker) => {
-		history.push(`/stocks/${ticker}`)
-		setValue("")
-	}
-
-
-	const filterData = (data) => {
-		const filteredData = data.filter(item => {
-			const searchInfo = value.toLowerCase()
-			const companyName = item.company.toLowerCase()
-			return searchInfo && companyName.startsWith(searchInfo) && companyName !== searchInfo
-		})
-
-		const resultList = filteredData.slice(0, 6)
-		return resultList
-	}
 
 	return (
 		<div className='nav-container'>

@@ -3,14 +3,24 @@ import { useAccountNavSelect } from '../../context/AccountNav';
 import OpenModalButton from '../OpenModalButton';
 import RecurringModal from '../RecurringModal';
 import "./recurring.css"
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPortfolio } from '../../store/portfolio';
 
 function Recurring() {
+    const dispatch = useDispatch()
     const [showDetail, setShowDetail] = useState(false)
     const { setSelectedNav } = useAccountNavSelect()
+    const portfolio = useSelector(state => state.portfolio.portfolio)
 
     useEffect(() => {
         setSelectedNav('recurring')
     }, [])
+
+    useEffect(() => {
+        dispatch(fetchPortfolio())
+    }, [dispatch])
+
+    if(!portfolio) return <div className='loading-div'><img src='/images/loading.gif' alt='loading'/></div>
 
     // Event Handlers ----------------------------------------------------------------------------------------
     const showDetailHandler = () => {
@@ -35,7 +45,7 @@ function Recurring() {
                         <OpenModalButton
                             buttonText='Create recurring investment'
                             modalClass='recur-modal-button bold'
-                            modalComponent={<RecurringModal />}
+                            modalComponent={<RecurringModal portfolio={portfolio}/>}
                         />
                     </div>
                     <div className={!showDetail ? 'recur-card-container' : 'recur-card-container show-recur-detail'}>
