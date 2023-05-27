@@ -3,7 +3,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
-import { stocksSearch } from './SearchObject';
+import SearchComponent from '../SearchComponent/SearchComponent';
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
@@ -41,7 +41,8 @@ function Navigation({ isLoaded }) {
 								<img className="nav-logo-image" src='/images/robinhood-emblem.png' alt="logo" style={{ color: "black" }} />
 							</NavLink>
 						</div>
-						<div className='nav-search-container'>
+						<SearchComponent />
+						{/* <div className='nav-search-container'>
 								<div className='nav-search'>
 									<div className='nav-search-bar-div'>
 										<i className="fas fa-search" />
@@ -57,7 +58,7 @@ function Navigation({ isLoaded }) {
 										))}
 									</div>
 								</div>
-						</div>
+						</div> */}
 						<div className='nav-button-container'>
 							<div className={sessionUser ? 'nav-investing bold navhover' : 'nav-investing bold navhover not-allowed'}>
 								<NavLink exact to="/" style={{ textDecoration: "none", color: "black" }}>Investing</NavLink>
