@@ -17,8 +17,8 @@ function RecurringModal({ portfolio }) {
     const [disableField, setDisableField] = useState(false)
 
     // Event Handlers -------------------------------------------------------------------------------------
-    const amountOnChange = (e) => {
-        setAmount(Number(e.target.value))
+    const sharesOnChange = (e) => {
+        setShares(Number(e.target.value))
     }
 
     const startOnChange = (e) => {
@@ -73,11 +73,11 @@ function RecurringModal({ portfolio }) {
                     <div className='recur-form-field-div'>
                         <input
                             className='recur-form-field recur-input'
-                            placeholder="$0.00"
+                            placeholder="0 shares"
                             type="number"
                             step="any"
                             value={shares}
-                            onChange={amountOnChange}
+                            onChange={sharesOnChange}
                             required
                             disabled={disableField}
                         />
