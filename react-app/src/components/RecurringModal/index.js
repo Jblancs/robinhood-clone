@@ -7,7 +7,7 @@ function RecurringModal({ portfolio }) {
     const { closeModal } = useModal();
     const [showStockSearch, setShowStockSearch] = useState(true)
     const [stockPick, setStockPick] = useState("")
-    const [amount, setAmount] = useState("")
+    const [shares, setShares] = useState("")
     const [startDate, setStartDate] = useState("")
     const [frequency, setFrequency] = useState("")
     const [payment, setPayment] = useState("")
@@ -68,7 +68,7 @@ function RecurringModal({ portfolio }) {
                 </div>
                 <div className='recur-form-section-div'>
                     <div className='recur-form-field-text'>
-                        Amount
+                        Shares
                     </div>
                     <div className='recur-form-field-div'>
                         <input
@@ -76,7 +76,7 @@ function RecurringModal({ portfolio }) {
                             placeholder="$0.00"
                             type="number"
                             step="any"
-                            value={amount}
+                            value={shares}
                             onChange={amountOnChange}
                             required
                             disabled={disableField}
