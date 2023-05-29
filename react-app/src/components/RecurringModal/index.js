@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SearchComponent from '../SearchComponent/SearchComponent';
 import { useModal } from "../../context/Modal";
+import {addCommas} from "../../Utils"
 import "./RecurringModal.css"
 
 function RecurringModal({ portfolio }) {
@@ -69,7 +70,7 @@ function RecurringModal({ portfolio }) {
                     </div>
                     <div className='recur-form-field-div'>
                         <input
-                            className='recur-form-field recur-input'
+                            className='recur-form-field recur-input-shares'
                             placeholder="0 shares"
                             type="number"
                             step="any"
@@ -98,6 +99,12 @@ function RecurringModal({ portfolio }) {
                     </div>
                     <div className='recur-form-field-div'>
                         <select className='recur-form-field recur-select' onChange={frequencyOnChange} disabled={disableField}>
+                            <option value="weekly">
+                                Every Week
+                            </option>
+                            <option value="bi-weekly">
+                                Every two weeks
+                            </option>
                             <option value="monthly">
                                 Every Month
                             </option>
@@ -116,11 +123,11 @@ function RecurringModal({ portfolio }) {
                         </select>
                     </div>
                 </div>
-                <div className='recur-modal-button-div'>
-                    <button>
+                <div className='recur-form-button-div'>
+                    <button className='recur-form-button'>
                         Review
                     </button>
-                    <button>
+                    <button className='recur-form-button recur-form-cancel' onClick={() => closeModal()}>
                         Cancel
                     </button>
                 </div>
@@ -137,7 +144,7 @@ function RecurringModal({ portfolio }) {
                     Start a recurring investment
                 </div>
                 <div className='recur-modal-buy-power'>
-                    {showStockSearch ? "" : `$${Number(portfolio.buying_power).toFixed(2)} buying power available`}
+                    {showStockSearch ? "" : `$${addCommas(Number(portfolio.buying_power).toFixed(2))} buying power available`}
                 </div>
                 {formDisplay}
             </div>

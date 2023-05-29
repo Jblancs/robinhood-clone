@@ -22,9 +22,9 @@
 }
 
 .recur-modal-cancel{
-    background-color: var(--rhood-green);
+    background-color: gray;
     color: white;
-    width: 500px;
+    width: 400px;
     height: 50px;
     border-radius: 30px;
     border: 1px solid var(--global-gray);
@@ -33,5 +33,62 @@
 }
 
 .recur-modal-cancel:hover{
+    filter: contrast(80%);
+}
+
+.recur-modal-header{
+    font-size: 25px;
+    padding-bottom: 10px;
+}
+
+.recur-modal-buy-power{
+    padding-bottom: 30px;
+}
+
+/* recurring modal form -------------------------------------------- */
+.recur-form-section-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.recur-form-field{
+    border: 1px solid var(--global-gray);
+    border-radius: 5px;
+    width: 300px;
+    height: 40px;
+}
+
+.recur-select{
+    height: 44px;
+    width: 307px;
+}
+
+.recur-input-shares{
+    text-align: right;
+}
+
+.recur-form-button-div{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+}
+
+.recur-form-button{
+    width: 280px;
+    height: 50px;
+    border-radius: 30px;
+    color: white;
+    border: 1px solid var(--global-gray);
+    background-color: var(--rhood-green);
+    cursor: pointer;
+}
+
+.recur-form-cancel{
+    background-color: gray;
+}
+
+.recur-form-button:hover{
     filter: contrast(80%);
 }
