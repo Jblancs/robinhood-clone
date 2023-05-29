@@ -37,7 +37,7 @@
 }
 
 .recur-modal-header{
-    font-size: 25px;
+    font-size: 30px;
     padding-bottom: 10px;
 }
 
@@ -91,4 +91,31 @@
 
 .recur-form-button:hover{
     filter: contrast(80%);
+}
+
+.recur-form-submit-text{
+    padding: 15px 0px;
+}
+
+/* recurring error css -------------------------------------------------- */
+.recur-error-message-container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px 10px 0px;
+}
+
+.recur-error-message-div{
+    padding: 5px 12px;
+}
+
+.recur-info-icon {
+    border: 2px solid black;
+    font-size: 10px;
+    padding: 0px 5px;
+    margin-left: 8px;
+    border-radius: 100%;
+}
+
+.recur-error-icon{
+    margin: 0px 8px 0px 0px;
 }

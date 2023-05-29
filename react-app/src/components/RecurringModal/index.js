@@ -39,7 +39,8 @@ function RecurringModal({ portfolio }) {
         setDisableField(false)
     }
 
-    const reviewHandler = () => {
+    const reviewHandler = (e) => {
+        e.preventDefault()
 
         let errorObj = []
 
@@ -50,23 +51,24 @@ function RecurringModal({ portfolio }) {
         if (errorObj.length) {
             setErrors(errorObj)
         } else {
+            setErrors([])
             setConfirm(true)
+            setDisableField(true)
         }
-        setDisableField(true)
     }
 
     // Error Display --------------------------------------------------------------------------------------
     let errorDisplay;
     if (errors.length) { // show errors if any
         errorDisplay = (
-            <div className='error-message-container'>
-                <div className="error-message-div bold">
-                    <span className="info-icon error-icon bold">!</span>
+            <div className='recur-error-message-container'>
+                <div className="recur-error-message-div bold">
+                    <span className="recur-info-icon recur-error-icon bold">!</span>
                     Error
                 </div>
-                <div className="error-message-div">
+                <div className="recur-error-message-div">
                     {errors.map(message => (
-                        <div key={message} className="acct-error-message-div">&#8226; {message}</div>
+                        <div key={message} className="recur-error-message-div">&#8226; {message}</div>
                     ))}
                 </div>
             </div>
@@ -75,7 +77,7 @@ function RecurringModal({ portfolio }) {
 
     // Recurring Inv Review Buttons -----------------------------------------------------------------------
     let confirmBtn;
-    if (!confirm && !errors.length) {
+    if (!confirm) {
         confirmBtn = (
             <div className='recur-form-button-div'>
                 <button className='recur-form-button bold' onClick={reviewHandler}>
@@ -89,16 +91,14 @@ function RecurringModal({ portfolio }) {
     }
 
 
-    if (confirm && !errors.length) { // submit recurring investment if there are no errors
+    if (confirm) { // submit recurring investment if there are no errors
         confirmBtn = (
             <div>
                 <div className='recur-form-submit-text'>
-                {`You'll buy ${shares} share(s) of ${stockPick} ${frequency}. Your first order will be placed on ${startDate} at 11:00 AM ET in a batch order with other Robinhood recurring investment orders for ${stockPick}.`}
+                You'll buy <b>{shares} share(s)</b> of <b>{stockPick} {frequency}</b>. Your first order will be placed on <b>{startDate}</b> at 11:00 AM ET in a batch order with other Robinhood recurring investment orders for {stockPick}.
                 </div>
-                <div className="review-button-div">
-                    {<button className="className='recur-form-button bold">Submit</button>}
-                </div>
-                <div className="review-button-div">
+                <div className="recur-form-button-div">
+                    {<button className="recur-form-button bold">Submit</button>}
                     <button className="recur-form-button recur-form-cancel bold" onClick={onClickEditHandler}>Edit</button>
                 </div>
             </div>
