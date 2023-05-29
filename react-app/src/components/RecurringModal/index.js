@@ -10,8 +10,8 @@ function RecurringModal({ portfolio }) {
     const [stockPick, setStockPick] = useState("")
     const [shares, setShares] = useState("")
     const [startDate, setStartDate] = useState("")
-    const [frequency, setFrequency] = useState("")
-    const [account, setPayment] = useState("")
+    const [frequency, setFrequency] = useState("Weekly")
+    const [account, setPayment] = useState(portfolio.id)
 
     const [errors, setErrors] = useState([])
     const [disableField, setDisableField] = useState(false)
@@ -95,7 +95,7 @@ function RecurringModal({ portfolio }) {
         confirmBtn = (
             <div>
                 <div className='recur-form-submit-text'>
-                You'll buy <b>{shares} share(s)</b> of <b>{stockPick} {frequency}</b>. Your first order will be placed on <b>{startDate}</b> at 11:00 AM ET in a batch order with other Robinhood recurring investment orders for {stockPick}.
+                You'll buy <b>{shares} share(s)</b> of <b>{stockPick} {frequency}</b>. Your first order will be placed on <b>{startDate}</b> at 11:00 AM ET in a batch order with other Robinhood recurring investment orders for <b>{stockPick}</b>.
                 </div>
                 <div className="recur-form-button-div">
                     {<button className="recur-form-button bold">Submit</button>}
@@ -169,7 +169,7 @@ function RecurringModal({ portfolio }) {
                         Frequency
                     </div>
                     <div className='recur-form-field-div'>
-                        <select className='recur-form-field recur-select' onChange={frequencyOnChange} disabled={disableField}>
+                        <select className='recur-form-field recur-select' onChange={frequencyOnChange} defaultValue="Weekly"  disabled={disableField}>
                             <option value="Daily">
                                 Every Market Day
                             </option>
