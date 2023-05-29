@@ -41,10 +41,7 @@ function RecurringModal({ portfolio }) {
             <>
                 <SearchComponent type="recur" setShowStockSearch={setShowStockSearch} setStockPick={setStockPick} />
                 <div className='recur-modal-button-div'>
-                    <button>
-                        Review
-                    </button>
-                    <button>
+                    <button className='recur-modal-cancel bold' onClick={() => closeModal()}>
                         Cancel
                     </button>
                 </div>
