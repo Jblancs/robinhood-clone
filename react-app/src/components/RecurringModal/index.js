@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SearchComponent from '../SearchComponent/SearchComponent';
 import { useModal } from "../../context/Modal";
-import {addCommas} from "../../Utils"
+import { addCommas } from "../../Utils"
 import "./RecurringModal.css"
 
 function RecurringModal({ portfolio }) {
@@ -11,11 +11,11 @@ function RecurringModal({ portfolio }) {
     const [shares, setShares] = useState("")
     const [startDate, setStartDate] = useState("")
     const [frequency, setFrequency] = useState("")
-    const [payment, setPayment] = useState("")
-
+    const [account, setPayment] = useState("")
 
     const [errors, setErrors] = useState([])
     const [disableField, setDisableField] = useState(false)
+    const [confirm, setConfirm] = useState(false)
 
     // Event Handlers -------------------------------------------------------------------------------------
     const sharesOnChange = (e) => {
@@ -32,6 +32,77 @@ function RecurringModal({ portfolio }) {
 
     const paymentOnChange = (e) => {
         setPayment(e.target.value)
+    }
+
+    const onClickEditHandler = () => {
+        setConfirm(false)
+        setDisableField(false)
+    }
+
+    const reviewHandler = () => {
+
+        let errorObj = []
+
+        if (shares <= 0 || !shares) {
+            errorObj.push("Please enter a valid number of shares")
+        }
+
+        if (errorObj.length) {
+            setErrors(errorObj)
+        } else {
+            setConfirm(true)
+        }
+        setDisableField(true)
+    }
+
+    // Error Display --------------------------------------------------------------------------------------
+    let errorDisplay;
+    if (errors.length) { // show errors if any
+        errorDisplay = (
+            <div className='error-message-container'>
+                <div className="error-message-div bold">
+                    <span className="info-icon error-icon bold">!</span>
+                    Error
+                </div>
+                <div className="error-message-div">
+                    {errors.map(message => (
+                        <div key={message} className="acct-error-message-div">&#8226; {message}</div>
+                    ))}
+                </div>
+            </div>
+        )
+    }
+
+    // Recurring Inv Review Buttons -----------------------------------------------------------------------
+    let confirmBtn;
+    if (!confirm && !errors.length) {
+        confirmBtn = (
+            <div className='recur-form-button-div'>
+                <button className='recur-form-button bold' onClick={reviewHandler}>
+                    Review
+                </button>
+                <button className='recur-form-button recur-form-cancel bold' onClick={() => closeModal()}>
+                    Cancel
+                </button>
+            </div>
+        )
+    }
+
+
+    if (confirm && !errors.length) { // submit recurring investment if there are no errors
+        confirmBtn = (
+            <div>
+                <div className='recur-form-submit-text'>
+                {`You'll buy ${shares} share(s) of ${stockPick} ${frequency}. Your first order will be placed on ${startDate} at 11:00 AM ET in a batch order with other Robinhood recurring investment orders for ${stockPick}.`}
+                </div>
+                <div className="review-button-div">
+                    {<button className="className='recur-form-button bold">Submit</button>}
+                </div>
+                <div className="review-button-div">
+                    <button className="recur-form-button recur-form-cancel bold" onClick={onClickEditHandler}>Edit</button>
+                </div>
+            </div>
+        )
     }
 
     // Form Display ---------------------------------------------------------------------------------------
@@ -99,13 +170,16 @@ function RecurringModal({ portfolio }) {
                     </div>
                     <div className='recur-form-field-div'>
                         <select className='recur-form-field recur-select' onChange={frequencyOnChange} disabled={disableField}>
-                            <option value="weekly">
+                            <option value="Daily">
+                                Every Market Day
+                            </option>
+                            <option value="Weekly">
                                 Every Week
                             </option>
-                            <option value="bi-weekly">
+                            <option value="Bi-Weekly">
                                 Every two weeks
                             </option>
-                            <option value="monthly">
+                            <option value="Monthly">
                                 Every Month
                             </option>
                         </select>
@@ -117,20 +191,14 @@ function RecurringModal({ portfolio }) {
                     </div>
                     <div className='recur-form-field-div'>
                         <select className='recur-form-field recur-select' onChange={paymentOnChange} disabled={disableField}>
-                            <option value="monthly">
+                            <option value={portfolio.id}>
                                 Buying Power
                             </option>
                         </select>
                     </div>
                 </div>
-                <div className='recur-form-button-div'>
-                    <button className='recur-form-button'>
-                        Review
-                    </button>
-                    <button className='recur-form-button recur-form-cancel' onClick={() => closeModal()}>
-                        Cancel
-                    </button>
-                </div>
+                {errorDisplay}
+                {confirmBtn}
             </form>
         )
     }
