@@ -71,6 +71,7 @@
 .recur-select{
     height: 44px;
     width: 314px;
+    cursor: pointer;
     appearance: none;
     background-image: url("../SingleStock/triangle-icon3.png");
     background-repeat: no-repeat;
@@ -81,6 +82,14 @@
 .recur-input-shares{
     text-align: right;
     height: 42px;
+}
+
+.recur-input-date{
+    appearance: none;
+    background-image: url("../SingleStock/triangle-icon3.png");
+    background-repeat: no-repeat;
+    background-position: right .7rem top 50%;
+    background-size: 15px auto;
 }
 
 .recur-input-date{
