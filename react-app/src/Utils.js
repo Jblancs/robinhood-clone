@@ -239,24 +239,34 @@ export const firstLetterUpper = (string) => {
 // Get date obj tomorrow at 8am pst
 // ------------------------------------------------------------------------------
 export const getTomorrow11EST = () => {
-    // Create a new date object for the current time
-    const currentDate = new Date();
+    const now = new Date();
 
-    // Set the time to tomorrow at 8 AM
-    currentDate.setDate(currentDate.getDate() + 1);
-    currentDate.setHours(11, 0, 0);
+    const tomorrow = new Date(now);
 
-    // Adjust the timezone offset for EST (Eastern Standard Time)
-    const estOffset = -5 * 60; // EST is UTC-5
-    currentDate.setMinutes(currentDate.getMinutes() - estOffset);
+    if (tomorrow.getDay() === 5) {
+        // If tomorrow is Friday, add additional days to get Monday
+        tomorrow.setDate(tomorrow.getDate() + 3);
+    } else {
+        tomorrow.setDate(now.getDate() + 1);
+    }
 
-    return currentDate
+    tomorrow.setHours(11, 0, 0); // Set time to 11 AM
+
+    return tomorrow;
 }
 
-// Format Date
+// Format Date (recurring investment)
 // ------------------------------------------------------------------------------
 export const formatDate = (date) => {
     let dateArray = date.toDateString().split(" ")
     const formattedDate = `${dateArray[1]} ${dateArray[2]}, ${dateArray[3]}`
     return formattedDate
+}
+
+// set time to 11am (recurring investment)
+// ------------------------------------------------------------------------------
+export const setTime11am = (date) => {
+    // Set the time to 11 AM EST
+    date.setHours(11, 0, 0);
+    return date
 }

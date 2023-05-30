@@ -68,6 +68,10 @@
     box-shadow: 2px 2px 10px var(--global-gray);
 }
 
+.recur-calendar-field-div{
+    position: relative;
+}
+
 .recur-select{
     height: 44px;
     width: 314px;

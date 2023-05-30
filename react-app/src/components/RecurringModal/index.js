@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import SearchComponent from '../SearchComponent/SearchComponent';
 import { useModal } from "../../context/Modal";
 import { addCommas, formatDate, getTomorrow11EST } from "../../Utils"
 import "./RecurringModal.css"
+import CalendarComponent from '../Calendar';
 
 function RecurringModal({ portfolio }) {
     const { closeModal } = useModal();
+
     const [showStockSearch, setShowStockSearch] = useState(true)
+
     const [stockPick, setStockPick] = useState("")
     const [shares, setShares] = useState("")
     const [startDate, setStartDate] = useState(getTomorrow11EST())
     const [frequency, setFrequency] = useState("Weekly")
     const [account, setPayment] = useState(portfolio.id)
-    const [showCalendar, setShowCalendar] = useState(false)
 
+    const [showCalendar, setShowCalendar] = useState(false)
     const [errors, setErrors] = useState([])
     const [disableField, setDisableField] = useState(false)
     const [confirm, setConfirm] = useState(false)
@@ -38,6 +41,11 @@ function RecurringModal({ portfolio }) {
     const onClickEditHandler = () => {
         setConfirm(false)
         setDisableField(false)
+    }
+
+    const onClickShowCalender = (e) => {
+        e.stopPropagation()
+        setShowCalendar(!showCalendar)
     }
 
     const reviewHandler = (e) => {
@@ -157,16 +165,17 @@ function RecurringModal({ portfolio }) {
                     <div className='recur-form-field-text'>
                         Starts
                     </div>
-                    <div className='recur-form-field-div'>
+                    <div className='recur-form-field-div recur-calendar-field-div'>
                         <input
                         className='recur-form-field recur-input-date'
                         type='text'
                         value={startDate ? formatDate(startDate) : ""}
                         onChange={startOnChange}
-                        onClick={() => setShowCalendar(!showCalendar)}
+                        onClick={onClickShowCalender}
                         disabled={disableField}
                         readOnly
                         />
+                        {showCalendar ? <CalendarComponent setStartDate={setStartDate} startDate={startDate} setShowCalendar={setShowCalendar} showCalendar={showCalendar}/> : ""}
                     </div>
                 </div>
                 <div className='recur-form-section-div'>
