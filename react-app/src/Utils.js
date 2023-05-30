@@ -90,9 +90,9 @@ export const buildGraph = (chartData, type, days) => {
     }
 
     let lineColor;
-    if(type === "stock"){
+    if (type === "stock") {
         lineColor = changePercent < 0 ? "orange" : "lime"
-    }else{
+    } else {
         lineColor = "lime"
     }
 
@@ -146,7 +146,7 @@ export const buildGraph = (chartData, type, days) => {
 // Get current stock price
 // ------------------------------------------------------------------------------
 export const currentStockPrice = (data) => {
-    let latestPriceObj = data[data.length-1]
+    let latestPriceObj = data[data.length - 1]
     return latestPriceObj?.c
 }
 // Get current stock price % change
@@ -154,7 +154,7 @@ export const currentStockPrice = (data) => {
 export const stockPercentChange = (data, currentPrice) => {
     let openPrice = data[0]?.o
     let priceDiff = currentPrice - openPrice
-    return (priceDiff/openPrice)*100
+    return (priceDiff / openPrice) * 100
 }
 
 // Get change in stock price
@@ -174,9 +174,9 @@ export const getPriceChange = (data, stockPrice, type) => {
 // Get change in stock price
 // ------------------------------------------------------------------------------
 export const getMarketValue = (stockData, investment, ticker) => {
-    if(investment[ticker]){
+    if (investment[ticker]) {
         return Number(stockData.c * investment[ticker].shares).toFixed(2)
-    }else{
+    } else {
         return Number(0).toFixed(2)
     }
 }
@@ -234,4 +234,29 @@ export const getDisplayDateYear = (date) => {
 // ------------------------------------------------------------------------------
 export const firstLetterUpper = (string) => {
     return `${string[0].toUpperCase()}${string.slice(1)}`
+}
+
+// Get date obj tomorrow at 8am pst
+// ------------------------------------------------------------------------------
+export const getTomorrow11EST = () => {
+    // Create a new date object for the current time
+    const currentDate = new Date();
+
+    // Set the time to tomorrow at 8 AM
+    currentDate.setDate(currentDate.getDate() + 1);
+    currentDate.setHours(11, 0, 0);
+
+    // Adjust the timezone offset for EST (Eastern Standard Time)
+    const estOffset = -5 * 60; // EST is UTC-5
+    currentDate.setMinutes(currentDate.getMinutes() - estOffset);
+
+    return currentDate
+}
+
+// Format Date
+// ------------------------------------------------------------------------------
+export const formatDate = (date) => {
+    let dateArray = date.toDateString().split(" ")
+    const formattedDate = `${dateArray[1]} ${dateArray[2]}, ${dateArray[3]}`
+    return formattedDate
 }

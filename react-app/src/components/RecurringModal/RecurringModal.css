@@ -67,6 +67,11 @@
 
 .recur-input-shares{
     text-align: right;
+    height: 42px;
+}
+
+.recur-input-date{
+    cursor: pointer;
 }
 
 .recur-form-button-div{

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SearchComponent from '../SearchComponent/SearchComponent';
 import { useModal } from "../../context/Modal";
-import { addCommas } from "../../Utils"
+import { addCommas, formatDate, getTomorrow11EST } from "../../Utils"
 import "./RecurringModal.css"
 
 function RecurringModal({ portfolio }) {
@@ -9,7 +9,7 @@ function RecurringModal({ portfolio }) {
     const [showStockSearch, setShowStockSearch] = useState(true)
     const [stockPick, setStockPick] = useState("")
     const [shares, setShares] = useState("")
-    const [startDate, setStartDate] = useState("")
+    const [startDate, setStartDate] = useState(getTomorrow11EST())
     const [frequency, setFrequency] = useState("Weekly")
     const [account, setPayment] = useState(portfolio.id)
 
@@ -157,11 +157,15 @@ function RecurringModal({ portfolio }) {
                         Starts
                     </div>
                     <div className='recur-form-field-div'>
-                        <select className='recur-form-field recur-select' onChange={startOnChange} disabled={disableField}>
-                            <option>
-                                React Calendar Placeholder
-                            </option>
-                        </select>
+                        <input
+                        className='recur-form-field recur-input-date'
+                        type='text'
+                        value={startDate ? formatDate(startDate) : ""}
+                        onChange={startOnChange}
+                        disabled={disableField}
+                        readOnly
+                        />
+
                     </div>
                 </div>
                 <div className='recur-form-section-div'>
