@@ -58,11 +58,24 @@
     border-radius: 5px;
     width: 300px;
     height: 40px;
+    padding: 0px 5px;
+    position: relative;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
+}
+
+.recur-form-field:hover{
+    box-shadow: 2px 2px 10px var(--global-gray);
 }
 
 .recur-select{
     height: 44px;
-    width: 307px;
+    width: 314px;
+    appearance: none;
+    background-image: url("../SingleStock/triangle-icon3.png");
+    background-repeat: no-repeat;
+    background-position: right .7rem top 50%;
+    background-size: 15px auto;
 }
 
 .recur-input-shares{

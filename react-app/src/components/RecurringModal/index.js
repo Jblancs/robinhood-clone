@@ -12,6 +12,7 @@ function RecurringModal({ portfolio }) {
     const [startDate, setStartDate] = useState(getTomorrow11EST())
     const [frequency, setFrequency] = useState("Weekly")
     const [account, setPayment] = useState(portfolio.id)
+    const [showCalendar, setShowCalendar] = useState(false)
 
     const [errors, setErrors] = useState([])
     const [disableField, setDisableField] = useState(false)
@@ -162,10 +163,10 @@ function RecurringModal({ portfolio }) {
                         type='text'
                         value={startDate ? formatDate(startDate) : ""}
                         onChange={startOnChange}
+                        onClick={() => setShowCalendar(!showCalendar)}
                         disabled={disableField}
                         readOnly
                         />
-
                     </div>
                 </div>
                 <div className='recur-form-section-div'>
