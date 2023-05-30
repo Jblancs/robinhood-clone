@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
 import SearchComponent from '../SearchComponent/SearchComponent';
 import { useModal } from "../../context/Modal";
 import { addCommas, formatDate, getTomorrow11EST } from "../../Utils"
@@ -7,6 +8,7 @@ import CalendarComponent from '../Calendar';
 
 function RecurringModal({ portfolio }) {
     const { closeModal } = useModal();
+    const dispatch = useDispatch()
 
     const [showStockSearch, setShowStockSearch] = useState(true)
 
@@ -64,6 +66,12 @@ function RecurringModal({ portfolio }) {
             setConfirm(true)
             setDisableField(true)
         }
+    }
+
+    // onSubmit handler -----------------------------------------------------------------------------------
+    const onSubmitHandler = (e) => {
+        e.preventDefault()
+
     }
 
     // Error Display --------------------------------------------------------------------------------------
@@ -130,7 +138,7 @@ function RecurringModal({ portfolio }) {
         )
     } else {
         formDisplay = (
-            <form>
+            <form onSubmit={onSubmitHandler}>
                 <div className='recur-form-section-div'>
                     <div className='recur-form-field-text'>
                         Invest in
