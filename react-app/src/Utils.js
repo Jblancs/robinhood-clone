@@ -219,14 +219,16 @@ export const addCommas = (x) => {
 // format date to MMM DD
 // ------------------------------------------------------------------------------
 export const getDisplayDate = (date) => {
-    let dateSplit = date.split(" ")
+    let formattedDate = (new Date(date)).toUTCString()
+    let dateSplit = formattedDate.split(" ")
     return `${dateSplit[2]} ${dateSplit[1]}`
 }
 
 // format date to MMM DD, YYYY
 // ------------------------------------------------------------------------------
 export const getDisplayDateYear = (date) => {
-    let dateSplit = date.split(" ")
+    let formattedDate = (new Date(date)).toUTCString()
+    let dateSplit = formattedDate.split(" ")
     return `${dateSplit[2]} ${dateSplit[1]}, ${dateSplit[3]}`
 }
 
@@ -255,18 +257,35 @@ export const getTomorrow11EST = () => {
     return tomorrow;
 }
 
-// Format Date (recurring investment)
-// ------------------------------------------------------------------------------
-export const formatDate = (date) => {
-    let dateArray = date.toDateString().split(" ")
-    const formattedDate = `${dateArray[1]} ${dateArray[2]}, ${dateArray[3]}`
-    return formattedDate
-}
-
 // set time to 11am (recurring investment)
 // ------------------------------------------------------------------------------
 export const setTime11am = (date) => {
     // Set the time to 11 AM EST
     date.setHours(11, 0, 0);
     return date
+}
+
+// get difference between today and future date
+// ------------------------------------------------------------------------------
+export const getDaysDifference = (date) => {
+    // Convert both dates to UTC to eliminate any daylight saving time differences
+    const today = Date.parse(new Date());
+    const futureDate = Date.parse(new Date(date));
+
+    // Calculate the difference in milliseconds
+    const timeDifference = Math.abs(futureDate - today);
+
+    // Convert milliseconds to days and round down to the nearest integer
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+    return daysDifference;
+}
+
+// get the date one year later
+// ------------------------------------------------------------------------------
+export const getOneYearLater = (date) => {
+    let formattedDate = new Date(date)
+    let year = formattedDate.getFullYear()
+    let updatedDate = formattedDate.setFullYear(year + 1)
+    return updatedDate
 }

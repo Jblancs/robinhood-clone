@@ -1,20 +1,12 @@
 
 // Actions ----------------------------------------------------------------------
 export const GET_RECURRING = "portfolio/GET_RECURRING";
-export const ADD_RECURRING = "portfolio/ADD_RECURRING";
 export const CLEAR_RECUR_STATE = "portfolio/CLEAR_RECUR_STATE";
 
 // Action creators --------------------------------------------------------------
 export const getRecurringInv = (payload) => {
     return {
         type: GET_RECURRING,
-        payload
-    }
-}
-
-export const addRecurringInv = (payload) => {
-    return {
-        type: ADD_RECURRING,
         payload
     }
 }
@@ -36,11 +28,11 @@ export const fetchRecurringInv = () => async (dispatch) => {
     }
 };
 
-export const createBankAccount = (bankData) => async (dispatch) => {
+export const createRecurringInv = (invData) => async (dispatch) => {
     const response = await fetch("/api/recurring_investment/", {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(bankData)
+        body: JSON.stringify(invData)
     })
 
     if (response.ok) {
@@ -55,11 +47,11 @@ export const createBankAccount = (bankData) => async (dispatch) => {
     }
 }
 
-export const updateRecurringInv = (id, data) => async (dispatch) => {
+export const updateRecurringInv = (id, invData) => async (dispatch) => {
     const response = await fetch(`/api/recurring_investment/${id}`, {
         method: 'PUT',
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify(invData)
     })
 
     if (response.ok) {
@@ -86,13 +78,13 @@ export const deleteRecurringInv = (id) => async (dispatch) => {
 // Reducer function -------------------------------------------------------------
 const initialState = { recurring: null };
 
-export default function bankReducer(state = initialState, action) {
+export default function recurringReducer(state = initialState, action) {
     let newState = { ...state }
     switch (action.type) {
-        case GET_ACCOUNTS:
+        case GET_RECURRING:
             let recurringInvList = {}
             if (action.payload.error) {
-                newState.bank = { ...action.payload }
+                newState.recurring = { ...action.payload }
             } else {
                 action.payload.forEach((inv) => {
                     recurringInvList[inv.id] = inv
@@ -101,7 +93,7 @@ export default function bankReducer(state = initialState, action) {
             }
             return newState
 
-        case CLEAR_ACCT_STATE:
+        case CLEAR_RECUR_STATE:
             newState = { ...initialState }
             return newState
 

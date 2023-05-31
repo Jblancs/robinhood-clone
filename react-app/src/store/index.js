@@ -9,6 +9,7 @@ import stockReducer from './stock';
 import watchlistsReducer from './watchlist';
 import bankReducer from './bankAccount';
 import transferReducer from './transfer';
+import recurringReducer from './recurring';
 
 const rootReducer = combineReducers({
   session,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   stock: stockReducer,
   watchlists: watchlistsReducer,
   bank: bankReducer,
-  transfers: transferReducer
+  transfers: transferReducer,
+  recurring: recurringReducer,
 });
 
 

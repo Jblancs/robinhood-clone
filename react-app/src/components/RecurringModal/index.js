@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import SearchComponent from '../SearchComponent/SearchComponent';
 import { useModal } from "../../context/Modal";
-import { addCommas, formatDate, getTomorrow11EST } from "../../Utils"
+import { addCommas, formatDate, getDisplayDateYear, getTomorrow11EST } from "../../Utils"
 import "./RecurringModal.css"
 import CalendarComponent from '../Calendar';
+import { createRecurringInv, updateRecurringInv } from '../../store/recurring';
 
-function RecurringModal({ portfolio }) {
+function RecurringModal({ portfolio, updateObj }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch()
 
     const [showStockSearch, setShowStockSearch] = useState(true)
 
-    const [stockPick, setStockPick] = useState("")
-    const [shares, setShares] = useState("")
+    const [stockPick, setStockPick] = useState(!updateObj ? "" : updateObj.ticker)
+    const [shares, setShares] = useState(!updateObj ? "" : updateObj.shares)
     const [startDate, setStartDate] = useState(getTomorrow11EST())
-    const [frequency, setFrequency] = useState("Weekly")
+    const [frequency, setFrequency] = useState(!updateObj ? "" : updateObj.frequency)
     const [account, setPayment] = useState(portfolio.id)
 
     const [showCalendar, setShowCalendar] = useState(false)
@@ -69,9 +70,23 @@ function RecurringModal({ portfolio }) {
     }
 
     // onSubmit handler -----------------------------------------------------------------------------------
-    const onSubmitHandler = (e) => {
+    const onSubmitHandler = async (e) => {
         e.preventDefault()
 
+        let recurringInvData = {
+            ticker: stockPick,
+            shares: shares,
+            start_date: startDate,
+            frequency: frequency
+        }
+
+        if(!updateObj){
+            await dispatch(createRecurringInv(recurringInvData))
+        }else{
+            await dispatch(updateRecurringInv(updateObj.id, recurringInvData))
+        }
+
+        closeModal()
     }
 
     // Error Display --------------------------------------------------------------------------------------
@@ -177,7 +192,7 @@ function RecurringModal({ portfolio }) {
                         <input
                         className='recur-form-field recur-input-date'
                         type='text'
-                        value={startDate ? formatDate(startDate) : ""}
+                        value={startDate ? getDisplayDateYear(startDate) : ""}
                         onChange={startOnChange}
                         onClick={onClickShowCalender}
                         disabled={disableField}
