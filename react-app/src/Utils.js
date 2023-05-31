@@ -286,6 +286,46 @@ export const getDaysDifference = (date) => {
 export const getOneYearLater = (date) => {
     let formattedDate = new Date(date)
     let year = formattedDate.getFullYear()
-    let updatedDate = formattedDate.setFullYear(year + 1)
-    return updatedDate
+    formattedDate.setFullYear(year + 1)
+    return formattedDate
+}
+
+// get future date based on frequency
+// ------------------------------------------------------------------------------
+export const getFutureDate = (date, frequency) => {
+    let dateValue = new Date(date)
+
+    // value in miliseconds
+    let oneDay = (1000 * 60 * 60 * 24)
+    let oneWeek = oneDay * 7
+    let twoWeeks = oneWeek * 2
+    let oneMonth = oneDay * 31
+
+    let dateInMS = Date.parse(dateValue)
+    let futureDateMS;
+
+    if(frequency === "Daily"){
+        futureDateMS = dateInMS + oneDay
+
+    }else if(frequency === "Weekly"){
+        futureDateMS = dateInMS + oneWeek
+
+    }else if(frequency === "Bi-Weekly"){
+        futureDateMS = dateInMS + twoWeeks
+
+    }else if(frequency === "Monthly"){
+        futureDateMS = dateInMS + oneMonth
+    }
+
+    let futureDate = new Date(futureDateMS)
+
+    let returnDate = futureDateMS;
+    if(futureDate.getDay() === 0){
+        returnDate = futureDateMS + oneDay
+    }else if(futureDate.getDay() === 6){
+        returnDate = futureDateMS + (2 * oneDay)
+    }
+
+    return new Date(returnDate)
+
 }

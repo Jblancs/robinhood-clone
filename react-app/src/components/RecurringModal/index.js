@@ -76,7 +76,7 @@ function RecurringModal({ portfolio, updateObj }) {
         let recurringInvData = {
             ticker: stockPick,
             shares: shares,
-            start_date: startDate,
+            start_date: startDate.toUTCString(),
             frequency: frequency
         }
 

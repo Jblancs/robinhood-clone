@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import OpenModalButton from '../OpenModalButton';
 import RecurringModal from '../RecurringModal';
 import "./recurring.css"
-import { getDaysDifference, getOneYearLater } from '../../Utils';
+import { getDaysDifference, getDisplayDate, getDisplayDateYear, getFutureDate, getOneYearLater } from '../../Utils';
 
 function RecurringCard({recurInv}) {
     const [showDetail, setShowDetail] = useState(false)
@@ -44,7 +44,7 @@ function RecurringCard({recurInv}) {
                             <i className='fas fa-sync-alt' />
                         </div>
                         <div className='recur-detail-text'>
-                            You'll invest in <b>{recurInv.shares * 12} shares</b> by <b>{getOneYearLater(recurInv.start_date)}</b> if you keep this recurring investment.
+                            You'll invest in <b>{recurInv.shares * 12} shares</b> by <b>{getDisplayDateYear(getOneYearLater(recurInv.start_date))}</b> if you keep this recurring investment.
                         </div>
                     </div>
                     <div className='recur-detail-text-div'>
@@ -72,7 +72,7 @@ function RecurringCard({recurInv}) {
                                     First order
                                 </div>
                                 <div className='recur-up-visual-info'>
-                                    Apr 17 &#8226; 1 share(s)
+                                    {getDisplayDate(recurInv.start_date)} &#8226; 1 share(s)
                                 </div>
                             </div>
                             <div className='recur-up-visual-right'>
@@ -83,7 +83,7 @@ function RecurringCard({recurInv}) {
                                     Next order
                                 </div>
                                 <div className='recur-up-visual-info'>
-                                    May 17 &#8226; 1 share(s)
+                                    {getDisplayDate(getFutureDate(recurInv.start_date, recurInv.frequency))} &#8226; {recurInv.shares} share(s)
                                 </div>
                             </div>
                         </div>
