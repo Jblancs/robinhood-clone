@@ -2,11 +2,10 @@ import React, { useRef, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import "./calendar.css"
 import 'react-calendar/dist/Calendar.css';
-import { setTime11am } from '../../Utils';
 
 function CalendarComponent({ setStartDate, startDate, setShowCalendar, showCalendar }) {
     const calendarRef = useRef()
-    
+
     useEffect(() => {
         if (!showCalendar) return;
 
@@ -23,7 +22,7 @@ function CalendarComponent({ setStartDate, startDate, setShowCalendar, showCalen
 
     // Event Handlers ------------------------------------------------------------------------------------------
     const handleDateChange = (date) => {
-        setStartDate(setTime11am(date))
+        setStartDate(date)
         setShowCalendar(false)
     }
 

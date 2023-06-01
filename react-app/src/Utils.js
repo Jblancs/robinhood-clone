@@ -254,15 +254,9 @@ export const getTomorrow = () => {
         tomorrow.setDate(tomorrow.getDate() + 1);
     }
 
-    return tomorrow;
-}
+    tomorrow.setHours(11, 0, 0)
 
-// set time to 11am (recurring investment)
-// ------------------------------------------------------------------------------
-export const setTime11am = (date) => {
-    // Set the time to 11 AM EST
-    date.setHours(11, 0, 0);
-    return date
+    return tomorrow;
 }
 
 // get difference between today and future date
@@ -276,7 +270,7 @@ export const getDaysDifference = (date) => {
     const timeDifference = Math.abs(futureDate - today);
 
     // Convert milliseconds to days and round down to the nearest integer
-    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
     return daysDifference;
 }
@@ -304,25 +298,25 @@ export const getFutureDate = (date, frequency) => {
     let dateInMS = Date.parse(dateValue)
     let futureDateMS;
 
-    if(frequency === "Daily"){
+    if (frequency === "Daily") {
         futureDateMS = dateInMS + oneDay
 
-    }else if(frequency === "Weekly"){
+    } else if (frequency === "Weekly") {
         futureDateMS = dateInMS + oneWeek
 
-    }else if(frequency === "Bi-Weekly"){
+    } else if (frequency === "Bi-Weekly") {
         futureDateMS = dateInMS + twoWeeks
 
-    }else if(frequency === "Monthly"){
+    } else if (frequency === "Monthly") {
         futureDateMS = dateInMS + oneMonth
     }
 
     let futureDate = new Date(futureDateMS)
 
     let returnDateMS = futureDateMS;
-    if(futureDate.getDay() === 0){
+    if (futureDate.getDay() === 0) {
         returnDateMS = futureDateMS + oneDay
-    }else if(futureDate.getDay() === 6){
+    } else if (futureDate.getDay() === 6) {
         returnDateMS = futureDateMS + (2 * oneDay)
     }
 

@@ -33,7 +33,7 @@ function Recurring() {
     let recurringList = [];
     let recurringCards;
 
-    if (!recurring && !recurring.error) {
+    if (!recurring.error) {
         recurringList = Object.values(recurring)
         recurringCards = (
             <>
@@ -45,8 +45,6 @@ function Recurring() {
             </>
         )
     }
-
-    // Event Handlers ----------------------------------------------------------------------------------------
 
     // Create button if no recurring inv ---------------------------------------------------------------------
     let noRecurCreateButton;
@@ -73,7 +71,7 @@ function Recurring() {
             <div>
                 <OpenModalButton
                     buttonText='Create recurring investment'
-                    modalClass='recur-modal-button bold'
+                    modalClass='recur-modal-button recur-inv-button bold'
                     modalComponent={<RecurringModal portfolio={portfolio} />}
                 />
             </div>

@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import db, RecurringInvestment
-from ..forms import recurring_investment_form
+from ..forms import RecurringInvestmentForm
 from flask_login import current_user
-from ..utils import to_dict_list, form_errors_obj_list, print_data
+from ..utils import to_dict_list, form_errors_obj_list, print_data, get_datetime_obj
 from datetime import datetime
 
 recurring_investment_routes = Blueprint('recurring_investment', __name__)
@@ -34,21 +34,24 @@ def create_recurring_investment():
     user_portfolio_id = current_user.to_dict()["portfolio"]["id"]
     res = request.get_json()
 
-    form = recurring_investment_form()
+    form = RecurringInvestmentForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
+    print_data(res)
+    print_data(form.data)
+
     if form.validate_on_submit():
-            new_recurring_inv = RecurringInvestment(
-                ticker=res["ticker"],
-                portfolio_id=user_portfolio_id,
-                shares=res["shares"],
-                start_date=res["start_date"],
-                frequency=res["frequency"],
-                paused=False
-            )
-            db.session.add(new_recurring_inv)
-            db.session.commit()
-            return new_recurring_inv.to_dict()
+        new_recurring_inv = RecurringInvestment(
+            ticker=res["ticker"],
+            portfolio_id=user_portfolio_id,
+            shares=res["shares"],
+            start_date=get_datetime_obj(res["start_date"]),
+            frequency=res["frequency"],
+            paused=False
+        )
+        db.session.add(new_recurring_inv)
+        db.session.commit()
+        return new_recurring_inv.to_dict()
 
     return {'errors': form_errors_obj_list(form.errors)},401
 

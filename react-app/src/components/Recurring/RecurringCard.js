@@ -19,7 +19,6 @@ function RecurringCard({recurInv}) {
                 <div className='recur-info-div'>
                     <div className='recur-info-stock bold'>
                         {recurInv.ticker} {recurInv.frequency} Buy
-                        Test
                     </div>
                     <div className='recur-info-account'>
                         Brokerage &#8226; Next on {getDisplayDateYear(recurInv.start_date)}

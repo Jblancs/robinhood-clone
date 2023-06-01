@@ -37,13 +37,9 @@ export const createRecurringInv = (invData) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        if (data.errors || data.link) {
-            return data
-
-        } else {
-            dispatch(fetchRecurringInv());
-            return data
-        }
+        console.log("create recur thunk---------------", data)
+        dispatch(fetchRecurringInv());
+        return data
     }
 }
 
@@ -89,7 +85,7 @@ export default function recurringReducer(state = initialState, action) {
                 action.payload.forEach((inv) => {
                     recurringInvList[inv.id] = inv
                 })
-                newState.bank = { ...recurringInvList }
+                newState.recurring = { ...recurringInvList }
             }
             return newState
 

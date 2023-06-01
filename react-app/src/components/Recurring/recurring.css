@@ -8,6 +8,10 @@
     width: 1400px;
 }
 
+.recur-header-div{
+    padding-bottom: 30px;
+}
+
 .recur-header-text{
     font-size: 30px;
 }
@@ -40,6 +44,10 @@
 
 .recur-modal-button:hover{
     filter: contrast(80%);
+}
+
+.recur-inv-button{
+    margin: 20px 0px 0px 15px;
 }
 
 /* recurring investment card ---------------------------------- */

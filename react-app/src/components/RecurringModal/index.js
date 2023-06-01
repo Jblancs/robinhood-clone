@@ -16,7 +16,7 @@ function RecurringModal({ portfolio, updateObj }) {
     const [stockPick, setStockPick] = useState(!updateObj ? "" : updateObj.ticker)
     const [shares, setShares] = useState(!updateObj ? "" : updateObj.shares)
     const [startDate, setStartDate] = useState(getTomorrow())
-    const [frequency, setFrequency] = useState(!updateObj ? "" : updateObj.frequency)
+    const [frequency, setFrequency] = useState(!updateObj ? "Weekly" : updateObj.frequency)
     const [account, setPayment] = useState(portfolio.id)
 
     const [showCalendar, setShowCalendar] = useState(false)
@@ -77,7 +77,8 @@ function RecurringModal({ portfolio, updateObj }) {
             ticker: stockPick,
             shares: shares,
             start_date: startDate.toUTCString(),
-            frequency: frequency
+            frequency: frequency,
+            portfolio_id: portfolio.id
         }
 
         if(!updateObj){
@@ -227,7 +228,7 @@ function RecurringModal({ portfolio, updateObj }) {
                         Payment
                     </div>
                     <div className='recur-form-field-div'>
-                        <select className='recur-form-field recur-select' onChange={paymentOnChange} disabled={disableField}>
+                        <select className='recur-form-field recur-select' defaultValue={portfolio.id} onChange={paymentOnChange} disabled={disableField}>
                             <option value={portfolio.id}>
                                 Buying Power
                             </option>
