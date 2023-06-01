@@ -22,7 +22,7 @@ function RecurringCard({recurInv}) {
                         Test
                     </div>
                     <div className='recur-info-account'>
-                        Brokerage &#8226; Next on {recurInv.start_date}
+                        Brokerage &#8226; Next on {getDisplayDateYear(recurInv.start_date)}
                     </div>
                 </div>
                 <div className='recur-info-amount bold'>
@@ -36,7 +36,7 @@ function RecurringCard({recurInv}) {
                             <i className='fa fa-calendar' />
                         </div>
                         <div className='recur-detail-text'>
-                            <b>Your first order</b> is in <b>{getDaysDifference(recurInv.start_date)} days</b> on {recurInv.start_date}
+                            <b>Your first order</b> is in <b>{getDaysDifference(recurInv.start_date)} days</b> on {getDisplayDate(recurInv.start_date)}
                         </div>
                     </div>
                     <div className='recur-detail-text-div'>

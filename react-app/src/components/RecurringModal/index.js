@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import SearchComponent from '../SearchComponent/SearchComponent';
 import { useModal } from "../../context/Modal";
-import { addCommas, formatDate, getDisplayDateYear, getTomorrow11EST } from "../../Utils"
+import { addCommas, getDisplayDateYear, getTomorrow } from "../../Utils"
 import "./RecurringModal.css"
 import CalendarComponent from '../Calendar';
 import { createRecurringInv, updateRecurringInv } from '../../store/recurring';
@@ -15,7 +15,7 @@ function RecurringModal({ portfolio, updateObj }) {
 
     const [stockPick, setStockPick] = useState(!updateObj ? "" : updateObj.ticker)
     const [shares, setShares] = useState(!updateObj ? "" : updateObj.shares)
-    const [startDate, setStartDate] = useState(getTomorrow11EST())
+    const [startDate, setStartDate] = useState(getTomorrow())
     const [frequency, setFrequency] = useState(!updateObj ? "" : updateObj.frequency)
     const [account, setPayment] = useState(portfolio.id)
 
@@ -127,7 +127,7 @@ function RecurringModal({ portfolio, updateObj }) {
         confirmBtn = (
             <div>
                 <div className='recur-form-submit-text'>
-                You'll buy <b>{shares} share(s)</b> of <b>{stockPick} {frequency}</b>. Your first order will be placed on <b>{startDate}</b> at 11:00 AM ET in a batch order with other Robinhood recurring investment orders for <b>{stockPick}</b>.
+                You'll buy <b>{shares} share(s)</b> of <b>{stockPick} {frequency}</b>. Your first order will be placed on <b>{getDisplayDateYear(startDate)}</b> at 11:00 AM ET in a batch order with other Robinhood recurring investment orders for <b>{stockPick}</b>.
                 </div>
                 <div className="recur-form-button-div">
                     {<button className="recur-form-button bold">Submit</button>}

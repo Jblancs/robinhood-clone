@@ -240,19 +240,19 @@ export const firstLetterUpper = (string) => {
 
 // Get date obj tomorrow at 8am pst
 // ------------------------------------------------------------------------------
-export const getTomorrow11EST = () => {
+export const getTomorrow = () => {
     const now = new Date();
 
     const tomorrow = new Date(now);
 
+    // If tomorrow is Fri, Sat or Sun, add additional days to get Monday
     if (tomorrow.getDay() === 5) {
-        // If tomorrow is Friday, add additional days to get Monday
         tomorrow.setDate(tomorrow.getDate() + 3);
+    } else if (tomorrow.getDay() === 6) {
+        tomorrow.setDate(tomorrow.getDate() + 2);
     } else {
-        tomorrow.setDate(now.getDate() + 1);
+        tomorrow.setDate(tomorrow.getDate() + 1);
     }
-
-    tomorrow.setHours(11, 0, 0); // Set time to 11 AM
 
     return tomorrow;
 }
@@ -319,13 +319,15 @@ export const getFutureDate = (date, frequency) => {
 
     let futureDate = new Date(futureDateMS)
 
-    let returnDate = futureDateMS;
+    let returnDateMS = futureDateMS;
     if(futureDate.getDay() === 0){
-        returnDate = futureDateMS + oneDay
+        returnDateMS = futureDateMS + oneDay
     }else if(futureDate.getDay() === 6){
-        returnDate = futureDateMS + (2 * oneDay)
+        returnDateMS = futureDateMS + (2 * oneDay)
     }
 
-    return new Date(returnDate)
+    let returnDate = new Date(returnDateMS)
+
+    return returnDate
 
 }
