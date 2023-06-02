@@ -3,6 +3,7 @@ import OpenModalButton from '../OpenModalButton';
 import RecurringModal from '../RecurringModal';
 import "./recurring.css"
 import { getDaysDifference, getDisplayDate, getDisplayDateYear, getFutureDate, getOneYearLater } from '../../Utils';
+import DeleteRecurringModal from '../RecurringModal/DeleteRecurring';
 
 function RecurringCard({recurInv, portfolio}) {
     const [showDetail, setShowDetail] = useState(false)
@@ -107,7 +108,7 @@ function RecurringCard({recurInv, portfolio}) {
                     <OpenModalButton
                         buttonText='End investment'
                         modalClass='recur-other-modal-button bold'
-                        modalComponent={<RecurringModal />}
+                        modalComponent={<DeleteRecurringModal recurId={recurInv.id}/>}
                     />
                 </div>
             </div>

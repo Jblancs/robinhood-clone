@@ -92,5 +92,6 @@ def delete_recurring_investment(id):
     recurring_inv = RecurringInvestment.query.get(id)
     ticker = recurring_inv.ticker
     db.session.delete(recurring_inv)
+    db.session.commit()
 
     return {"Response": f"Successfully ended recurring investment for stock {ticker}"}
