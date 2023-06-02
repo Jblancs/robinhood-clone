@@ -4,7 +4,7 @@ import RecurringModal from '../RecurringModal';
 import "./recurring.css"
 import { getDaysDifference, getDisplayDate, getDisplayDateYear, getFutureDate, getOneYearLater } from '../../Utils';
 
-function RecurringCard({recurInv}) {
+function RecurringCard({recurInv, portfolio}) {
     const [showDetail, setShowDetail] = useState(false)
 
     // Event Handlers ----------------------------------------------------------------------------------------
@@ -96,7 +96,7 @@ function RecurringCard({recurInv}) {
                 <OpenModalButton
                     buttonText='Edit investment'
                     modalClass='recur-edit-modal-button bold'
-                    modalComponent={<RecurringModal />}
+                    modalComponent={<RecurringModal updateObj={recurInv} portfolio={portfolio}/>}
                 />
                 <div>
                     <OpenModalButton

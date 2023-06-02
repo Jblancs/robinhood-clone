@@ -66,7 +66,9 @@ def update_recurring_investment(id):
     recurring_inv = RecurringInvestment.query.get(id)
     paused_boolean = recurring_inv.paused
 
-    if res["type"] == "pause":
+    print_data(res)
+
+    if "type" in res and res["type"] == "pause":
         recurring_inv.paused = not paused_boolean
 
         db.session.commit()
@@ -74,7 +76,7 @@ def update_recurring_investment(id):
 
     else:
         recurring_inv.shares=res["shares"]
-        recurring_inv.start_date=res["start_date"]
+        recurring_inv.start_date=get_datetime_obj(res["start_date"])
         recurring_inv.frequency=res["frequency"]
 
         db.session.commit()

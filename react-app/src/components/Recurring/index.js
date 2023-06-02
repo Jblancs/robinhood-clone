@@ -39,7 +39,7 @@ function Recurring() {
             <>
                 {recurringList.map(recurInv => (
                     <div key={recurInv.id}>
-                        <RecurringCard recurInv={recurInv} />
+                        <RecurringCard recurInv={recurInv} portfolio={portfolio} />
                     </div>
                 ))}
             </>

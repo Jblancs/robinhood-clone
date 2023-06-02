@@ -11,13 +11,13 @@ function RecurringModal({ portfolio, updateObj }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch()
 
-    const [showStockSearch, setShowStockSearch] = useState(true)
+    const [showStockSearch, setShowStockSearch] = useState(!updateObj ? true : false)
 
     const [stockPick, setStockPick] = useState(!updateObj ? "" : updateObj.ticker)
     const [shares, setShares] = useState(!updateObj ? "" : updateObj.shares)
-    const [startDate, setStartDate] = useState(getTomorrow())
+    const [startDate, setStartDate] = useState(!updateObj ? getTomorrow() : updateObj.start_date)
     const [frequency, setFrequency] = useState(!updateObj ? "Weekly" : updateObj.frequency)
-    const [account, setPayment] = useState(portfolio.id)
+    const [payment, setPayment] = useState(portfolio.id)
 
     const [showCalendar, setShowCalendar] = useState(false)
     const [errors, setErrors] = useState([])
@@ -76,9 +76,9 @@ function RecurringModal({ portfolio, updateObj }) {
         let recurringInvData = {
             ticker: stockPick,
             shares: shares,
-            start_date: startDate.toUTCString(),
+            start_date: (new Date(startDate)).toUTCString(),
             frequency: frequency,
-            portfolio_id: portfolio.id
+            portfolio_id: portfolio.id,
         }
 
         if(!updateObj){
@@ -125,13 +125,39 @@ function RecurringModal({ portfolio, updateObj }) {
 
 
     if (confirm) { // submit recurring investment if there are no errors
+
+        // confirm message based on create or update
+        let reviewMessage;
+        if(!updateObj){
+            reviewMessage = (
+                <>
+                    You'll buy <b>{shares} share(s)</b> of <b>{stockPick} {frequency}</b>. Your first order will be placed on <b>{getDisplayDateYear(startDate)}</b> at 11:00 AM ET in a batch order with other Robinhood recurring investment orders for <b>{stockPick}</b>.
+                </>
+            )
+        } else {
+            reviewMessage = (
+                <>
+                    <div className="acct-error-title-div bold">
+                        <span className="acct-info-icon acct-error-icon bold">!</span>
+                        Schedule change
+                    </div>
+                    <div>
+                        {updateObj.frequency === frequency ? "" : `You're changing your investment schedule from ${updateObj.frequency} to ${frequency}.`}
+                    </div>
+                    <div>
+                        Your next order will be placed on <b>{getDisplayDateYear(startDate)}</b>
+                    </div>
+                </>
+            )
+        }
+
         confirmBtn = (
             <div>
                 <div className='recur-form-submit-text'>
-                You'll buy <b>{shares} share(s)</b> of <b>{stockPick} {frequency}</b>. Your first order will be placed on <b>{getDisplayDateYear(startDate)}</b> at 11:00 AM ET in a batch order with other Robinhood recurring investment orders for <b>{stockPick}</b>.
+                {reviewMessage}
                 </div>
                 <div className="recur-form-button-div">
-                    {<button className="recur-form-button bold">Submit</button>}
+                    <button className="recur-form-button bold">{!updateObj ? "Submit" : "Save Changes"}</button>
                     <button className="recur-form-button recur-form-cancel bold" onClick={onClickEditHandler}>Edit</button>
                 </div>
             </div>
@@ -187,7 +213,7 @@ function RecurringModal({ portfolio, updateObj }) {
                 </div>
                 <div className='recur-form-section-div'>
                     <div className='recur-form-field-text'>
-                        Starts
+                        {!updateObj ? "Starts" : "Next order date"}
                     </div>
                     <div className='recur-form-field-div recur-calendar-field-div'>
                         <input
@@ -207,7 +233,7 @@ function RecurringModal({ portfolio, updateObj }) {
                         Frequency
                     </div>
                     <div className='recur-form-field-div'>
-                        <select className='recur-form-field recur-select' onChange={frequencyOnChange} defaultValue="Weekly"  disabled={disableField}>
+                        <select className='recur-form-field recur-select' onChange={frequencyOnChange} defaultValue={!updateObj ? "Weekly" : updateObj.frequency}  disabled={disableField}>
                             <option value="Daily">
                                 Every Market Day
                             </option>
