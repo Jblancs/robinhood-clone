@@ -37,12 +37,14 @@ function ProfileButton({ user }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    setShowMenu(false)
   };
 
   const handleOnClick = (e, link) => {
     e.preventDefault()
     history.push(`/account/${link}`)
     setSelectedNav(link)
+    setShowMenu(false)
   }
 
   // className -----------------------------------------------------------------------------------------

@@ -1,0 +1,24 @@
+.delete-recur-text-div{
+    padding: 10px 0px 20px 0px;
+}
+
+.delete-recur-button{
+    width: 250px;
+    height: 50px;
+    background-color: var(--rhood-orange);
+    margin-right: 10px;
+    border: 1px solid var(--rhood-orange);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.delete-recur-button:hover{
+    filter: contrast(80%);
+}
+
+.delete-recur-cancel{
+    width: 200px;
+    background-color: transparent;
+    color: var(--rhood-orange);
+}

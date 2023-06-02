@@ -63,7 +63,7 @@ function SingleStock() {
         history.push("/")
     }
 
-    if (!stockData || !portfolio || !stock || stockData === "error" || !user || !investment) return <div className="loading">Loading...</div>
+    if (!stockData || !portfolio || !stock || stockData === "error" || !user || !investment) return <div className='loading-div'><img src='/images/loading.gif' alt='loading'/></div>
 
     // if stock is not in db then add it ------------------------------------------------------------------------
     if (stock.error) {
@@ -154,7 +154,7 @@ function SingleStock() {
             <div className="stock-page-div">
                 <div className="stock-info-div">
                     <div className="stock-graph-div">
-                        {stockData ? <SingleStockGraph stockData={stockData} stockTicker={stockTicker} stockAboutInfo={stockAboutInfo} /> : "Loading..."}
+                        {stockData ? <SingleStockGraph stockData={stockData} stockTicker={stockTicker} stockAboutInfo={stockAboutInfo} /> : <div className='loading-div'><img src='/images/loading.gif' alt='loading'/></div>}
                     </div>
                     {investmentDisplay}
                     <div className="stock-info-card">

@@ -162,7 +162,6 @@ function TransferForm({ bank, portfolio }) {
         )
     }
 
-    console.log(from)
     // Component JSX --------------------------------------------------------------------------------------
     return (
         <div className='transfer-modal-container'>

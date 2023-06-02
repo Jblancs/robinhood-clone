@@ -1,5 +1,6 @@
 from flask_login import current_user
 from app.models import Portfolio, Investment
+from datetime import datetime
 
 
 
@@ -33,7 +34,18 @@ def form_errors_obj_list(validation_errors):
     return errorMessages
 
 # ------------------------------------------------------------------------------
+def get_datetime_obj(date):
+    '''
+    converts JS date string to python datetime obj
+    '''
+
+    js_date_format = '%a, %d %b %Y %H:%M:%S %Z'
+    datetime_obj = datetime.strptime(date, js_date_format)
+    return datetime_obj
+
+
+# ------------------------------------------------------------------------------
 # for output testing (not for actual functionality use)
-def print_data(message,test_data):
-    print("\n\n\n", message, "\n\n\n", test_data, "\n\n\n\n")
+def print_data(test_data):
+    print("\n\n", "Printing data:", "\n\n", test_data, "\n\n\n\n")
     return

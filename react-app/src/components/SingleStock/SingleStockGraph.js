@@ -26,7 +26,7 @@ function SingleStockGraph({ stockData, stockTicker, stockAboutInfo }) {
         getChartData(fetchDetails)
     }, [fetchDetails])
 
-    if (!chartData.length) return <div>Loading...</div>
+    if (!chartData.length) return <div className='loading-div'><img src='/images/loading.gif' alt='loading'/></div>
 
     // builds chart based on stockData
     let graph = buildGraph(chartData, "stock")

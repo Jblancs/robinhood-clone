@@ -90,9 +90,9 @@ export const buildGraph = (chartData, type, days) => {
     }
 
     let lineColor;
-    if(type === "stock"){
+    if (type === "stock") {
         lineColor = changePercent < 0 ? "orange" : "lime"
-    }else{
+    } else {
         lineColor = "lime"
     }
 
@@ -146,7 +146,7 @@ export const buildGraph = (chartData, type, days) => {
 // Get current stock price
 // ------------------------------------------------------------------------------
 export const currentStockPrice = (data) => {
-    let latestPriceObj = data[data.length-1]
+    let latestPriceObj = data[data.length - 1]
     return latestPriceObj?.c
 }
 // Get current stock price % change
@@ -154,7 +154,7 @@ export const currentStockPrice = (data) => {
 export const stockPercentChange = (data, currentPrice) => {
     let openPrice = data[0]?.o
     let priceDiff = currentPrice - openPrice
-    return (priceDiff/openPrice)*100
+    return (priceDiff / openPrice) * 100
 }
 
 // Get change in stock price
@@ -174,9 +174,9 @@ export const getPriceChange = (data, stockPrice, type) => {
 // Get change in stock price
 // ------------------------------------------------------------------------------
 export const getMarketValue = (stockData, investment, ticker) => {
-    if(investment[ticker]){
+    if (investment[ticker]) {
         return Number(stockData.c * investment[ticker].shares).toFixed(2)
-    }else{
+    } else {
         return Number(0).toFixed(2)
     }
 }
@@ -219,14 +219,16 @@ export const addCommas = (x) => {
 // format date to MMM DD
 // ------------------------------------------------------------------------------
 export const getDisplayDate = (date) => {
-    let dateSplit = date.split(" ")
+    let formattedDate = (new Date(date)).toUTCString()
+    let dateSplit = formattedDate.split(" ")
     return `${dateSplit[2]} ${dateSplit[1]}`
 }
 
 // format date to MMM DD, YYYY
 // ------------------------------------------------------------------------------
 export const getDisplayDateYear = (date) => {
-    let dateSplit = date.split(" ")
+    let formattedDate = (new Date(date)).toUTCString()
+    let dateSplit = formattedDate.split(" ")
     return `${dateSplit[2]} ${dateSplit[1]}, ${dateSplit[3]}`
 }
 
@@ -234,4 +236,92 @@ export const getDisplayDateYear = (date) => {
 // ------------------------------------------------------------------------------
 export const firstLetterUpper = (string) => {
     return `${string[0].toUpperCase()}${string.slice(1)}`
+}
+
+// Get date obj tomorrow at 8am pst
+// ------------------------------------------------------------------------------
+export const getTomorrow = () => {
+    const now = new Date();
+
+    const tomorrow = new Date(now);
+
+    // If tomorrow is Fri, Sat or Sun, add additional days to get Monday
+    if (tomorrow.getDay() === 5) {
+        tomorrow.setDate(tomorrow.getDate() + 3);
+    } else if (tomorrow.getDay() === 6) {
+        tomorrow.setDate(tomorrow.getDate() + 2);
+    } else {
+        tomorrow.setDate(tomorrow.getDate() + 1);
+    }
+
+    tomorrow.setHours(11, 0, 0)
+
+    return tomorrow;
+}
+
+// get difference between today and future date
+// ------------------------------------------------------------------------------
+export const getDaysDifference = (date) => {
+    // Convert both dates to UTC to eliminate any daylight saving time differences
+    const today = Date.parse(new Date());
+    const futureDate = Date.parse(new Date(date));
+
+    // Calculate the difference in milliseconds
+    const timeDifference = Math.abs(futureDate - today);
+
+    // Convert milliseconds to days and round down to the nearest integer
+    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+    return daysDifference;
+}
+
+// get the date one year later
+// ------------------------------------------------------------------------------
+export const getOneYearLater = (date) => {
+    let formattedDate = new Date(date)
+    let year = formattedDate.getFullYear()
+    formattedDate.setFullYear(year + 1)
+    return formattedDate
+}
+
+// get future date based on frequency
+// ------------------------------------------------------------------------------
+export const getFutureDate = (date, frequency) => {
+    let dateValue = new Date(date)
+
+    // value in miliseconds
+    let oneDay = (1000 * 60 * 60 * 24)
+    let oneWeek = oneDay * 7
+    let twoWeeks = oneWeek * 2
+    let oneMonth = oneDay * 31
+
+    let dateInMS = Date.parse(dateValue)
+    let futureDateMS;
+
+    if (frequency === "Daily") {
+        futureDateMS = dateInMS + oneDay
+
+    } else if (frequency === "Weekly") {
+        futureDateMS = dateInMS + oneWeek
+
+    } else if (frequency === "Bi-Weekly") {
+        futureDateMS = dateInMS + twoWeeks
+
+    } else if (frequency === "Monthly") {
+        futureDateMS = dateInMS + oneMonth
+    }
+
+    let futureDate = new Date(futureDateMS)
+
+    let returnDateMS = futureDateMS;
+    if (futureDate.getDay() === 0) {
+        returnDateMS = futureDateMS + oneDay
+    } else if (futureDate.getDay() === 6) {
+        returnDateMS = futureDateMS + (2 * oneDay)
+    }
+
+    let returnDate = new Date(returnDateMS)
+
+    return returnDate
+
 }

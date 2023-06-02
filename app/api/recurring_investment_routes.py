@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import db, RecurringInvestment
-from ..forms import recurring_investment_form
+from ..forms import RecurringInvestmentForm
 from flask_login import current_user
-from ..utils import to_dict_list, form_errors_obj_list, print_data
+from ..utils import to_dict_list, form_errors_obj_list, print_data, get_datetime_obj
 from datetime import datetime
 
 recurring_investment_routes = Blueprint('recurring_investment', __name__)
@@ -34,27 +34,64 @@ def create_recurring_investment():
     user_portfolio_id = current_user.to_dict()["portfolio"]["id"]
     res = request.get_json()
 
-    form = recurring_investment_form()
+    form = RecurringInvestmentForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
+    print_data(res)
+    print_data(form.data)
+
     if form.validate_on_submit():
-            new_recurring_inv = RecurringInvestment(
-                ticker=res["ticker"],
-                portfolio_id=user_portfolio_id,
-                shares=res["shares"],
-                start_date=res["start_date"],
-                frequency=res["frequency"],
-                paused=False
-            )
-            db.session.add(new_recurring_inv)
-            db.session.commit()
-            return new_recurring_inv.to_dict()
+        new_recurring_inv = RecurringInvestment(
+            ticker=res["ticker"],
+            portfolio_id=user_portfolio_id,
+            shares=res["shares"],
+            start_date=get_datetime_obj(res["start_date"]),
+            frequency=res["frequency"],
+            paused=False
+        )
+        db.session.add(new_recurring_inv)
+        db.session.commit()
+        return new_recurring_inv.to_dict()
 
     return {'errors': form_errors_obj_list(form.errors)},401
 
 # ------------------------------------------------------------------------------
-# @recurring_investment_routes.route("/<int:id>", methods=["PUT"])
-# def update_recurring_investment(id):
-#      '''
+@recurring_investment_routes.route("/<int:id>", methods=["PUT"])
+def update_recurring_investment(id):
+    '''
+    update recurring investment information or pause/resume
+    '''
 
-#      '''
+    res = request.get_json()
+    recurring_inv = RecurringInvestment.query.get(id)
+    paused_boolean = recurring_inv.paused
+
+    print_data(res)
+
+    if "type" in res and res["type"] == "pause":
+        recurring_inv.paused = not paused_boolean
+
+        db.session.commit()
+        return recurring_inv.to_dict()
+
+    else:
+        recurring_inv.shares=res["shares"]
+        recurring_inv.start_date=get_datetime_obj(res["start_date"])
+        recurring_inv.frequency=res["frequency"]
+
+        db.session.commit()
+        return recurring_inv.to_dict()
+
+# ------------------------------------------------------------------------------
+@recurring_investment_routes.route("/<int:id>", methods=["DELETE"])
+def delete_recurring_investment(id):
+    '''
+    delete an existing recurring investment
+    '''
+
+    recurring_inv = RecurringInvestment.query.get(id)
+    ticker = recurring_inv.ticker
+    db.session.delete(recurring_inv)
+    db.session.commit()
+
+    return {"Response": f"Successfully ended recurring investment for stock {ticker}"}

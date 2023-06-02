@@ -59,3 +59,15 @@
 .add-hover:hover{
     background-color: var(--global-light-gray);
 }
+
+.loading-div{
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.border{
+    border: 1px solid red;
+}

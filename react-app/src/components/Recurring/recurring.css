@@ -8,6 +8,10 @@
     width: 1400px;
 }
 
+.recur-header-div{
+    padding-bottom: 30px;
+}
+
 .recur-header-text{
     font-size: 30px;
 }
@@ -40,6 +44,10 @@
 
 .recur-modal-button:hover{
     filter: contrast(80%);
+}
+
+.recur-inv-button{
+    margin: 20px 0px 0px 15px;
 }
 
 /* recurring investment card ---------------------------------- */
@@ -168,4 +176,28 @@
 
 .recur-other-modal-button:hover{
     color: var(--rhood-green);
+}
+
+/* text css if paused ----------------------------------------- */
+.recur-detail-text-pause-div{
+    display: flex;
+    align-items: center;
+    padding: 15px 0px;
+    border: 1px solid var(--global-gray);
+    border-radius: 5px;
+    background-color: var(--global-gray);
+}
+
+.recur-detail-icon-pause-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 50px;
+    background-color: white;
+    font-size: 15px;
+    height: 25px;
+    width: 25px;
+    margin-right: 20px;
+    margin-left: 15px;
 }
