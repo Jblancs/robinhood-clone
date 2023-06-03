@@ -15,25 +15,25 @@ function SlideShow() {
             footer: "- Jordan Blancaflor",
         },
         {
-            image: "/images/portfolio-icon.png",
+            image: "/images/watchlist-icon.png",
             title: "Feature 1: Watchlists",
             body: 'Create custom watchlists on the homepage by clicking on the "+" icon next to Lists on the right side bar. Add/remove stocks from the watchlist at the "/:<ticker>" page',
             footer: "",
         },
         {
-            image: "/images/portfolio-icon.png",
+            image: "/images/buy-sell-icon.png",
             title: "Feature 2: Buy/Sell Stocks",
             body: 'Buy and sell stocks by navigating to the single stock page "/:<ticker>" using the search bar.',
             footer: "",
         },
         {
-            image: "/images/portfolio-icon.png",
+            image: "/images/payment-icon.png",
             title: "Feature 3: Bank Accounts and Deposit/Withdraw money",
             body: 'Add a bank account or deposit money by clicking buying power on the home page "/". You can also navigate to "/account/transfers" using the account button in the NavBar.',
             footer: "",
         },
         {
-            image: "/images/portfolio-icon.png",
+            image: "/images/recurring-slide-icon.png",
             title: "Feature 4: Recurring Investments",
             body: 'Set up a recurring investment by navigating to "/account/recurring" using the account button in the NavBar',
             footer: "",
@@ -52,7 +52,6 @@ function SlideShow() {
         if(side === "left") setSlide(slide - 1)
         if(side === "right") setSlide(slide + 1)
     }
-    console.log(slide)
 
     // component JSX ------------------------------------------------------------------------------------------
     return (
