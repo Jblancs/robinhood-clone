@@ -12,6 +12,7 @@ import { clearWatchlistsState, fetchWatchlists } from "../../store/watchlist";
 import { clearBankAccountState, fetchBankAccounts } from "../../store/bankAccount";
 import BuyingPower from "./BuyingPower";
 import NewsCard from "./NewsCard";
+import SlideShow from "./SlideShow";
 
 
 function HomePage() {
@@ -60,6 +61,7 @@ function HomePage() {
                         <PortfolioGraph portHistory={portHistory} portfolio={portfolio} />
                     </div>
                     <BuyingPower portfolio={portfolio} bank={bank}/>
+                    <SlideShow />
                     <NewsCard news={news} />
                 </div>
                 <div className="stock-watchlist-component sticky">
