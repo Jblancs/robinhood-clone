@@ -52,7 +52,6 @@ function SlideShow() {
         if(side === "left") setSlide(slide - 1)
         if(side === "right") setSlide(slide + 1)
     }
-    console.log(slide)
 
     // component JSX ------------------------------------------------------------------------------------------
     return (
