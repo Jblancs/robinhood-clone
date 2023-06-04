@@ -9,10 +9,16 @@
     /* background-color: var(--global-gray); */
     display: flex;
     align-items: center;
+    justify-content: space-around;
+}
+
+.slide-icon-div{
+    display: flex;
+    justify-content: center;
 }
 
 .slide-icon{
-    padding: 20px;
+    padding: 20px 40px;
     height: 150px;
 }
 
