@@ -11,31 +11,41 @@ function SlideShow() {
         {
             image: "/images/portfolio-icon.png",
             title: "Welcome to my clone of the website Robinhood!",
-            body: 'To find out what features have been implemented, see the next couple slides or feel free to browse around and test on your own.',
+            body1: 'To find out what features have been implemented, see the next couple slides or feel free to browse around and test on your own.',
+            body2: '',
+            body3: '',
             footer: "- Jordan Blancaflor",
         },
         {
             image: "/images/watchlist-icon.png",
             title: "Feature 1: Watchlists",
-            body: 'Create custom watchlists on the homepage by clicking on the "+" icon next to Lists on the right side bar. Add/remove stocks from the watchlist at the "/:<ticker>" page',
+            body1: '- Create custom watchlists on the homepage by clicking on the "+" icon next to Lists.',
+            body2: '- Add/remove stocks from the watchlist at the "/:<ticker>" page.',
+            body3: '',
             footer: "",
         },
         {
             image: "/images/buy-sell-icon.png",
             title: "Feature 2: Buy/Sell Stocks",
-            body: 'Buy and sell stocks by navigating to the single stock page "/:<ticker>" using the search bar.',
+            body1: '- Buy and sell stocks by navigating to the single stock page "/:<ticker>".',
+            body2: '- You can use the search bar which searches through a list of various stocks.',
+            body3: '',
             footer: "",
         },
         {
             image: "/images/payment-icon.png",
             title: "Feature 3: Bank Accounts and Deposit/Withdraw money",
-            body: 'Add a bank account or deposit money by clicking buying power on the home page "/". You can also navigate to "/account/transfers" using the account button in the NavBar.',
+            body1: '- Add a bank account or deposit money by clicking buying power on the home page "/".',
+            body2: '- Navigate to "/account/transfers" using the account button in the NavBar.',
+            body3: '- There you will be able to manage the bank accounts connected to your account.',
             footer: "",
         },
         {
             image: "/images/recurring-slide-icon.png",
             title: "Feature 4: Recurring Investments",
-            body: 'Set up a recurring investment by navigating to "/account/recurring" using the account button in the NavBar',
+            body1: '- Set up a recurring investment at "/account/recurring" using the account button in the NavBar',
+            body2: '- There you will be able to view and manage any recurring investments for your account.',
+            body3: '',
             footer: "",
         }
     ]
@@ -66,7 +76,13 @@ function SlideShow() {
                             {slideShowArray[slide].title}
                         </div>
                         <div className="slide-card-text-body">
-                            {slideShowArray[slide].body}
+                            {slideShowArray[slide].body1}
+                        </div>
+                        <div className="slide-card-text-body">
+                            {slideShowArray[slide].body2}
+                        </div>
+                        <div className="slide-card-text-body">
+                            {slideShowArray[slide].body3}
                         </div>
                     </div>
                     <div className="slide-card-text-footer bold">
