@@ -107,8 +107,42 @@
 .inv-price-change{
     padding-left: 20px;
 }
+/* Market Snapshot --------------------------------------- */
+.market-snapshot-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid var(--global-gray);
+    border-radius: 5px;
+    height: 80px;
+    margin: 30px 0px;
+    background-color: var(--global-gray);
+}
+
+.market-snapshot-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 30px;
+    border-right: 1px solid gray;
+}
+
+.snapshot-ticker{
+    padding-right: 5px;
+}
+
+.btc-div{
+    border: none;
+}
 
 /* News Card --------------------------------------------- */
+.portfolio-news-header{
+    font-size: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--global-gray);
+}
+
 .news-img {
     width: 150px;
     height: 100px;
@@ -150,13 +184,6 @@
 .news-img {
     border-radius: 10px;
 }
-
-/* WatchList Card ---------------------------------------- */
-
-/* .watch-list {
-    border: var(--global-border);
-    padding: 10px 20px 10px 20px;
-} */
 
 /* Watchlist --------------------------------------------------------- */
 
