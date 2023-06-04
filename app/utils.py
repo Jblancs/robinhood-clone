@@ -1,6 +1,8 @@
 from flask_login import current_user
 from app.models import Portfolio, Investment
 from datetime import datetime
+import requests
+import os
 
 
 
@@ -49,3 +51,23 @@ def get_datetime_obj(date):
 def print_data(test_data):
     print("\n\n", "Printing data:", "\n\n", test_data, "\n\n\n\n")
     return
+
+# ------------------------------------------------------------------------------
+def get_stock_price(ticker):
+    '''
+    api request to get a stocks price at last close
+    '''
+
+    API_KEY = os.environ.get('API_KEY')
+    url = f'https://api.polygon.io/v2/aggs/ticker/{ticker}/prev?adjusted=true&apiKey={API_KEY}'
+
+    res = requests.get(url)
+
+    if res.status == "OK":
+        data = res.json()
+        stock_price = data.results.c
+
+        return stock_price
+
+    else:
+        return f"Error: {res.resultsCount} results found"
