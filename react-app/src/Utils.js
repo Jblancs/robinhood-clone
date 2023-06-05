@@ -171,6 +171,17 @@ export const getPriceChange = (data, stockPrice, type) => {
     }
 }
 
+// Get percent change in last close
+// ------------------------------------------------------------------------------
+export const getPercentChange = (data) => {
+    let open = data.o
+    let close = data.c
+    let priceChange = close - open
+    let percentChange = priceChange/open
+    let returnData = Number(percentChange*100).toFixed(2)
+    return returnData
+}
+
 // Get change in stock price
 // ------------------------------------------------------------------------------
 export const getMarketValue = (stockData, investment, ticker) => {

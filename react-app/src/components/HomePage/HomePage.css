@@ -128,6 +128,7 @@
     border-right: 1px solid gray;
 }
 
+.snapshot-close,
 .snapshot-ticker{
     padding-right: 5px;
 }
