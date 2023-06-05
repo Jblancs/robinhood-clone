@@ -59,25 +59,39 @@ def create_recurring_investment():
 @recurring_investment_routes.route("/<int:id>", methods=["PUT"])
 def update_recurring_investment(id):
     '''
-    update recurring investment information or pause/resume
+    update recurring investment information
     '''
 
     res = request.get_json()
     recurring_inv = RecurringInvestment.query.get(id)
-    paused_boolean = recurring_inv.paused
+
+    recurring_inv.shares=res["shares"]
+    recurring_inv.start_date=get_datetime_obj(res["start_date"])
+    recurring_inv.frequency=res["frequency"]
+
+    db.session.commit()
+    return recurring_inv.to_dict()
+
+# ------------------------------------------------------------------------------
+@recurring_investment_routes.route("/pause/<int:id>", methods=["PUT"])
+def pause_recurring_investment(id):
+    '''
+    pause/resume recurring investment
+    '''
+
+    res = request.get_json()
+    recurring_inv = RecurringInvestment.query.get(id)
 
     print_data(res)
 
-    if "type" in res and res["type"] == "pause":
-        recurring_inv.paused = not paused_boolean
+    if res["type"] == "pause":
+        recurring_inv.paused = True
 
         db.session.commit()
         return recurring_inv.to_dict()
 
-    else:
-        recurring_inv.shares=res["shares"]
-        recurring_inv.start_date=get_datetime_obj(res["start_date"])
-        recurring_inv.frequency=res["frequency"]
+    elif res["type"] == "resume":
+        recurring_inv.paused = False
 
         db.session.commit()
         return recurring_inv.to_dict()

@@ -57,6 +57,20 @@ export const updateRecurringInv = (id, invData) => async (dispatch) => {
     }
 }
 
+export const pauseRecurringInv = (id, invData) => async (dispatch) => {
+    const response = await fetch(`/api/recurring_investment/pause/${id}`, {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(invData)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(fetchRecurringInv());
+        return data
+    }
+}
+
 export const deleteRecurringInv = (id) => async (dispatch) => {
     const response = await fetch(`/api/recurring_investment/${id}`, {
         method: 'DELETE',

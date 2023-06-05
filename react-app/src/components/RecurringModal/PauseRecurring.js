@@ -3,14 +3,14 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./RecurringModal.css"
 import "./PauseRecurring.css"
-import { deleteRecurringInv, updateRecurringInv } from '../../store/recurring';
+import { pauseRecurringInv } from '../../store/recurring';
 
 function PauseRecurringModal({recurInv, paused}){
     const { closeModal } = useModal();
     const dispatch = useDispatch()
 
     const onClickUpdate = async () => {
-        await dispatch(updateRecurringInv(recurInv.id, {type: "pause"}))
+        await dispatch(pauseRecurringInv(recurInv.id, {type: paused ? "resume" : "pause"}))
         closeModal()
     }
 
