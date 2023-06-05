@@ -72,10 +72,13 @@ def get_stock_price(ticker):
     else:
         return f"Error: {res.resultsCount} results found"
 
+# ------------------------------------------------------------------------------
 def recurring_scheduler(recur_info):
     '''
     Handles scheduled execution of a recurring investment
     '''
-    portfolio = Portfolio.query.get(user["portfolio"]["id"])
+    portfolio = Portfolio.query.get(recur_info.portfolio_id)
+    stock_price = get_stock_price(recur_info.ticker)
+    total_cost = stock_price * recur_info.shares
 
     return
