@@ -249,7 +249,7 @@ export const firstLetterUpper = (string) => {
     return `${string[0].toUpperCase()}${string.slice(1)}`
 }
 
-// Get date obj tomorrow at 8am pst
+// Get date obj tomorrow at 9am est
 // ------------------------------------------------------------------------------
 export const getTomorrow = () => {
     const now = new Date();
@@ -265,9 +265,16 @@ export const getTomorrow = () => {
         tomorrow.setDate(tomorrow.getDate() + 1);
     }
 
-    tomorrow.setHours(11, 0, 0)
+    tomorrow.setHours(9, 0, 0)
 
     return tomorrow;
+}
+// Set date time to 9am est
+// ------------------------------------------------------------------------------
+export const get9amEst = (date) => {
+    let newDate = new Date(date)
+    newDate.setHours(9, 0, 0)
+    return newDate
 }
 
 // get difference between today and future date

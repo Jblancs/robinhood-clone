@@ -1,10 +1,11 @@
 from flask_login import current_user
-from app.models import Portfolio, Investment, RecurringInvestment, Transaction
+from app.models import Portfolio, Investment, RecurringInvestment, Transaction, db
 from datetime import datetime
 import requests
 import os
+from apscheduler.schedulers.background import BackgroundScheduler
 
-
+scheduler = BackgroundScheduler()
 
 def current_user_portfolio():
     '''
@@ -58,8 +59,9 @@ def get_stock_price(ticker):
     api request to get a stocks price at last close
     '''
 
+    stock_ticker = ticker.upper()
     API_KEY = os.environ.get('API_KEY')
-    url = f'https://api.polygon.io/v2/aggs/ticker/{ticker}/prev?adjusted=true&apiKey={API_KEY}'
+    url = f'https://api.polygon.io/v2/aggs/ticker/{stock_ticker}/prev?adjusted=true&apiKey={API_KEY}'
 
     res = requests.get(url)
 
@@ -78,7 +80,52 @@ def recurring_scheduler(recur_info):
     Handles scheduled execution of a recurring investment
     '''
     portfolio = Portfolio.query.get(recur_info.portfolio_id)
-    stock_price = get_stock_price(recur_info.ticker)
-    total_cost = stock_price * recur_info.shares
+    recurring_inv = RecurringInvestment.query.get(recur_info.id)
+    investment = Investment.query.filter(
+        Investment.portfolio_id == recur_info.portfolio_id,
+        Investment.ticker == recur_info.ticker
+        ).first()
 
-    return
+    stock_price = get_stock_price(recur_info.ticker)
+    total_cost = round((stock_price * recur_info.shares),2)
+
+    # if you do not have enough buying power pause the job
+    if not recur_info.paused and portfolio.buying_power < total_cost:
+        scheduler.pause_job(recur_info.id)
+        recurring_inv.paused = True
+        db.session.commit()
+        return
+
+    # otherwise create transaction, update buying power, and update or create an investment
+    else:
+
+        # create a new transaction
+        new_transaction = Transaction(
+            ticker=recur_info.ticker,
+            portfolio_id=recur_info.portfolio_id,
+            total_cost=total_cost,
+            shares=recur_info.shares,
+            type="buy",
+            date=datetime.now()
+        )
+        db.session.add(new_transaction)
+        db.session.commit()
+
+        # update buying power
+        portfolio.buying_power = portfolio.buying_power - total_cost
+        db.session.commit()
+
+        # update or create an investment
+        if investment:
+            investment.value = investment.value + total_cost
+            investment.shares = investment.shares + recurring_inv.shares
+            db.session.commit()
+        else:
+            new_investment = Investment(
+                ticker=recur_info.ticker,
+                portfolio_id=recur_info.portfolio_id,
+                value=total_cost,
+                shares=recurring_inv.shares,
+            )
+            db.session.add(new_investment)
+            db.session.commit()

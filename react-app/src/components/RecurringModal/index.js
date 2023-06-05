@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import SearchComponent from '../SearchComponent/SearchComponent';
 import { useModal } from "../../context/Modal";
-import { addCommas, getDisplayDateYear, getTomorrow, getStockInfo } from "../../Utils"
+import { addCommas, getDisplayDateYear, getTomorrow, getStockInfo, get9amEst } from "../../Utils"
 import "./RecurringModal.css"
 import CalendarComponent from '../Calendar';
 import { createRecurringInv, updateRecurringInv } from '../../store/recurring';
@@ -110,7 +110,7 @@ function RecurringModal({ portfolio, updateObj }) {
         let recurringInvData = {
             ticker: stockPick,
             shares: shares,
-            start_date: (new Date(startDate)).toUTCString(),
+            start_date: (get9amEst(startDate)).toUTCString(),
             frequency: frequency,
             portfolio_id: portfolio.id,
         }
