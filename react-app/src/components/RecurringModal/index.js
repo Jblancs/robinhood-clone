@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import SearchComponent from '../SearchComponent/SearchComponent';
 import { useModal } from "../../context/Modal";
-import { addCommas, getDisplayDateYear, getTomorrow } from "../../Utils"
+import { addCommas, getDisplayDateYear, getTomorrow, getStockInfo } from "../../Utils"
 import "./RecurringModal.css"
 import CalendarComponent from '../Calendar';
 import { createRecurringInv, updateRecurringInv } from '../../store/recurring';
+import { clearStockState, fetchStock, addStock } from '../../store/stock';
 
 function RecurringModal({ portfolio, updateObj }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch()
 
+    const [stockAboutInfo, setStockAboutInfo] = useState()
     const [showStockSearch, setShowStockSearch] = useState(!updateObj ? true : false)
 
     const [stockPick, setStockPick] = useState(!updateObj ? "" : updateObj.ticker)
@@ -23,6 +25,38 @@ function RecurringModal({ portfolio, updateObj }) {
     const [errors, setErrors] = useState([])
     const [disableField, setDisableField] = useState(false)
     const [confirm, setConfirm] = useState(false)
+
+    const stock = useSelector(state => state.stock.stock)
+
+    useEffect(() => {
+        if(!updateObj && !showStockSearch && stockPick){
+            dispatch(fetchStock(stockPick))
+            getStockInfo(stockPick, setStockAboutInfo)
+        }
+
+        return () => {
+            dispatch(clearStockState())
+        }
+    }, [stockPick, dispatch])
+
+    if(!stock && !updateObj && !showStockSearch) return <div className='loading-div'><img src='/images/loading.gif' alt='loading' /></div>
+
+    // if stock is not in db then add it ------------------------------------------------------------------------
+    if (stock?.error && !updateObj && !showStockSearch) {
+        let stockInfo = {
+            ticker: stockPick,
+            name: stockAboutInfo?.name,
+            description: stockAboutInfo?.description,
+            employees: stockAboutInfo?.total_employees,
+            listed: stockAboutInfo?.list_date,
+        }
+
+        const addStockInfo = async (stockPayload) => {
+            await dispatch(addStock(stockPayload))
+        }
+
+        addStockInfo(stockInfo)
+    }
 
     // Event Handlers -------------------------------------------------------------------------------------
     const sharesOnChange = (e) => {

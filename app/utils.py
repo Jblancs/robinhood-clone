@@ -1,5 +1,5 @@
 from flask_login import current_user
-from app.models import Portfolio, Investment
+from app.models import Portfolio, Investment, RecurringInvestment, Transaction
 from datetime import datetime
 import requests
 import os
@@ -71,3 +71,11 @@ def get_stock_price(ticker):
 
     else:
         return f"Error: {res.resultsCount} results found"
+
+def recurring_scheduler(recur_info):
+    '''
+    Handles scheduled execution of a recurring investment
+    '''
+    portfolio = Portfolio.query.get(user["portfolio"]["id"])
+
+    return
