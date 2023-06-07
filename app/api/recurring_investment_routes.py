@@ -3,6 +3,7 @@ from app.models import db, RecurringInvestment
 from ..forms import RecurringInvestmentForm
 from flask_login import current_user
 from ..utils import to_dict_list, form_errors_obj_list, print_data, get_datetime_obj
+from ..scheduler import setup_apscheduler
 from datetime import datetime
 
 recurring_investment_routes = Blueprint('recurring_investment', __name__)

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useAccountNavSelect } from '../../context/AccountNav';
 import OpenModalButton from '../OpenModalButton';
 import RecurringModal from '../RecurringModal';
@@ -10,6 +11,7 @@ import RecurringCard from './RecurringCard';
 
 function Recurring() {
     const dispatch = useDispatch()
+    const history = useHistory()
     const { setSelectedNav } = useAccountNavSelect()
     const portfolio = useSelector(state => state.portfolio.portfolio)
     const recurring = useSelector(state => state.recurring.recurring)

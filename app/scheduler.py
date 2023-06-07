@@ -7,6 +7,7 @@ from apscheduler.triggers.combining import AndTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
 
+
 # Recurring investment scheduler -----------------------------------------------
 scheduler = BackgroundScheduler()
 
