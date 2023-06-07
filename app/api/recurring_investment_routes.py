@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, session, request
 from app.models import db, RecurringInvestment
 from ..forms import RecurringInvestmentForm
 from flask_login import current_user
-from ..utils import to_dict_list, form_errors_obj_list, print_data, get_datetime_obj, setup_apscheduler
+from ..utils import to_dict_list, form_errors_obj_list, print_data, get_datetime_obj
 from datetime import datetime
 
 recurring_investment_routes = Blueprint('recurring_investment', __name__)
@@ -54,7 +54,7 @@ def create_recurring_investment():
         recur_to_dict = new_recurring_inv.to_dict()
 
         # set up apscheduler for recurring investment
-        setup_apscheduler(new_recurring_inv, res)
+        # setup_apscheduler(new_recurring_inv, res)
 
         return recur_to_dict
 
