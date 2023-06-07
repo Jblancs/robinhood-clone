@@ -13,6 +13,7 @@ function Recurring() {
     const { setSelectedNav } = useAccountNavSelect()
     const portfolio = useSelector(state => state.portfolio.portfolio)
     const recurring = useSelector(state => state.recurring.recurring)
+    const user = useSelector(state => state.session.user)
 
     useEffect(() => {
         setSelectedNav('recurring')
@@ -27,7 +28,11 @@ function Recurring() {
         }
     }, [dispatch])
 
-    if (!portfolio || !recurring) return <div className='loading-div'><img src='/images/loading.gif' alt='loading' /></div>
+    if (!user) {
+        history.push("/login")
+    }
+
+    if (!portfolio || !recurring || !user) return <div className='loading-div'><img src='/images/loading.gif' alt='loading' /></div>
 
     // If any, display recurring investment cards -----------------------------------------------------------
     let recurringList = [];

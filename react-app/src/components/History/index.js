@@ -3,6 +3,11 @@ import { useAccountNavSelect } from '../../context/AccountNav';
 
 function History(){
     const {setSelectedNav} = useAccountNavSelect()
+    const user = useSelector(state => state.session.user)
+
+    if (!user) {
+        history.push("/login")
+    }
 
     useEffect(() => {
         setSelectedNav('history')

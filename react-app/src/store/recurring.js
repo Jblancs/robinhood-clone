@@ -37,7 +37,6 @@ export const createRecurringInv = (invData) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        console.log("create recur thunk---------------", data)
         dispatch(fetchRecurringInv());
         return data
     }
