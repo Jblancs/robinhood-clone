@@ -8,7 +8,7 @@ from ..utils import to_dict_list, form_errors_obj_list, print_data
 transaction_routes = Blueprint('transaction', __name__)
 
 
-@transaction_routes.route('/current')
+@transaction_routes.route('/')
 def get_current_user_transactions():
     '''
     get a list of ALL current user transactions
@@ -16,9 +16,13 @@ def get_current_user_transactions():
     portfolio_id = current_user.to_dict()["portfolio"]["id"]
 
     transaction_data = Transaction.query.filter(Transaction.portfolio_id == portfolio_id).order_by(Transaction.id.desc())
-    transaction_list = to_dict_list(transaction_data)
+    transaction_data_list = list(transaction_data)
 
-    return transaction_list
+    if transaction_data_list:
+        transaction_list = to_dict_list(transaction_data)
+        return transaction_list
+    else:
+        return {"error": "No transactions made for this user"}
 
 # ------------------------------------------------------------------------------
 @transaction_routes.route('/<string:ticker>')
@@ -33,9 +37,13 @@ def get_transaction_by_ticker(ticker):
         Transaction.ticker == ticker
         ).order_by(Transaction.id)
 
-    transaction_list = to_dict_list(transaction_data)
+    transaction_data_list = list(transaction_data)
 
-    return transaction_list
+    if transaction_data_list:
+        transaction_list = to_dict_list(transaction_data)
+        return transaction_list
+    else:
+        return {"error": "No transactions made for this stock"}
 
 # ------------------------------------------------------------------------------
 @transaction_routes.route('/<string:ticker>', methods=["POST"])

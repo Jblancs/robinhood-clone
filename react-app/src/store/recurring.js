@@ -37,7 +37,6 @@ export const createRecurringInv = (invData) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        console.log("create recur thunk---------------", data)
         dispatch(fetchRecurringInv());
         return data
     }
@@ -45,6 +44,20 @@ export const createRecurringInv = (invData) => async (dispatch) => {
 
 export const updateRecurringInv = (id, invData) => async (dispatch) => {
     const response = await fetch(`/api/recurring_investment/${id}`, {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(invData)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(fetchRecurringInv());
+        return data
+    }
+}
+
+export const pauseRecurringInv = (id, invData) => async (dispatch) => {
+    const response = await fetch(`/api/recurring_investment/pause/${id}`, {
         method: 'PUT',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(invData)

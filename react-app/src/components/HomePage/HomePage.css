@@ -107,6 +107,10 @@
 .inv-price-change{
     padding-left: 20px;
 }
+
+.inv-price-loading{
+    height: 15px;
+}
 /* Market Snapshot --------------------------------------- */
 .market-snapshot-container{
     display: flex;
@@ -128,6 +132,7 @@
     border-right: 1px solid gray;
 }
 
+.snapshot-close,
 .snapshot-ticker{
     padding-right: 5px;
 }

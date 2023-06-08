@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useAccountNavSelect } from '../../context/AccountNav';
 import OpenModalButton from '../OpenModalButton';
 import RecurringModal from '../RecurringModal';
@@ -10,9 +11,11 @@ import RecurringCard from './RecurringCard';
 
 function Recurring() {
     const dispatch = useDispatch()
+    const history = useHistory()
     const { setSelectedNav } = useAccountNavSelect()
     const portfolio = useSelector(state => state.portfolio.portfolio)
     const recurring = useSelector(state => state.recurring.recurring)
+    const user = useSelector(state => state.session.user)
 
     useEffect(() => {
         setSelectedNav('recurring')
@@ -27,7 +30,11 @@ function Recurring() {
         }
     }, [dispatch])
 
-    if (!portfolio || !recurring) return <div className='loading-div'><img src='/images/loading.gif' alt='loading' /></div>
+    if (!user) {
+        history.push("/login")
+    }
+
+    if (!portfolio || !recurring || !user) return <div className='loading-div'><img src='/images/loading.gif' alt='loading' /></div>
 
     // If any, display recurring investment cards -----------------------------------------------------------
     let recurringList = [];
@@ -35,6 +42,7 @@ function Recurring() {
 
     if (!recurring.error) {
         recurringList = Object.values(recurring)
+        let recurringListSorted = recurringList.sort((a, b) => b.id - a.id)
         recurringCards = (
             <>
                 {recurringList.map(recurInv => (

@@ -273,19 +273,6 @@
     width: 20%;
 }
 
-/* Stock Transaction Info ----------------------------------------------------- */
-
-.trans-hist-card{
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid lightgray;
-    padding: 20px 0px;
-}
-
-.trans-price-info{
-    text-align: right;
-}
-
 /* Add to watchlist modal button --------------------------------------------- */
 
 .add-list-modal-btn{

@@ -31,7 +31,6 @@ export const fetchStock = (ticker) => async (dispatch) => {
 };
 
 export const addStock = (stockData) => async (dispatch) => {
-    console.log("from thunk", stockData)
     const response = await fetch(`/api/stock/`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },

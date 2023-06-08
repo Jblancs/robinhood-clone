@@ -63,15 +63,20 @@ export default function transactionReducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_TRANSACTIONS:
             let transactions = {}
-            action.payload.forEach(trans => {
-                transactions[trans.id] = trans
-            })
-            newState.transactions = { ...transactions }
+            if(action.payload.error){
+                newState.transactions = {...action.payload}
+            }else{
+                action.payload.forEach(trans => {
+                    transactions[trans.id] = trans
+                })
+                newState.transactions = { ...transactions }
+            }
+            
             return newState
 
         case CLEAR_TRANS_STATE:
             return { ...initialState }
-            
+
         default:
             return state;
     }
