@@ -42,6 +42,7 @@ function Recurring() {
 
     if (!recurring.error) {
         recurringList = Object.values(recurring)
+        let recurringListSorted = recurringList.sort((a, b) => b.id - a.id)
         recurringCards = (
             <>
                 {recurringList.map(recurInv => (

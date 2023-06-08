@@ -24,8 +24,8 @@ function InvestmentCard({ inv, ticker }) {
 
     let graph = buildGraph(chartData, "stock")
 
-    let currentPrice=0.00
-    let percentChange=0.00
+    let currentPrice=0
+    let percentChange=0
     if(chartData !== "error"){
         currentPrice = currentStockPrice(chartData)
         percentChange = stockPercentChange(chartData, currentPrice)
@@ -50,10 +50,10 @@ function InvestmentCard({ inv, ticker }) {
             </div>
             <div className="inv-price-change">
                 <div>
-                    {Number(currentPrice).toFixed(2)}
+                    {!isNaN(currentPrice) ? Number(currentPrice).toFixed(2) : <img className="inv-price-loading" src='/images/loading.gif' alt='loading' />}
                 </div>
                 <div className={percentChange < 0 ? "negative" : "positive"}>
-                    {`${percentChange < 0 ? "" : "+"}${Number(percentChange).toFixed(2)}`}%
+                    {!isNaN(percentChange) ? `${percentChange < 0 ? "" : "+"}${Number(percentChange).toFixed(2)}` : <img className="inv-price-loading" src='/images/loading.gif' alt='loading' />}%
                 </div>
             </div>
         </div>
