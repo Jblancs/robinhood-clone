@@ -8,7 +8,7 @@ import BuySellStock from "./BuySellStock";
 import { clearPortfolioState, fetchPortfolio } from "../../store/portfolio";
 import { clearInvestmentState, fetchStockInvestment } from "../../store/investment";
 import { clearTransactionState, fetchAllTransactions } from "../../store/transaction";
-import TransactionHistory from "./TransactionHistory";
+import TransactionHistory from "../Transactions/TransactionHistory";
 import { addStock, clearStockState, fetchStock } from "../../store/stock";
 import WatchlistAddRemoveModal from "../WatchlistModal/WatchlistAddRemoveModal";
 import OpenModalButton from "../OpenModalButton";
@@ -63,7 +63,7 @@ function SingleStock() {
         history.push("/")
     }
 
-    if (!stockData || !portfolio || !stock || stockData === "error" || !user || !investment) return <div className='loading-div'><img src='/images/loading.gif' alt='loading'/></div>
+    if (!stockData || !portfolio || !stock || stockData === "error" || !user || !investment || !transactions) return <div className='loading-div'><img src='/images/loading.gif' alt='loading'/></div>
 
     // if stock is not in db then add it ------------------------------------------------------------------------
     if (stock.error) {
@@ -82,7 +82,10 @@ function SingleStock() {
         addStockInfo(stockInfo)
     }
 
-    // plus icon for add to watchlist modal btn -------------------------------------------------------
+    // transaction history array --------------------------------------------------------------------------------
+
+
+    // plus icon for add to watchlist modal btn -----------------------------------------------------------------
     let plusIcon = (<i className="fas fa-plus single-stock-add-watch-plus" />)
 
     // Investment info display if stock is owned ----------------------------------------------------------------

@@ -1,0 +1,40 @@
+/* Stock Transaction Info ----------------------------------------------------- */
+.trans-card-container{
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    max-height: 105px;
+}
+
+.show-trans-detail{
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    box-shadow: 3px 3px 10px var(--global-gray);
+    max-height: 350px;
+}
+
+.trans-hist-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10px;
+    margin: 0px 0px;
+    border-bottom: 1px solid var(--global-gray);
+    border-top: 1px solid var(--global-gray);
+    cursor: pointer;
+}
+
+.trans-price-info{
+    text-align: right;
+}
+
+.trans-detail-div{
+    display: flex;
+    padding: 10px 10px;
+
+}
+
+.trans-detail-left,
+.trans-detail-mid,
+.trans-detail-right{
+    width: 33%;
+}
