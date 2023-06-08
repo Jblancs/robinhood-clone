@@ -2,14 +2,54 @@ from flask_login import current_user
 from app.models import Portfolio, Investment, RecurringInvestment, Transaction, db
 from datetime import datetime, timedelta
 from .utils import get_stock_price
+from pytz import utc
+import os
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.combining import AndTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
+from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
 
 
-# Recurring investment scheduler -----------------------------------------------
-scheduler = BackgroundScheduler()
+# Recurring investment scheduler setup -------------------------------------------
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+jobstores = {
+    'default': SQLAlchemyJobStore(url=DATABASE_URL)
+}
+
+executors = {
+    'default': ThreadPoolExecutor(20),
+    'processpool': ProcessPoolExecutor(5)
+}
+
+job_defaults = {
+    'coalesce': False,
+    'max_instances': 3
+}
+
+scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults, timezone=utc)
+
+# ------------------------------------------------------------------------------
+def setup_trigger(frequency, job_start_date):
+    '''
+    get trigger parameter for a recurring investment job
+    '''
+
+    if frequency == "Daily":
+        trigger = AndTrigger([IntervalTrigger(days=1, start_date=job_start_date), CronTrigger(day_of_week='mon,tue,wed,thurs,fri')])
+
+    elif frequency == "Weekly":
+        trigger = IntervalTrigger(days=7, start_date=job_start_date)
+
+    elif frequency == "Bi-Weekly":
+        trigger = IntervalTrigger(days=14, start_date=job_start_date)
+
+    elif frequency == "Weekly":
+        trigger = IntervalTrigger(days=31, start_date=job_start_date)
+
+    return trigger
 
 # ------------------------------------------------------------------------------
 def recur_job_function(recur_info):
@@ -79,32 +119,68 @@ def recur_job_function(recur_info):
         return
 
 # ------------------------------------------------------------------------------
-def setup_apscheduler(recur_info, res):
+def setup_recur_job(recur_info, res):
     '''
     sets up apscheduler using recurring investment info
     '''
 
-    if res["frequency"] == "Daily":
-        trigger = AndTrigger([IntervalTrigger(days=1), CronTrigger(day_of_week='mon,tue,wed,thurs,fri')])
-
-    elif res["frequency"] == "Weekly":
-        trigger = IntervalTrigger(days=7)
-
-    elif res["frequency"] == "Bi-Weekly":
-        trigger = IntervalTrigger(days=14)
-
-    elif res["frequency"] == "Weekly":
-        trigger = IntervalTrigger(days=31)
-
     job_start_date = recur_info.start_date
-    job_id = recur_info.id
+    frequency = res["frequency"]
+
+    trigger = setup_trigger(frequency, job_start_date)
+
+    job_id = f'{recur_info.id}'
 
     scheduler.add_job(
         recur_job_function,
         args=[recur_info],
         trigger=trigger,
-        start_date=job_start_date,
-        id=f'{job_id}',
+        id=job_id,
+        replace_existing=True,
+        jitter=60
     )
 
-    return
+    return {"success": f"Job {job_id} has been added"}
+
+# ------------------------------------------------------------------------------
+def edit_recur_job(recur_info, res):
+    '''
+    function to edit a recurring investment job from APscheduler
+    '''
+
+    job_start_date = res["start_date"]
+    frequency = res["frequency"]
+    job_id = f'{recur_info.id}'
+
+    trigger = setup_trigger(frequency, job_start_date)
+
+    scheduler.reschedule_job(job_id, trigger=trigger)
+
+    return {"success": f"Job {job_id} has been updated"}
+
+# ------------------------------------------------------------------------------
+def remove_recur_job(job_id):
+    '''
+    function to delete a recurring investment job from APscheduler
+    '''
+
+    scheduler.remove_job(f'{job_id}')
+    return {"success": f"Job {job_id} has been removed"}
+
+# ------------------------------------------------------------------------------
+def pause_recur_job(job_id):
+    '''
+    function to pause an active recurring investment job from APscheduler
+    '''
+
+    scheduler.pause_job(f'{job_id}')
+    return {"success": f"Job {job_id} has been paused"}
+
+# ------------------------------------------------------------------------------
+def resume_recur_job(job_id):
+    '''
+    function to resume a paused recurring investment job from APscheduler
+    '''
+
+    scheduler.resume_job(f'{job_id}')
+    return {"success": f"Job {job_id} has been resumed"}

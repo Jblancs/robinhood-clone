@@ -3,7 +3,7 @@ from app.models import db, RecurringInvestment
 from ..forms import RecurringInvestmentForm
 from flask_login import current_user
 from ..utils import to_dict_list, form_errors_obj_list, print_data, get_datetime_obj
-from ..scheduler import setup_apscheduler
+from ..scheduler import setup_recur_job, edit_recur_job, remove_recur_job, pause_recur_job, resume_recur_job
 from datetime import datetime
 
 recurring_investment_routes = Blueprint('recurring_investment', __name__)
@@ -55,7 +55,7 @@ def create_recurring_investment():
         recur_to_dict = new_recurring_inv.to_dict()
 
         # set up apscheduler for recurring investment
-        # setup_apscheduler(new_recurring_inv, res)
+        # setup_recur_job(new_recurring_inv, res)
 
         return recur_to_dict
 
@@ -76,6 +76,10 @@ def update_recurring_investment(id):
     recurring_inv.frequency=res["frequency"]
 
     db.session.commit()
+
+    # update recurring job info
+    # edit_recur_job(recurring_inv, res)
+
     return recurring_inv.to_dict()
 
 # ------------------------------------------------------------------------------
@@ -94,12 +98,20 @@ def pause_recurring_investment(id):
         recurring_inv.paused = True
 
         db.session.commit()
+
+        # pause recurring investment
+        # pause_recur_job(id)
+
         return recurring_inv.to_dict()
 
     elif res["type"] == "resume":
         recurring_inv.paused = False
 
         db.session.commit()
+
+        # resume recurring investment
+        # resume_recur_job(id)
+
         return recurring_inv.to_dict()
 
 # ------------------------------------------------------------------------------
@@ -113,5 +125,8 @@ def delete_recurring_investment(id):
     ticker = recurring_inv.ticker
     db.session.delete(recurring_inv)
     db.session.commit()
+
+    # delete recurring investment
+    # remove_recur_job(id)
 
     return {"Response": f"Successfully ended recurring investment for stock {ticker}"}
