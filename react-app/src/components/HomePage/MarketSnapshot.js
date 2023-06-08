@@ -7,7 +7,7 @@ function MarketSnapshot({ priceSP500, priceNasdaq, priceBTC }) {
     let sp500Percent;
     let sp500Display;
 
-    if (priceSP500 != "error") {
+    if (priceSP500 !== "error") {
         sp500Percent = getPercentChange(priceSP500)
         sp500Display = (
             <div className={sp500Percent > 0 ? "snapshot-percent positive" : "snapshot-percent negative"}>
@@ -19,7 +19,7 @@ function MarketSnapshot({ priceSP500, priceNasdaq, priceBTC }) {
     let ndaqPercent;
     let ndaqDisplay;
 
-    if (priceNasdaq != "error") {
+    if (priceNasdaq !== "error") {
         ndaqPercent = getPercentChange(priceNasdaq)
         ndaqDisplay = (
             <div className={ndaqPercent > 0 ? "snapshot-percent positive" : "snapshot-percent negative"}>
@@ -31,7 +31,7 @@ function MarketSnapshot({ priceSP500, priceNasdaq, priceBTC }) {
     let btcPercent;
     let btcDisplay;
 
-    if (priceBTC != "error") {
+    if (priceBTC !== "error") {
         btcPercent = getPercentChange(priceBTC)
         btcDisplay = (
             <div className={btcPercent > 0 ? "snapshot-percent positive" : "snapshot-percent negative"}>
@@ -48,7 +48,7 @@ function MarketSnapshot({ priceSP500, priceNasdaq, priceBTC }) {
                     SPY
                 </div>
                 <div className="snapshot-close">
-                    ${priceSP500 != "error" ? addCommas(Number(priceSP500.c).toFixed(2)) : "-"}
+                    ${priceSP500 !== "error" ? addCommas(Number(priceSP500.c).toFixed(2)) : "-"}
                 </div>
                 {sp500Display}
             </div>
@@ -57,7 +57,7 @@ function MarketSnapshot({ priceSP500, priceNasdaq, priceBTC }) {
                     NDAQ
                 </div>
                 <div className="snapshot-close">
-                    ${priceNasdaq != "error" ? addCommas(Number(priceNasdaq.c).toFixed(2)) : "-"}
+                    ${priceNasdaq !== "error" ? addCommas(Number(priceNasdaq.c).toFixed(2)) : "-"}
                 </div>
                 {ndaqDisplay}
             </div>
@@ -66,7 +66,7 @@ function MarketSnapshot({ priceSP500, priceNasdaq, priceBTC }) {
                     BTC
                 </div>
                 <div className="snapshot-close">
-                    ${priceBTC != "error" ? addCommas(Number(priceBTC.c).toFixed(2)) : "-"}
+                    ${priceBTC !== "error" ? addCommas(Number(priceBTC.c).toFixed(2)) : "-"}
                 </div>
                 {btcDisplay}
             </div>

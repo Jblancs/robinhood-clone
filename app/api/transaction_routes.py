@@ -8,7 +8,7 @@ from ..utils import to_dict_list, form_errors_obj_list, print_data
 transaction_routes = Blueprint('transaction', __name__)
 
 
-@transaction_routes.route('/current')
+@transaction_routes.route('/')
 def get_current_user_transactions():
     '''
     get a list of ALL current user transactions
