@@ -70,4 +70,6 @@ Hi Welcome to Robingood, my clone of Robinhood by [Jordan Blancaflor](https://ww
 - SQLAlchemy
 - WTForms
 - Font Awesome
+- Polygon.io API
+- Chart.js
 
