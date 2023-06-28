@@ -17,7 +17,6 @@ Hi Welcome to Robingood, my clone of Robinhood by [Jordan Blancaflor](https://ww
 
 ### Browsing the website:
 **Note: Must be logged in to view any pages of the website other than [signup](https://aa-capstone-robingood.onrender.com/signup) and [login](https://aa-capstone-robingood.onrender.com/login). You can log in using the Demo User to experience all of the sites features.
-**Note: Portfolio data is NOT live. A feature to record live update will be implemented in the future
 - Portfolio and Account info
   - Your portfolio graph is shown on home page
   - You can also see the latest news articles on the current stock market
@@ -37,6 +36,18 @@ Hi Welcome to Robingood, my clone of Robinhood by [Jordan Blancaflor](https://ww
 - If the user owns the stocks they are able to view market value and average cost of their investment.
 - Owning a stock also allows you to sell shares and view any transactions made on the current stock.
 - Users can also add and remove the specific to from their watchlists
+  
+### Transfers Money functionality:
+- From the [home page](https://aa-capstone-robingood.onrender.com/) view total buying available
+- Users can click on the buying power section to deposit funds
+- You can also visit the [transfers page](https://aa-capstone-robingood.onrender.com/account/transfers) by clicking on transfers in the profile drop down.
+- On the transfers page you can add and delete a bank account and see transfer details
+
+### Recurring Investment functionality:
+- From the [recurring investments page](https://aa-capstone-robingood.onrender.com/account/recurring), you can set up a recurring investment
+- Users can click on recurring in the profile drop down or in the account nav bar
+- Users can choose to create a recurring investment for a specific stock
+- You can also delete, pause or resume an investment as well.
 
 ## Technologies & Libraries Used:
 
