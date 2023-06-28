@@ -59,7 +59,7 @@ Hi Welcome to Robingood, my clone of Robinhood by [Jordan Blancaflor](https://ww
 - Users can choose to create a recurring investment for a specific stock
 - You can also delete, pause or resume an investment as well.
 
-![](https://media.giphy.com/media/lwBthrA5bDLCYQSPjO/giphy.gif)
+  ![](https://media.giphy.com/media/lwBthrA5bDLCYQSPjO/giphy.gif)
 
 ### --------------------------------- Technologies & Libraries Used ---------------------------------
 
