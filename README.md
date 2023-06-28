@@ -65,7 +65,6 @@ Hi Welcome to Robingood, my clone of Robinhood by [Jordan Blancaflor](https://ww
 
 - React
 - Redux
-- AWS
 - Javascript
 - Python
 - SQLAlchemy
