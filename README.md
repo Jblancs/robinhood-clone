@@ -34,6 +34,7 @@ Hi Welcome to Robingood, my clone of Robinhood by [Jordan Blancaflor](https://ww
 - Users can click the "..." to edit and delete a watchlist
 
   ![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTA5dzg1cDE2ZGJkbWg3NWQ4c3g5ZnFsenZyMm1jZGZiaGpxcXp6biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nNHYLwbtDduw2O1iJC/giphy.gif)
+  ![](https://media.giphy.com/media/QC2bdR0lyze8apyjQL/giphy.gif)
 
 ### --------------------------------- Buy/Sell Stocks functionality ----------------------------------
 - From the [single stock page](https://aa-capstone-robingood.onrender.com/stocks/:ticker) view live data on a specific stock
